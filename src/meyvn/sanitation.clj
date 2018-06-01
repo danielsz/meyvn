@@ -2,6 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
             [clojure.java.shell :refer [sh]]
+            [clojure.edn :as edn]
             [clojure.pprint :as pprint]))
 
 (def defaults
@@ -11,9 +12,11 @@
            :version "1.0.0"
            :name name}
      :main-class "main.core"
-     :cljs {:main-class "main.core"
+     :cljs {:enabled false
+            :main-class "main.core"
             :compiler-opts "cljsc_opts.edn"
-            :tools-deps-alias :cljs}}))
+            :tools-deps-alias :cljs}
+     :remote-repository {:url "scpexe://user@domain:/home/.m2/repository"}}))
 
 (defn find-env []
   (when (not (System/getenv "M2_HOME"))
@@ -32,10 +35,15 @@
     (binding [*out* writer]
       (pprint/pprint defaults))))
 
+(defn read-conf []
+  (alter-var-root (resolve 'meyvn.core/conf) (constantly (-> "meyvn.edn"
+                                                             slurp
+                                                             edn/read-string))))
 (defn find-conf []
   (when (not (.exists (io/file "meyvn.edn")))
     (write-conf defaults)))
 
 (defn checks []
   (find-env)
-  (find-conf))
+  (find-conf)
+  (read-conf))
