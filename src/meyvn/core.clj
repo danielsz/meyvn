@@ -2,36 +2,18 @@
   (:require
    [meyvn.plugins :refer [clojure-maven-plugin maven-shade-plugin maven-enforcer-plugin]]
    [meyvn.cljs :as cljs]
+   [meyvn.sanitation :as sanitation]
    [clojure.tools.deps.alpha.gen.pom :as gen.pom]
    [clojure.tools.deps.alpha.extensions.pom :as ext.pom]
    [clojure.tools.deps.alpha.reader :as tools.reader]
    [clojure.java.io :as io]
    [clojure.data.xml :as xml]
-   [clojure.java.shell :refer [sh]]
-   [clojure.edn :as edn]
-   [clojure.string :as str])
+   [clojure.edn :as edn])
   (:import [org.apache.maven.model.building FileModelSource]
            [org.apache.maven.model Extension Resource DistributionManagement DeploymentRepository]
            [org.apache.maven.model.io.xpp3 MavenXpp3Writer]
            [java.io File FileWriter]
            [org.apache.maven.shared.invoker DefaultInvoker DefaultInvocationRequest InvocationResult]))
-
-(defn find-env []
-  (when (not (System/getenv "M2_HOME"))
-    (println "M2_HOME not set in environment")
-    (System/exit 1)))
-
-(defn find-exec []
-  (let [rc (sh "which" "mvn")]
-    (if (not (zero? (:exit rc)))
-      (do (println "Cannot find Maven executable!")
-          (System/exit 1))
-      (io/file (str/trim (:out (sh "which" "mvn")))))))
-
-(defn find-conf []
-  (when (not (.exists (io/file "meyvn.edn")))
-    (println "No config found")
-    (System/exit 1)))
 
 (def conf
   (-> "meyvn.edn"
@@ -43,7 +25,6 @@
 (def deps-map (tools.reader/read-deps [(io/file "/usr/local/lib/clojure/deps.edn")
                                        (io/file "/home/arch/daniel/.clojure/deps.edn")
                                        (io/file "deps.edn")]))
-
 
 (def wagon-extension
   (doto (Extension.)
@@ -82,7 +63,6 @@
     temp-file))
 
 (defn invoke [goal]
-  (find-env)
   (let [invocation-request
         (doto (DefaultInvocationRequest.)
           (.setPomFile (io/file "meyvn-pom.xml"))
@@ -125,6 +105,7 @@
       (println "Build has errors."))))
 
 (defn -main [& args] 
+  (sanitation/checks)
   (cljs/compile deps-map (:cljs conf))
   (extend-pom)
   (invoke-maven args))
