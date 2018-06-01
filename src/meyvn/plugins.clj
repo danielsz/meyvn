@@ -1,5 +1,6 @@
 (ns meyvn.plugins
-  (:require [clojure.tools.deps.alpha.reader :as tools.reader])
+  (:require [clojure.tools.deps.alpha.reader :as tools.reader]
+            [clojure.java.io :as io])
   (:import [org.codehaus.plexus.util.xml Xpp3Dom]
            [org.apache.maven.model Plugin PluginExecution]))
 
@@ -57,7 +58,9 @@
 (def maven-shade-plugin
   (let [execution (doto (PluginExecution.)
                     (.setPhase "package")
-                    (.setGoals ["shade"]))]
+                    (.setGoals ["shade"]))
+        _ (.addShutdownHook (Runtime/getRuntime)
+                            (Thread. #(io/delete-file (io/file "dependency-reduced-pom.xml"))))]
     (doto (Plugin.)
       (.setGroupId "org.apache.maven.plugins")
       (.setArtifactId "maven-shade-plugin")
