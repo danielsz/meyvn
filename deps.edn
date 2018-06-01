@@ -1,0 +1,6 @@
+{:paths ["src"]
+ :deps {org.clojure/clojure {:mvn/version "1.9.0"}
+        org.clojure/tools.deps.alpha {:mvn/version "0.5.435"}
+        org.apache.maven/maven-model {:mvn/version "3.5.3"}
+        org.apache.maven.shared/maven-invoker {:mvn/version "3.0.1"}
+        org.clojure/clojurescript {:mvn/version "1.10.238"}}}
