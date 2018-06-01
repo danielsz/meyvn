@@ -1,9 +1,9 @@
 (ns meyvn.core
   (:require
    [meyvn.plugins :refer [clojure-maven-plugin maven-shade-plugin maven-enforcer-plugin]]
+   [meyvn.cljs :as cljs]
    [clojure.tools.deps.alpha.gen.pom :as gen.pom]
    [clojure.tools.deps.alpha.extensions.pom :as ext.pom]
-   [clojure.tools.deps.alpha :as tools.deps :refer [print-tree]]
    [clojure.tools.deps.alpha.reader :as tools.reader]
    [clojure.java.io :as io]
    [clojure.data.xml :as xml]
@@ -14,8 +14,7 @@
            [org.apache.maven.model Extension Resource DistributionManagement DeploymentRepository]
            [org.apache.maven.model.io.xpp3 MavenXpp3Writer]
            [java.io File FileWriter]
-           [org.apache.maven.shared.invoker DefaultInvoker DefaultInvocationRequest InvocationResult]
-           [java.lang ProcessBuilder]))
+           [org.apache.maven.shared.invoker DefaultInvoker DefaultInvocationRequest InvocationResult]))
 
 (defn find-env []
   (when (not (System/getenv "M2_HOME"))
@@ -45,14 +44,6 @@
                                        (io/file "/home/arch/daniel/.clojure/deps.edn")
                                        (io/file "deps.edn")]))
 
-(defn cljs-compile []
-  (let [lib-map (tools.deps/resolve-deps deps-map (:cljs (:aliases deps-map)))
-        cp (tools.deps/make-classpath lib-map (:paths deps-map) (:cljs (:aliases deps-map)))
-        pb (ProcessBuilder. ["clj" "-Scp" cp "--main" "cljs.main" "--compile-opts" "cljsc_opts.edn" "--compile" (:main-class (:cljs conf))])
-        rc (.waitFor (-> pb .inheritIO .start))]
-    (if (zero? rc)
-      (println "Clojurescript compilation succeeded")
-      (println "Clojurescript compilation failed"))))
 
 (def wagon-extension
   (doto (Extension.)
@@ -134,7 +125,7 @@
       (println "Build has errors."))))
 
 (defn -main [& args] 
-  ;(cljs-compile)
+  (cljs/compile deps-map (:cljs conf))
   (extend-pom)
   (invoke-maven args))
 
