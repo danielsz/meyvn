@@ -3,3 +3,93 @@
 #+BEGIN_QUOTE
 The word itself is a borrowing from the Yiddish meyvn 'an expert, connoisseur', derived from the Hebrew מבין‬ mēvīn 'person with understanding, teacher', a participle of the verb הֵבִין‬ hēvīn 'to understand',[1] from the West Semitic root byn 'to be separate, distinguish'. — Wikipedia
 #+END_QUOTE
+
+** Goals
+
+- Paying closer attention to the quality of deployed artifacts. They should only contain the code necessary to run a program. 
+Use ~deps.edn~ as the single source of truth. 
+
+- Deploying in one fell swoop. Call it one-click deployment. One command to do it all: compile, package, install on a remote server, etc.
+ 
+** How does it work
+
+Meyvn generates a transient POM (equivalent to running ~clj -Spom~ on the command line), then extends it with plugins and extensions tailored to typical Clojure worklows, and finally runs Maven itself via an API. 
+
+If Clojurescript sources are present, they are compiled in advanced mode and included in the artifact. 
+
+** Implementation principles
+
+“All software sucks” and build tools are the worst (except ~tup~). Why adding more half-baked semantics into the world?
+
+- No new semantics. Maven provides plenty of it: phases, goals, etc. Whatever that means, Meyvn passes them on to Maven and goes off washing hands. 
+- Leverage ~tools.deps~ and Rich Hickey. If you’re writing Clojure, you’re already doing that.
+
+** Usage
+
+You already know how to use this. It’s Maven. 
+
+#+BEGIN_SRC 
+myvn compile 
+#+END_SRC 
+
+Or 
+
+#+BEGIN_SRC 
+myvn package
+#+END_SRC 
+
+Or 
+
+#+BEGIN_SRC 
+myvn deploy
+#+END_SRC 
+
+** Will it work?
+
+Maybe. Maybe not. I don’t know what your workflow is, what platform you’re on, etc. Feel free to open issues, but I will not look at them unless you’re a sponsor. 
+
+** Install
+
+Create an executable shell alias in your path.
+
+#+BEGIN_SRC sh
+M2_HOME=/opt/maven clj -A:meyvn -m meyvn.core "$@"
+#+END_SRC
+
+** Configuration
+
+All configuration is stored in ~meyvn.edn~, which will be created in the root of your project on first run. 
+
+Here are the defaults, but suit your needs.
+
+#+BEGIN_SRC clojure
+(let [name (.. (io/file ".") getCanonicalFile getName)]
+    {:pom {:group-id name
+           :artifact-id name
+           :version "1.0.0"
+           :name name}
+     :main-class "main.core"
+     :cljs {:enabled false
+            :main-class "main.core"
+            :compiler-opts "cljsc_opts.edn"
+            :tools-deps-alias :cljs}
+     :remote-repository {:url "scpexe://user@domain:/home/.m2/repository"}})
+#+END_SRC
+
+
+** Crux of the problem
+
+The transitive dependency mechanism used by Maven is guided by the nearest wins conflict resolution strategy.
+
+1. Easy overriding of individual conflicts: For any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
+2. Reproducible builds: Version ranges anywhere in your dependency graph can cause builds to not be reproducible. A mediation strategy of “newest” would magnify the negative impact of version ranges on build reproducibility.
+
+Meyvn uses the Apache Maven Shade Plugin in order to build uberjars.
+
+Shading dependencies is the process of including and renaming dependencies (thus relocating the classes & rewriting affected bytecode & resources) to create a private copy that you bundle alongside your own code. But the shading part is actually optional: the plugin allows to include dependencies in your jar (fat jar), and optionally rename (shade) dependencies.
+
+** Literature
+
+- [[http://nealford.com/memeagora/2013/01/22/why_everyone_eventually_hates_maven.html][Why Everyone (Eventually) Hates (or Leaves) Maven]]
+- [[https://rule1.quora.com/Use-Maven-Not-Gradle][Use Maven, Not Gradle]]
+

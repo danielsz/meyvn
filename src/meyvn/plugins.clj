@@ -60,7 +60,8 @@
                     (.setPhase "package")
                     (.setGoals ["shade"]))
         _ (.addShutdownHook (Runtime/getRuntime)
-                            (Thread. #(io/delete-file (io/file "dependency-reduced-pom.xml"))))]
+                            (Thread. #(let [f (io/file "dependency-reduced-pom.xml")]
+                                        (when (.exists f) (io/delete-file f)))))]
     (doto (Plugin.)
       (.setGroupId "org.apache.maven.plugins")
       (.setArtifactId "maven-shade-plugin")
