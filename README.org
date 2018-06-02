@@ -6,8 +6,7 @@ The word itself is a borrowing from the Yiddish meyvn 'an expert, connoisseur', 
 
 ** Goals
 
-- Paying closer attention to the quality of deployed artifacts. They should only contain the code necessary to run a program. 
-Use ~deps.edn~ as the single source of truth. 
+- Paying closer attention to the quality of deployed artifacts. They should only contain the code necessary to run a program. Use ~deps.edn~ as the single source of truth. 
 
 - Deploying in one fell swoop. Call it one-click deployment. One command to do it all: compile, package, install on a remote server, etc.
  
@@ -17,7 +16,7 @@ Meyvn generates a transient POM (equivalent to running ~clj -Spom~ on the comman
 
 If Clojurescript sources are present, they are compiled in advanced mode and included in the artifact. 
 
-** Implementation principles
+** Guiding principles
 
 “All software sucks” and build tools are the worst (except ~tup~). Why adding more half-baked semantics into the world?
 
