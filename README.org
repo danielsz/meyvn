@@ -21,7 +21,7 @@ If Clojurescript sources are present, they are compiled in advanced mode and inc
 “All software sucks” and build tools are the worst (except ~tup~). Why adding more half-baked semantics into the world?
 
 - No new semantics. Maven provides plenty of it: phases, goals, etc. Whatever that means, Meyvn passes them on to Maven and goes off washing hands. 
-- Leverage ~tools.deps~ and Rich Hickey. If you’re writing Clojure, you’re already doing that.
+- Leverage ~tools.deps~ and Rich Hickey. If you’re writing Clojure, you’re already doing the latter.
 
 ** Usage
 
@@ -45,7 +45,7 @@ myvn deploy
 
 ** Will it work?
 
-Maybe. Maybe not. I don’t know what your workflow is, what platform you’re on, etc. Feel free to open issues, but I will not look at them unless you’re a sponsor. 
+Maybe. Maybe not. I don’t know what your workflow is, what platform you’re on, etc. Feel free to open issues, but I will not look at them unless you’re a sponsor. Please feel free to contact me in private if you’re a company and want me to look at your problem.
 
 ** Install
 
