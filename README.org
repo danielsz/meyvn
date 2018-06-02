@@ -6,7 +6,9 @@ The word itself is a borrowing from the Yiddish meyvn 'an expert, connoisseur', 
 
 ** Goals
 
-- Paying closer attention to the quality of deployed artifacts. They should only contain the code necessary to run a program. Use ~deps.edn~ as the single source of truth. 
+- Use ~deps.edn~ as the single source of truth. 
+
+- Paying closer attention to an often overlooked aspect of builds: the quality of deployed artifacts. They should only contain the code necessary to run a program. You’d be surprised how often this is not the case.
 
 - Deploying in one fell swoop. Call it one-click deployment. One command to do it all: compile, package, install on a remote server, etc.
  
@@ -18,14 +20,14 @@ If Clojurescript sources are present, they are compiled in advanced mode and inc
 
 ** Guiding principles
 
-“All software sucks” and build tools are the worst (except ~tup~). Why adding more half-baked semantics into the world?
+As the saying goes, “All software sucks” and build tools are the worst (except ~tup~). And thus:
 
 - No new semantics. Maven provides plenty of it: phases, goals, etc. Whatever that means, Meyvn passes them on to Maven and goes off washing hands. 
-- Leverage ~tools.deps~ and Rich Hickey. If you’re writing Clojure, you’re already doing the latter.
+- Leverage ~tools.deps~ and Rich Hickey. If you’re writing Clojure, you’re already doing the latter. 
 
 ** Usage
 
-You already know how to use this. It’s Maven. 
+You already know that. It’s Maven. 
 
 #+BEGIN_SRC 
 myvn compile 
@@ -45,7 +47,8 @@ myvn deploy
 
 ** Will it work?
 
-Maybe. Maybe not. I don’t know what your workflow is, what platform you’re on, etc. Feel free to open issues, but I will not look at them unless you’re a sponsor. Please feel free to contact me in private if you’re a company and want me to look at your problem.
+Maybe. Maybe not. I don’t know what your workflow is, what platform you’re on, etc. Feel free to open issues, but I will not look at them unless you’re a sponsor. Feel free to submit a PR if you want to see it languish in the queue (unless it’s really good). 
+Please feel free to contact me in private if you’re a company and you want to solve a particular workflow.
 
 ** Install
 
