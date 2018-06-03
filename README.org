@@ -11,23 +11,33 @@ The word itself is a borrowing from the Yiddish meyvn 'an expert, connoisseur', 
 - Paying closer attention to an often overlooked aspect of builds: the quality of deployed artifacts. They should only contain the code necessary to run a program. You’d be surprised how often this is not the case.
 
 - Deploying in one fell swoop. Call it one-click deployment. One command to do it all: compile, package, install on a remote server, etc.
+
+- Meyvn is lightweight. It only depends on Clojure and Maven (with no external dependencies).
  
+** Non goals but you get it anyway 
+
+Building with Meyvn is fast. 
+
+Non-aot jars run in a fraction of time. 
+Clojurescript compilation takes advantage of the shared aot cache. 
+No disk I/O related to Jar building occurs in Meyvn, it is all delegated to Maven.
+
 ** How does it work
 
 Meyvn generates a transient POM (equivalent to running ~clj -Spom~ on the command line), then extends it with plugins and extensions tailored to typical Clojure worklows, and finally runs Maven itself via an API. 
 
-If Clojurescript sources are present, they are compiled in advanced mode and included in the artifact. 
+If Clojurescript sources are present, they are compiled and included in the artifact. 
 
 ** Guiding principles
 
 As the saying goes, “All software sucks” and build tools are the worst (except ~tup~). And thus:
 
-- No new semantics. Maven provides plenty of it: phases, goals, etc. Whatever that means, Meyvn passes them on to Maven and goes off washing hands. 
+- No new semantics. Maven provides plenty on its own: phases, goals, etc. Whatever that means, Meyvn passes them on to Maven and goes off washing hands. 
 - Leverage ~tools.deps~ and Rich Hickey. If you’re writing Clojure, you’re already doing the latter. 
 
 ** Usage
 
-You already know that. It’s Maven. 
+You already know that. It’s Maven. There’s [[https://maven.apache.org/guides/][documentation]], too. Let me summarize it for ya. 
 
 #+BEGIN_SRC 
 myvn compile 
@@ -50,6 +60,9 @@ myvn deploy
 Maybe. Maybe not. I don’t know what your workflow is, what platform you’re on, etc. Feel free to open issues, but I will not look at them unless you’re a sponsor. Feel free to submit a PR if you don’t mind seeing it languish in the queue. 
 Please feel free to contact me in private if you’re a company and you want to solve a particular workflow.
 
+Be a mensch. Patronize my tuchus.
+
+
 ** Install
 
 Create an executable shell alias in your path.
@@ -65,33 +78,75 @@ All configuration is stored in ~meyvn.edn~, which will be created in the root of
 Here are the defaults, but suit your needs.
 
 #+BEGIN_SRC clojure
-(let [name (.. (io/file ".") getCanonicalFile getName)]
-    {:pom {:group-id name
-           :artifact-id name
-           :version "1.0.0"
-           :name name}
-     :main-class "main.core"
-     :cljs {:enabled false
-            :main-class "main.core"
-            :compiler-opts "cljsc_opts.edn"
-            :tools-deps-alias :cljs}
-     :remote-repository {:url "scpexe://user@domain:/home/.m2/repository"}})
+{:pom {:group-id "com.changeme"
+       :artifact-id "myproject"
+       :version "1.0.0"
+       :name "My project does a lot"}
+ :packaging {:uberjar 
+             {:enabled true
+              :main-class "main.core"
+              :remote-repository {:id "ssh-repository"
+                                  :url "scpexe://user@domain:/home/.m2/repository"}}
+             :jar
+             {:enabled false
+              :remote-repository {:id "clojars"
+                                  :url "https://clojars.org/repo"}}}
+ :cljs {:enabled false
+        :main-class "main.core"
+        :compiler-opts {:optimizations :advanced
+                        :output-wrapper true
+                        :infer-externs true
+                        :parallel-build true
+                        :aot-cache true
+                        :output-dir "resources/js/compiled"
+                        :output-to "resources/js/main.js"
+                        :source-map "resources/js/main.js.map"}
+        :tools-deps-alias :cljs}}
 #+END_SRC
 
-
-** Crux of the problem
+Aside from the ~:pom~ key which captures the project coordinates and is always used, the other keys can be enabled or disabled as needed.
+  
+** Dependency mechanism
 
 The transitive dependency mechanism used by Maven is guided by the nearest wins conflict resolution strategy.
 
 1. Easy overriding of individual conflicts: For any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
 2. Reproducible builds: Version ranges anywhere in your dependency graph can cause builds to not be reproducible. A mediation strategy of “newest” would magnify the negative impact of version ranges on build reproducibility.
 
+Crux of the problem
+
+** Pom files
+
+Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is ~deps.edn~. Together with the configuration (in ~meyvn.edn~), it knows all that it needs to know.
+
+The added benefit is that you can continue to maintain your pom file if you already are using a Maven workflow. 
+
+** Debugging the build
+
+If you see errors with the build, run ~myvn -g~. This will persist Meyvn’s pom file. You can now run ~mvn~ on it and debug as you normally would in Maven. You will need to specify the path to the pom file.
+
+#+BEGIN_SRC sh
+mvn -f meyvn-pom.xml <goal>
+#+END_SRC
+
+** Uberjars
+
 Meyvn uses the Apache Maven Shade Plugin in order to build uberjars.
 
 Shading dependencies is the process of including and renaming dependencies (thus relocating the classes & rewriting affected bytecode & resources) to create a private copy that you bundle alongside your own code. But the shading part is actually optional: the plugin allows to include dependencies in your jar (fat jar), and optionally rename (shade) dependencies.
+
+Data readers file are merged. 
+
+** Regular jars
+
+Libraries uploaded to Clojars are typically non-aot, source-only jars.
+Uploading to Clojars follows standard procedure. Use ~settings.xml~
+
+** What about Boot and Leiningen?
+
+What about them?
 
 ** Literature
 
 - [[http://nealford.com/memeagora/2013/01/22/why_everyone_eventually_hates_maven.html][Why Everyone (Eventually) Hates (or Leaves) Maven]]
 - [[https://rule1.quora.com/Use-Maven-Not-Gradle][Use Maven, Not Gradle]]
-

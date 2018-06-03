@@ -11,12 +11,24 @@
            :artifact-id name
            :version "1.0.0"
            :name name}
-     :main-class "main.core"
+     :packaging {:uberjar {:enabled true
+                           :main-class "main.core"
+                           :remote-repository {:id "ssh-repository"
+                                               :url "scpexe://user@domain:/home/.m2/repository"}}
+                 :jar {:enabled false
+                       :remote-repository {:id "clojars"
+                                           :url "https://clojars.org/repo"}}}
      :cljs {:enabled false
             :main-class "main.core"
-            :compiler-opts "cljsc_opts.edn"
-            :tools-deps-alias :cljs}
-     :remote-repository {:url "scpexe://user@domain:/home/.m2/repository"}}))
+            :compiler-opts {:optimizations :advanced
+                            :output-wrapper true
+                            :infer-externs true
+                            :parallel-build true
+                            :aot-cache true
+                            :output-dir "resources/js/compiled"
+                            :output-to "resources/js/main.js"
+                            :source-map "resources/js/main.js.map"}
+            :tools-deps-alias :cljs}}))
 
 (defn find-env []
   (when (not (System/getenv "M2_HOME"))

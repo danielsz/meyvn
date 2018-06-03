@@ -21,14 +21,19 @@
   (doto (Resource.)
     (.setDirectory "resources")))
 
-(defn remote-repository [conf]
+(defn paths-as-resources [deps-map]
+  (into [resource] (for [path (:paths deps-map)]
+                     (doto (Resource.)
+                       (.setDirectory path)))))
+
+(defn remote-repository [id url]
   (doto (DeploymentRepository.)
-    (.setUrl (:url conf))
-    (.setId "ssh-repository")))
+    (.setId id)
+    (.setUrl url)))
 
 (defn distribution-management [conf]
   (doto (DistributionManagement.)
-    (.setRepository (remote-repository conf))))
+    (.setRepository (remote-repository (:id conf) (:url conf)))))
 
 (defn write-meyvn-pom [model]
   (let [tmp-file (io/file "meyvn-pom.xml")]
@@ -49,13 +54,19 @@
     (comment (println (.getAbsolutePath tmp-file)))
     tmp-file))
 
-(defn extend-pom [deps-map conf]
+(defn extend-pom-base [deps-map conf]
   (let  [pom-file (write-temp-pom deps-map)
-         model (ext.pom/read-model (FileModelSource. pom-file) nil)
-         build (.getBuild model)]
-    (.setArtifactId model (:artifact-id (:pom conf)))
-    (.setGroupId model (:group-id (:pom conf)))
-    (.setVersion model (:version (:pom conf)))
+         model (ext.pom/read-model (FileModelSource. pom-file) nil)]
+    (doto model
+      (.setArtifactId (:artifact-id (:pom conf)))
+      (.setGroupId (:group-id (:pom conf)))
+      (.setVersion (:version (:pom conf))))))
+
+(defmulti extend-pom (fn [deps-map conf] (some #(if (:enabled (val %)) (key %)) (:packaging conf))))
+
+(defmethod extend-pom :uberjar [deps-map conf]
+  (let [model (extend-pom-base deps-map conf)
+        build (.getBuild model)]
     (.setPackaging model "clojure")
     (.addPlugin build maven-shade-plugin)
     (.addPlugin build clojure-maven-plugin)
@@ -63,6 +74,16 @@
     (.setExtensions build [wagon-extension])
     (.setResources build [resource])
     (.setBuild model build)
-    (.addProperty model "app.main.class" (:main-class conf))
-    (.setDistributionManagement model (distribution-management (:remote-repository conf)))
+    (.addProperty model "app.main.class" (get-in conf [:packaging :uberjar :main-class]))
+    (.setDistributionManagement model (distribution-management (get-in conf [:packaging :uberjar :remote-repository])))
     (write-meyvn-pom model)))
+
+(defmethod extend-pom :jar [deps-map conf]
+  (let [deps-map (update-in deps-map [:deps] (fn [deps] (remove #(= (key %) 'org.clojure/clojure) deps)))
+        model (extend-pom-base deps-map conf)
+        build (.getBuild model)]
+    (.setResources build (paths-as-resources deps-map))
+    (.setBuild model build)
+    (.setDistributionManagement model (distribution-management (get-in conf [:packaging :jar :remote-repository])))
+    (write-meyvn-pom model)))
+

@@ -2,7 +2,13 @@
   (:require [clojure.tools.deps.alpha.reader :as tools.reader]
             [clojure.java.io :as io])
   (:import [org.codehaus.plexus.util.xml Xpp3Dom]
-           [org.apache.maven.model Plugin PluginExecution]))
+           [org.apache.maven.model Plugin PluginExecution Dependency]))
+
+(def data-readers-transformer
+  (doto (Dependency.)
+    (.setGroupId "org.danielsz")
+    (.setArtifactId "shade-edn-data-readers-transformer")
+    (.setVersion "1.0.0")))
 
 (def clojure-maven-plugin-configuration 
   (let [config (Xpp3Dom. "configuration")
@@ -26,11 +32,15 @@
 (def maven-shade-plugin-configuration 
   (let [config (Xpp3Dom. "configuration")
         transformers (Xpp3Dom. "transformers")
-        transformer (doto (Xpp3Dom. "transformer")
-                      (.setAttribute "implementation" "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"))
+        manifest-transformer (doto (Xpp3Dom. "transformer")
+                               (.setAttribute "implementation" "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"))
         manifest-entries (Xpp3Dom. "manifestEntries")
         main-class (doto (Xpp3Dom. "Main-Class")
                      (.setValue "${app.main.class}"))
+        appending-transformer (doto (Xpp3Dom. "transformer")
+                                (.setAttribute "implementation" "org.danielsz.shade.resource.EdnDataReaderTransformer"))
+        resource (doto (Xpp3Dom. "resource")
+                   (.setValue "data_readers.clj"))
         filters (Xpp3Dom. "filters")
         filter (Xpp3Dom. "filter")
         artifact (doto (Xpp3Dom. "artifact")
@@ -43,8 +53,10 @@
         exclude3 (doto (Xpp3Dom. "exclude")
                   (.setValue "META-INF/*.RSA"))]
     (.addChild manifest-entries main-class) 
-    (.addChild transformer manifest-entries)
-    (.addChild transformers transformer)
+    (.addChild manifest-transformer manifest-entries)
+    (.addChild appending-transformer resource)
+    (.addChild transformers manifest-transformer)
+    (.addChild transformers appending-transformer)
     (.addChild excludes exclude1)
     (.addChild excludes exclude2)
     (.addChild excludes exclude3)
@@ -67,7 +79,8 @@
       (.setArtifactId "maven-shade-plugin")
       (.setVersion "3.1.1")
       (.addExecution execution)
-      (.setConfiguration maven-shade-plugin-configuration))))
+      (.setConfiguration maven-shade-plugin-configuration)
+      (.setDependencies [data-readers-transformer]))))
 
 (def maven-enforcer-plugin-configuration
   (let [config (Xpp3Dom. "configuration")
