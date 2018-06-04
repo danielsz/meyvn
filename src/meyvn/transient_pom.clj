@@ -39,7 +39,7 @@
   (let [tmp-file (io/file "meyvn-pom.xml")]
     (with-open [writer (FileWriter. tmp-file)]
       (.write (MavenXpp3Writer.) writer model))
-    (.deleteOnExit tmp-file)))
+    tmp-file))
 
 (defn write-temp-pom [deps-map]
   (let [tmp-file (File/createTempFile "pom" ".xml")
@@ -66,13 +66,11 @@
 
 (defmethod extend-pom :uberjar [deps-map conf]
   (let [model (extend-pom-base deps-map conf)
-        build (.getBuild model)]
+        build (doto (.getBuild model)
+                (.setPlugins [(maven-shade-plugin (get-in conf [:packaging :uberjar])) (clojure-maven-plugin deps-map) maven-enforcer-plugin])
+                (.setExtensions [wagon-extension])
+                (.setResources [resource]))]
     (.setPackaging model "clojure")
-    (.addPlugin build maven-shade-plugin)
-    (.addPlugin build clojure-maven-plugin)
-    (.addPlugin build maven-enforcer-plugin) 
-    (.setExtensions build [wagon-extension])
-    (.setResources build [resource])
     (.setBuild model build)
     (.addProperty model "app.main.class" (get-in conf [:packaging :uberjar :main-class]))
     (.setDistributionManagement model (distribution-management (get-in conf [:packaging :uberjar :remote-repository])))

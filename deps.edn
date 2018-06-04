@@ -1,4 +1,5 @@
 {:paths ["src"]
  :deps {org.clojure/tools.deps.alpha {:mvn/version "0.5.435"}
+        org.clojure/tools.cli {:mvn/version "0.3.7"}
         org.apache.maven/maven-model {:mvn/version "3.5.3"}
         org.apache.maven.shared/maven-invoker {:mvn/version "3.0.1"}}}

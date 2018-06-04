@@ -10,10 +10,9 @@
     (.setArtifactId "shade-edn-data-readers-transformer")
     (.setVersion "1.0.0")))
 
-(def clojure-maven-plugin-configuration 
+(defn clojure-maven-plugin-configuration [paths]
   (let [config (Xpp3Dom. "configuration")
-        src-directories (Xpp3Dom. "sourceDirectories")
-        paths (:paths (tools.reader/slurp-deps "deps.edn"))]
+        src-directories (Xpp3Dom. "sourceDirectories")]
     (doseq [path paths
           :let [src-directory (Xpp3Dom. "sourceDirectory")]]
       (.setValue src-directory path)
@@ -21,15 +20,42 @@
     (.addChild config src-directories)
     config))
 
-(def clojure-maven-plugin
+(defn clojure-maven-plugin [deps-map]
   (doto (Plugin.)
     (.setGroupId "com.theoryinpractise")
     (.setArtifactId "clojure-maven-plugin")
     (.setVersion "1.8.1")
     (.setExtensions true)
-    (.setConfiguration clojure-maven-plugin-configuration)))
+    (.setConfiguration (clojure-maven-plugin-configuration (:paths deps-map)))))
 
-(def maven-shade-plugin-configuration 
+(defn artifacts [artifacts]
+  (let [artifact-set (Xpp3Dom. "artifactSet")
+        excludes-set (Xpp3Dom. "excludes")
+        children (for [artifact artifacts]
+                   (doto (Xpp3Dom. "exclude")
+                     (.setValue artifact)))]
+    (doseq [child children]
+      (.addChild excludes-set child))
+    (.addChild artifact-set excludes-set)
+    artifact-set))
+
+(defn filters [filters]
+  (let [filter-set (Xpp3Dom. "filters")
+        filter (Xpp3Dom. "filter")
+        artifact (doto (Xpp3Dom. "artifact")
+                   (.setValue "*:*"))
+        excludes-set (Xpp3Dom. "excludes")
+        children (for [filter filters]
+                   (doto (Xpp3Dom. "exclude")
+                     (.setValue filter)))]
+    (doseq [child children]
+      (.addChild excludes-set child))
+    (.addChild filter artifact)
+    (.addChild filter excludes-set)
+    (.addChild filter-set filter)
+    filter-set))
+
+(defn maven-shade-plugin-configuration [conf]
   (let [config (Xpp3Dom. "configuration")
         transformers (Xpp3Dom. "transformers")
         manifest-transformer (doto (Xpp3Dom. "transformer")
@@ -40,41 +66,18 @@
         appending-transformer (doto (Xpp3Dom. "transformer")
                                 (.setAttribute "implementation" "org.danielsz.shade.resource.EdnDataReaderTransformer"))
         resource (doto (Xpp3Dom. "resource")
-                   (.setValue "data_readers.clj"))
-        artifact-set (Xpp3Dom. "artifactSet")
-        excludes-set (Xpp3Dom. "excludes")
-        closure-library (doto (Xpp3Dom. "exclude")
-                          (.setValue "org.clojure:google-closure-library"))
-        filters (Xpp3Dom. "filters")
-        filter (Xpp3Dom. "filter")
-        artifact (doto (Xpp3Dom. "artifact")
-                   (.setValue "*:*"))
-        excludes (Xpp3Dom. "excludes")
-        exclude1 (doto (Xpp3Dom. "exclude")
-                  (.setValue "META-INF/*.SF"))
-        exclude2 (doto (Xpp3Dom. "exclude")
-                  (.setValue "META-INF/*.DSA"))
-        exclude3 (doto (Xpp3Dom. "exclude")
-                   (.setValue "META-INF/*.RSA"))]
+                   (.setValue "data_readers.clj"))]
     (.addChild manifest-entries main-class) 
     (.addChild manifest-transformer manifest-entries)
     (.addChild appending-transformer resource)
     (.addChild transformers manifest-transformer)
-    (.addChild transformers appending-transformer)
-    (.addChild excludes exclude1)
-    (.addChild excludes exclude2)
-    (.addChild excludes exclude3)
-    (.addChild filter artifact)
-    (.addChild filter excludes)
-    (.addChild filters filter)
-    (.addChild excludes-set closure-library)
-    (.addChild artifact-set excludes-set)
+    (.addChild transformers appending-transformer)    
     (.addChild config transformers)
-    (.addChild config filters)
-    (.addChild config artifact-set)
+    (.addChild config (filters (get-in conf [:excludes :filters])))
+    (.addChild config (artifacts (get-in conf [:excludes :artifacts])))
     config))
 
-(def maven-shade-plugin
+(defn maven-shade-plugin [conf]
   (let [execution (doto (PluginExecution.)
                     (.setPhase "package")
                     (.setGoals ["shade"]))
@@ -86,7 +89,7 @@
       (.setArtifactId "maven-shade-plugin")
       (.setVersion "3.1.1")
       (.addExecution execution)
-      (.setConfiguration maven-shade-plugin-configuration)
+      (.setConfiguration (maven-shade-plugin-configuration conf))
       (.setDependencies [data-readers-transformer]))))
 
 (def maven-enforcer-plugin-configuration

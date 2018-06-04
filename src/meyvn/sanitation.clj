@@ -30,8 +30,12 @@
                             :source-map "resources/js/main.js.map"}
             :tools-deps-alias :cljs}}))
 
+(defn find-deps-edn []
+  (when-not (.exists (io/file "deps.edn"))
+    (println "No deps.edn found in current directory.")))
+
 (defn find-env []
-  (when (not (System/getenv "M2_HOME"))
+  (when-not (System/getenv "M2_HOME")
     (println "M2_HOME not set in environment")
     (System/exit 1)))
 
@@ -52,10 +56,11 @@
                                                              slurp
                                                              edn/read-string))))
 (defn find-conf []
-  (when (not (.exists (io/file "meyvn.edn")))
+  (when-not (.exists (io/file "meyvn.edn"))
     (write-conf defaults)))
 
 (defn checks []
   (find-env)
+  (find-deps-edn)
   (find-conf)
   (read-conf))

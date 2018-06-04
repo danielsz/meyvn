@@ -1,8 +1,4 @@
-* Meyvn
-
-#+BEGIN_QUOTE
-The word itself is a borrowing from the Yiddish meyvn 'an expert, connoisseur', derived from the Hebrew מבין‬ mēvīn 'person with understanding, teacher', a participle of the verb הֵבִין‬ hēvīn 'to understand',[1] from the West Semitic root byn 'to be separate, distinguish'. — Wikipedia
-#+END_QUOTE
+* Meyvn 
 
 ** Goals
 
@@ -86,7 +82,9 @@ Here are the defaults, but suit your needs.
              {:enabled true
               :main-class "main.core"
               :remote-repository {:id "ssh-repository"
-                                  :url "scpexe://user@domain:/home/.m2/repository"}}
+                                  :url "scpexe://user@domain:/home/.m2/repository"}
+              :excludes {:sets ["org.clojure:google-closure-library"]
+                         :filters ["META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}             
              :jar
              {:enabled false
               :remote-repository {:id "clojars"
