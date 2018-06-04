@@ -41,6 +41,10 @@
                                 (.setAttribute "implementation" "org.danielsz.shade.resource.EdnDataReaderTransformer"))
         resource (doto (Xpp3Dom. "resource")
                    (.setValue "data_readers.clj"))
+        artifact-set (Xpp3Dom. "artifactSet")
+        excludes-set (Xpp3Dom. "excludes")
+        closure-library (doto (Xpp3Dom. "exclude")
+                          (.setValue "org.clojure:google-closure-library"))
         filters (Xpp3Dom. "filters")
         filter (Xpp3Dom. "filter")
         artifact (doto (Xpp3Dom. "artifact")
@@ -51,7 +55,7 @@
         exclude2 (doto (Xpp3Dom. "exclude")
                   (.setValue "META-INF/*.DSA"))
         exclude3 (doto (Xpp3Dom. "exclude")
-                  (.setValue "META-INF/*.RSA"))]
+                   (.setValue "META-INF/*.RSA"))]
     (.addChild manifest-entries main-class) 
     (.addChild manifest-transformer manifest-entries)
     (.addChild appending-transformer resource)
@@ -63,8 +67,11 @@
     (.addChild filter artifact)
     (.addChild filter excludes)
     (.addChild filters filter)
+    (.addChild excludes-set closure-library)
+    (.addChild artifact-set excludes-set)
     (.addChild config transformers)
     (.addChild config filters)
+    (.addChild config artifact-set)
     config))
 
 (def maven-shade-plugin
