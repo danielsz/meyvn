@@ -1,0 +1,10 @@
+{:pom {:group-id "org.danielsz",
+       :artifact-id "meyvn",
+       :version "1.0.0-SNAPSHOT",
+       :name "Better builds for Clojure with Meyvn"}
+ :packaging {:uberjar
+             {:enabled false}
+             :jar {:enabled true
+                   :remote-repository {:id "clojars"
+                                       :url "https://clojars.org/repo"}}}
+ :cljs {:enabled false}}
