@@ -2,24 +2,15 @@
   (:require
    [clojure.tools.cli :refer [parse-opts]]
    [meyvn.cljs :as cljs]
-   [meyvn.sanitation :as sanitation]
+   [meyvn.configuration :refer [read-conf]]
    [meyvn.transient-pom :as transient]
    [meyvn.maven :as maven]
    [clojure.java.io :as io]
-   [clojure.tools.deps.alpha.reader :as tools.reader]
    [clojure.string :as str]))
-
-(def deps-map
-  (let [config-dir (or (System/getenv "CLJ_CONFIG")
-                       (System/getenv "XDG_CONFIG_HOME")
-                       (str (System/getProperty "user.home") "/.clojure"))]
-    (tools.reader/read-deps [(io/file "/usr/local/lib/clojure/deps.edn")
-                             (io/file (str config-dir "/deps.edn"))
-                             (io/file "deps.edn")])))
 
 (def cli-options
  [["-g" "--generate" "Write meyvn-pom.xml in current directory."]
-  ["-h" "--help"]])
+  ["-h" "--help" "This help screen."]])
 
 (defn usage [summary]
   (->> ["Meyvn. Better builds for Clojure."
@@ -29,8 +20,8 @@
         "Options:"
         summary
         ""
-        "Action must be a valid Maven action."
-        "Configuration can be found in meyvn.edn"]
+        "Action must be a valid Maven action. See `meyvn.edn' in current directory for more options."
+        "\n"]
        (str/join "\n")))
 
 (defn exit [msg & {:keys [status] :or {status 0}}]
@@ -40,7 +31,7 @@
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (when (:help options) (exit (usage summary)))
-    (let [conf (sanitation/checks)
+    (let [[deps-map conf] (read-conf)
           meyvn-pom (transient/extend-pom deps-map conf)]
       (if (:generate options)
         (exit "Pom file written to disk.")

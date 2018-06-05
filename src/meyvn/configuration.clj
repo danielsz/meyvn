@@ -1,9 +1,10 @@
-(ns meyvn.sanitation
+(ns meyvn.configuration
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
             [clojure.java.shell :refer [sh]]
             [clojure.edn :as edn]
-            [clojure.pprint :as pprint]))
+            [clojure.pprint :as pprint]
+            [clojure.tools.deps.alpha.reader :as tools.reader]))
 
 (def defaults
   (let [name (.. (io/file ".") getCanonicalFile getName)]
@@ -32,6 +33,18 @@
                             :source-map "resources/js/main.js.map"}
             :tools-deps-alias :cljs}}))
 
+
+(def deps-map
+  (let [user-dir (or (System/getenv "CLJ_CONFIG")
+                     (System/getenv "XDG_CONFIG_HOME")
+                     (str (System/getProperty "user.home") "/.clojure"))
+        installation-dir (some (fn [path] (when (.exists (io/file path)) path))
+                               ["/usr/local/lib/clojure"
+                                "/usr/local/Cellar/clojure/1.9.0.381"])]
+    (tools.reader/read-deps [(io/file (str installation-dir "/deps.edn"))
+                             (io/file (str user-dir "/deps.edn"))
+                             (io/file "deps.edn")])))
+
 (defn find-deps-edn []
   (when-not (.exists (io/file "deps.edn"))
     (println "No deps.edn found in current directory.")))
@@ -53,7 +66,7 @@
     (binding [*out* writer]
       (pprint/pprint defaults))))
 
-(defn read-conf []
+(defn- read-conf- []
   (-> "meyvn.edn"
       slurp
       edn/read-string))
@@ -62,8 +75,8 @@
   (when-not (.exists (io/file "meyvn.edn"))
     (write-conf defaults)))
 
-(defn checks []
+(defn read-conf []
   (find-env)
   (find-deps-edn)
   (find-conf)
-  (read-conf))
+  [deps-map (read-conf-)])
