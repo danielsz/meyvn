@@ -34,8 +34,7 @@
 
 (defn find-deps-edn []
   (when-not (.exists (io/file "deps.edn"))
-    (println "No deps.edn found in current directory.")
-    (System/exit 1)))
+    (println "No deps.edn found in current directory.")))
 
 (defn find-env []
   (when-not (System/getenv "M2_HOME")

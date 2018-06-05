@@ -9,8 +9,6 @@
    [clojure.tools.deps.alpha.reader :as tools.reader]
    [clojure.string :as str]))
 
-(def conf)
-
 (def deps-map
   (let [config-dir (or (System/getenv "CLJ_CONFIG")
                        (System/getenv "XDG_CONFIG_HOME")
@@ -48,5 +46,5 @@
         (exit "Pom file written to disk.")
         (do
           (cljs/compile deps-map (:cljs conf))
-          (maven/invoke arguments)
+          (maven/invoke conf arguments)
           (.deleteOnExit meyvn-pom))))))

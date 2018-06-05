@@ -1,5 +1,6 @@
 (ns meyvn.maven
-  (:require [clojure.java.io :as io])
+  (:require [clojure.java.io :as io]
+            [nolipservice.core :as report])
   (:import [org.apache.maven.shared.invoker DefaultInvoker DefaultInvocationRequest InvocationResult]))
 
 
@@ -12,8 +13,6 @@
         invoker (DefaultInvoker.)]
     (.execute invoker invocation-request)))
 
-(defn invoke [args]
+(defn invoke [conf args]
   (let [^InvocationResult result (invoke- (first args))]
-    (if (zero? (.getExitCode result))
-      (println "All done.")
-      (println "Build has errors."))))
+    (report/pastebin (get-in conf [:pom :group-id]) (.getExitCode result))))
