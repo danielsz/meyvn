@@ -18,6 +18,41 @@ Non-aot jars run in a fraction of time.
 Clojurescript compilation takes advantage of the shared aot cache. 
 No disk I/O related to Jar building occurs in Meyvn, it is all delegated to Maven.
 
+** Installation
+
+1. Install this tool to an alias in $HOME/.clojure/deps.edn:
+
+#+BEGIN_SRC clojure
+:aliases {:meyvn
+          {:extra-deps {meyvn {:mvn/version "1.0.0"}}}
+          ...}
+#+END_SRC
+
+2. Create an executable shell alias in your path.
+
+#+BEGIN_SRC sh
+$ touch /usr/local/bin/myvn
+#+END_SRC
+
+Make sure it contains the following.
+#+BEGIN_SRC sh
+$ cat /usr/local/bin/myvn
+#!/bin/sh
+M2_HOME=/opt/maven clj -A:meyvn -m meyvn.core "$@"
+#+END_SRC
+
+Set the executable bit. 
+#+BEGIN_SRC 
+$ chmod +x /usr/local/bin/myvn
+#+END_SRC
+
+~M2_HOME~ points at the root of your Maven installation directory. If this environment variable is set in your shell environment, you don’t need it. Strictly speaking, Maven can run without it, but the provided APIs require this in order to find the executable (~/bin/mvn~). 
+
+~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. 
+
+~"$@"~ references the arguments passed to the script.
+
+
 ** How does it work
 
 Meyvn generates a transient POM (equivalent to running ~clj -Spom~ on the command line), then extends it with plugins and extensions tailored to typical Clojure worklows, and finally runs Maven itself via an API. 
@@ -57,15 +92,6 @@ Maybe. Maybe not. I don’t know what your workflow is, what platform you’re o
 Please feel free to contact me in private if you’re a company and you want to solve a particular workflow.
 
 Be a mensch. Patronize my tuchus.
-
-
-** Install
-
-Create an executable shell alias in your path.
-
-#+BEGIN_SRC sh
-M2_HOME=/opt/maven clj -A:meyvn -m meyvn.core "$@"
-#+END_SRC
 
 ** Configuration
 

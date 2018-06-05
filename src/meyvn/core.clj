@@ -42,8 +42,8 @@
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (when (:help options) (exit (usage summary)))
-    (sanitation/checks)
-    (let [meyvn-pom (transient/extend-pom deps-map conf)]
+    (let [conf (sanitation/checks)
+          meyvn-pom (transient/extend-pom deps-map conf)]
       (if (:generate options)
         (exit "Pom file written to disk.")
         (do

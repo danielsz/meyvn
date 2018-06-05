@@ -14,7 +14,9 @@
      :packaging {:uberjar {:enabled true
                            :main-class "main.core"
                            :remote-repository {:id "ssh-repository"
-                                               :url "scpexe://user@domain:/home/.m2/repository"}}
+                                               :url "scpexe://user@domain:/home/.m2/repository"}
+                           :excludes {:artifacts ["org.clojure:google-closure-library"]
+                                      :filters ["META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}
                  :jar {:enabled false
                        :remote-repository {:id "clojars"
                                            :url "https://clojars.org/repo"}}}
@@ -32,7 +34,8 @@
 
 (defn find-deps-edn []
   (when-not (.exists (io/file "deps.edn"))
-    (println "No deps.edn found in current directory.")))
+    (println "No deps.edn found in current directory.")
+    (System/exit 1)))
 
 (defn find-env []
   (when-not (System/getenv "M2_HOME")
@@ -52,9 +55,10 @@
       (pprint/pprint defaults))))
 
 (defn read-conf []
-  (alter-var-root (resolve 'meyvn.core/conf) (constantly (-> "meyvn.edn"
-                                                             slurp
-                                                             edn/read-string))))
+  (-> "meyvn.edn"
+      slurp
+      edn/read-string))
+
 (defn find-conf []
   (when-not (.exists (io/file "meyvn.edn"))
     (write-conf defaults)))
