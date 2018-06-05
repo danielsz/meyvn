@@ -15,4 +15,6 @@
 
 (defn invoke [conf args]
   (let [^InvocationResult result (invoke- (first args))]
-    (report/pastebin (get-in conf [:pom :group-id]) (.getExitCode result))))
+    (try
+      (report/pastebin (get-in conf [:pom :group-id]) (.getExitCode result))
+      (catch Exception e (do)))))
