@@ -1,10 +1,9 @@
 (ns meyvn.configuration
-  (:require [clojure.string :as str]
-            [clojure.java.io :as io]
-            [clojure.java.shell :refer [sh]]
+  (:require [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.pprint :as pprint]
-            [clojure.tools.deps.alpha.reader :as tools.reader]))
+            [clojure.tools.deps.alpha.reader :as tools.reader]
+            [meyvn.finders :refer [find-env find-local-deps find-global-deps]]))
 
 (def defaults
   (let [name (.. (io/file ".") getCanonicalFile getName)]
@@ -38,28 +37,10 @@
   (let [user-dir (or (System/getenv "CLJ_CONFIG")
                      (System/getenv "XDG_CONFIG_HOME")
                      (str (System/getProperty "user.home") "/.clojure"))
-        installation-dir (some (fn [path] (when (.exists (io/file path)) path))
-                               ["/usr/local/lib/clojure"
-                                "/usr/local/Cellar/clojure/1.9.0.381"])]
-    (tools.reader/read-deps [(io/file (str installation-dir "/deps.edn"))
+        global-deps (find-global-deps)]
+    (tools.reader/read-deps [global-deps
                              (io/file (str user-dir "/deps.edn"))
                              (io/file "deps.edn")])))
-
-(defn find-deps-edn []
-  (when-not (.exists (io/file "deps.edn"))
-    (println "No deps.edn found in current directory.")))
-
-(defn find-env []
-  (when-not (System/getenv "M2_HOME")
-    (println "M2_HOME not set in environment")
-    (System/exit 1)))
-
-(defn find-exec []
-  (let [rc (sh "which" "mvn")]
-    (if (not (zero? (:exit rc)))
-      (do (println "Cannot find Maven executable!")
-          (System/exit 1))
-      (io/file (str/trim (:out (sh "which" "mvn")))))))
 
 (defn write-conf [defaults]
   (with-open [writer (io/writer (io/file "meyvn.edn"))]
@@ -77,6 +58,6 @@
 
 (defn read-conf []
   (find-env)
-  (find-deps-edn)
+  (find-local-deps)
   (find-conf)
   [deps-map (read-conf-)])
