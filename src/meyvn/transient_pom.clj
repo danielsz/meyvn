@@ -5,7 +5,7 @@
             [clojure.java.io :as io]
             [clojure.data.xml :as xml])
   (:import [org.apache.maven.model.building FileModelSource]
-           [org.apache.maven.model Extension Resource DistributionManagement DeploymentRepository]
+           [org.apache.maven.model Extension Resource Repository DistributionManagement DeploymentRepository]
            [org.apache.maven.model.io.xpp3 MavenXpp3Writer]
            [java.io File FileWriter]))
 
@@ -26,14 +26,19 @@
                      (doto (Resource.)
                        (.setDirectory path)))))
 
-(defn remote-repository [id url]
+(defn repository [{:keys [id url]}]
+  (doto (Repository.)
+    (.setId id)
+    (.setUrl url)))
+
+(defn remote-repository [{:keys [id url]}]
   (doto (DeploymentRepository.)
     (.setId id)
     (.setUrl url)))
 
 (defn distribution-management [conf]
   (doto (DistributionManagement.)
-    (.setRepository (remote-repository (:id conf) (:url conf)))))
+    (.setRepository (remote-repository conf))))
 
 (defn write-meyvn-pom [model]
   (let [tmp-file (io/file "meyvn-pom.xml")]

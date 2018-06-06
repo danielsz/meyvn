@@ -16,9 +16,19 @@
           (System/exit 1))
       (io/file (str/trim (:out (sh "which" "mvn")))))))
 
+(defn find-file [s]
+  (let [f (io/file s)]
+    (when (.exists f )
+      f)))
+
+(defn find-user-deps []
+  (let [user-dir (or (System/getenv "CLJ_CONFIG")
+                     (System/getenv "XDG_CONFIG_HOME")
+                     (str (System/getProperty "user.home") "/.clojure"))]
+    (find-file (str user-dir "/deps.edn"))))
+
 (defn find-local-deps []
-  (when-not (.exists (io/file "deps.edn"))
-    (println "No deps.edn found in current directory.")))
+  (find-file "deps.edn"))
 
 (defn find-global-deps []
   (let [linux (io/file "/usr/local/lib/clojure/deps.edn")

@@ -1,7 +1,7 @@
 {:pom {:group-id "org.danielsz",
        :artifact-id "meyvn",
        :version "1.0.0-SNAPSHOT",
-       :name "Better builds for Clojure with Meyvn"}
+       :name "Better builds for Clojure"}
  :packaging {:uberjar
              {:enabled false}
              :jar {:enabled true

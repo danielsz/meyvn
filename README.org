@@ -24,7 +24,7 @@ No disk I/O related to Jar building occurs in Meyvn, it is all delegated to Mave
 
 #+BEGIN_SRC clojure
 :aliases {:meyvn
-          {:extra-deps {meyvn {:mvn/version "1.0.0"}}}
+          {:extra-deps {org.danielsz/meyvn {:mvn/version "1.0.0"}}}
           ...}
 #+END_SRC
 
@@ -38,7 +38,7 @@ Make sure it contains the following.
 #+BEGIN_SRC sh
 $ cat /usr/local/bin/myvn
 #!/bin/sh
-M2_HOME=/opt/maven clj -A:meyvn -m meyvn.core "$@"
+M2_HOME=/usr/local clj -A:meyvn -m meyvn.core "$@"
 #+END_SRC
 
 Set the executable bit. 

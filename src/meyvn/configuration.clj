@@ -3,7 +3,7 @@
             [clojure.edn :as edn]
             [clojure.pprint :as pprint]
             [clojure.tools.deps.alpha.reader :as tools.reader]
-            [meyvn.finders :refer [find-env find-local-deps find-global-deps]]))
+            [meyvn.finders :refer [find-env find-local-deps find-global-deps find-user-deps]]))
 
 (def defaults
   (let [name (.. (io/file ".") getCanonicalFile getName)]
@@ -34,13 +34,11 @@
 
 
 (def deps-map
-  (let [user-dir (or (System/getenv "CLJ_CONFIG")
-                     (System/getenv "XDG_CONFIG_HOME")
-                     (str (System/getProperty "user.home") "/.clojure"))
-        global-deps (find-global-deps)]
-    (tools.reader/read-deps [global-deps
-                             (io/file (str user-dir "/deps.edn"))
-                             (io/file "deps.edn")])))
+  (let [user-deps (find-user-deps)
+        global-deps (find-global-deps)
+        local-deps (find-local-deps)
+        all-deps (into [] (remove nil? [user-deps global-deps local-deps]))]
+    (tools.reader/read-deps all-deps)))
 
 (defn write-conf [defaults]
   (with-open [writer (io/writer (io/file "meyvn.edn"))]
@@ -58,6 +56,5 @@
 
 (defn read-conf []
   (find-env)
-  (find-local-deps)
   (find-conf)
   [deps-map (read-conf-)])
