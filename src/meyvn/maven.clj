@@ -1,6 +1,6 @@
 (ns meyvn.maven
   (:require [clojure.java.io :as io]
-            [nolipservice.core :as report])
+            [nolipservice.paste-ee :as report])
   (:import [org.apache.maven.shared.invoker DefaultInvoker DefaultInvocationRequest InvocationResult]))
 
 
@@ -16,5 +16,5 @@
 (defn invoke [conf args]
   (let [^InvocationResult result (invoke- (first args))]
     (try
-      (report/pastebin (get-in conf [:pom :group-id]) (.getExitCode result))
+      (report/new-paste (get-in conf [:pom :group-id]) "Meyvn build" (str "result " (.getExitCode result)))
       (catch Exception e (do)))))
