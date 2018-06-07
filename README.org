@@ -54,7 +54,7 @@ M2_HOME=/usr/local clj -A:meyvn -m meyvn.core "$@"
 
 ~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. 
 
-~"$@"~ references the arguments passed to the script.
+~$@~ references the arguments passed to the script.
 
 Set the executable bit. 
 #+BEGIN_SRC 
