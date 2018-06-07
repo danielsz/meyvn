@@ -1,19 +1,18 @@
 (ns meyvn.finders
   (:require [clojure.java.io :as io]
             [clojure.java.shell :refer [sh]]
-            [clojure.string :as str])
+            [clojure.string :as str]
+            [meyvn.utils :refer [exit]])
   (:import [java.nio.file FileSystems]))
 
 (defn find-env []
   (when-not (System/getenv "M2_HOME")
-    (println "M2_HOME not set in environment")
-    (System/exit 1)))
+    (exit "M2_HOME not set in environment" :status 1)))
 
 (defn find-exec []
   (let [rc (sh "which" "mvn")]
     (if (not (zero? (:exit rc)))
-      (do (println "Cannot find Maven executable!")
-          (System/exit 1))
+      (exit "Cannot find Maven executable!" :status 1)
       (io/file (str/trim (:out (sh "which" "mvn")))))))
 
 (defn find-file [s]

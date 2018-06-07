@@ -5,6 +5,7 @@
    [meyvn.configuration :refer [read-conf]]
    [meyvn.transient-pom :as transient]
    [meyvn.maven :as maven]
+   [meyvn.utils :refer [exit]]
    [clojure.java.io :as io]
    [clojure.string :as str]))
 
@@ -23,10 +24,6 @@
         "Action must be a valid Maven action. See `meyvn.edn' in current directory for more options."
         "\n"]
        (str/join "\n")))
-
-(defn exit [msg & {:keys [status] :or {status 0}}]
-  (println msg)
-  (System/exit status))
 
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
