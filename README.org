@@ -28,8 +28,8 @@ Meyvn enable you to generate uberjars (executables) and jars (libraries), and to
 
 ** Installation
 
-1. Meyvn requires Maven. Make sure it is installed on your system.
-2. Define an alias in ~$HOME/.clojure/deps.edn~:
+- Meyvn requires Maven. Make sure it is installed on your system.
+- Define an alias in ~$HOME/.clojure/deps.edn~:
 
 #+BEGIN_SRC clojure
 :aliases {:meyvn
@@ -37,7 +37,7 @@ Meyvn enable you to generate uberjars (executables) and jars (libraries), and to
           ...}
 #+END_SRC
 
-[@3] Create an executable shell script in your path.
+- Create an executable shell script in your path.
 
 #+BEGIN_SRC sh
 $ touch /usr/local/bin/myvn
