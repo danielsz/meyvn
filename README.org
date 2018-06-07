@@ -52,9 +52,7 @@ M2_HOME=/usr/local clj -A:meyvn -m meyvn.core "$@"
 
 ~M2_HOME~ points to the root of your Maven installation directory. Strictly speaking, Maven can run without this environment variable, but the provided APIs require it in order to find the executable (~/bin/mvn~). 
 
-~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. 
-
-~$@~ references the arguments passed to the script.
+~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. ~$@~ references the arguments passed to the script.
 
 Set the executable bit. 
 #+BEGIN_SRC 
@@ -63,15 +61,11 @@ $ chmod +x /usr/local/bin/myvn
 
 ** How does it work?
 
-~tools.deps~ has the built-in capability to generate a pom file (~clj -Spom~). Meyvn starts off from that pom file and augments it with features that make sense for Clojure workflows, encompassing compilation, packaging and distribution.
+~tools.deps~ has the built-in capability to generate a pom file (~clj -Spom~). Meyvn starts off from that pom file and augments it with features that make sense for Clojure workflows, encompassing compilation, packaging and distribution. Meyvn’s pom file is transient and does not interfere with POM files that may already be present in your project. 
 
-The transient POM file does not interfere with existing POM files that may or may not be present in your project. 
+Maven is invoked via an API (~Apache Maven Invoker~) and can be passed all lifecycle phases or goal it supports. 
 
-Maven is invoked via an API (~Apache Maven Invoker~). 
-
-Clojurescript sources are compiled and included in the final artifact. 
-
-Clojurescript compilation is done in its own process with the official compiler.
+Clojurescript sources are compiled and included in the final artifact. Clojurescript compilation is done in its own process with the official compiler.
 
 ** Usage
 
@@ -92,13 +86,6 @@ Or
 #+BEGIN_SRC 
 myvn deploy
 #+END_SRC 
-
-** Will it work?
-
-Maybe. Maybe not. I don’t know what your workflow is, what platform you’re on, etc. Feel free to open issues, but I will not look at them unless you’re a sponsor. Feel free to submit a PR if you don’t mind seeing it languish in the queue. 
-Please feel free to contact me in private if you’re a company and you want to solve a particular workflow.
-
-Be a mensch. Patronize my tuchus.
 
 ** Configuration
 
@@ -136,22 +123,17 @@ Here are the defaults, but suit your needs.
 #+END_SRC
 
 Aside from the ~:pom~ key which captures the project coordinates and is always used, the other keys can be enabled or disabled as needed.
+
+** Will it work?
+
+It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
+
+Windows is not supported (where the Clojure command line tools are not available).  
+
+Feel free to open issues. but I will not look at them unless you’re a sponsor. Feel free to submit a PR if you don’t mind seeing it languish in the queue.
+
+Be a mensch. Patronize my tuchus.
   
-** Dependency mechanism
-
-The transitive dependency mechanism used by Maven is guided by the nearest wins conflict resolution strategy.
-
-1. Easy overriding of individual conflicts: For any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
-2. Reproducible builds: Version ranges anywhere in your dependency graph can cause builds to not be reproducible. A mediation strategy of “newest” would magnify the negative impact of version ranges on build reproducibility.
-
-Crux of the problem
-
-** Pom files
-
-Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is ~deps.edn~. Together with the configuration (in ~meyvn.edn~), it knows all that it needs to know.
-
-The added benefit is that you can continue to maintain your pom file if you already are using a Maven workflow. 
-
 ** Debugging the build
 
 If you see errors with the build, run ~myvn -g~. This will persist Meyvn’s pom file. You can now run ~mvn~ on it and debug as you normally would in Maven. You will need to specify the path to the pom file.
@@ -159,6 +141,19 @@ If you see errors with the build, run ~myvn -g~. This will persist Meyvn’s pom
 #+BEGIN_SRC sh
 mvn -f meyvn-pom.xml <goal>
 #+END_SRC
+
+** Dependency mechanism
+
+The transitive dependency mechanism used by Maven is guided by the nearest wins conflict resolution strategy.
+
+1. Easy overriding of individual conflicts: For any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
+2. Reproducible builds: Version ranges anywhere in your dependency graph can cause builds to not be reproducible. A mediation strategy of “newest” would magnify the negative impact of version ranges on build reproducibility.
+
+** Pom files
+
+Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is ~deps.edn~. Together with the configuration (in ~meyvn.edn~), it knows all that it needs to know.
+
+The added benefit is that you can continue to maintain your pom file if you already are using a Maven workflow. 
 
 ** Uberjars
 
