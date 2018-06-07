@@ -4,9 +4,7 @@
 You Know Nothing, Jon Snow. — Ygritte
 #+END_QUOTE
 
-The word maven comes from the Yiddish meyvn, meaning one who understands.
-
-You can think of Meyvn as: 
+The word maven comes from the Yiddish meyvn, meaning one who understands. You can think of Meyvn as: 
 
 - A build tool
 - A wrapper for Maven
@@ -16,7 +14,7 @@ Meyvn enable you to generate uberjars (executables) and jars (libraries), and de
 
 ** Goals
 
-- Use ~deps.edn~ as the single source of truth. 
+- Use ~deps.edn~ as single source of truth. 
 
 - One command to do it all: compile, package, install on a remote server, etc.
 
@@ -25,12 +23,12 @@ Meyvn enable you to generate uberjars (executables) and jars (libraries), and de
 ** Features
 
 - Clojurescript compilation relies on the official compiler, and all options are available to the user. 
-- This entails that Clojurescript compilation takes advantage of the shared aot cache. 
+- Clojurescript compilation takes advantage of the shared aot cache. 
 - No disk I/O related to Jar building occurs in Meyvn, it is all delegated to Maven.
 
 ** Installation
 
-1 Meyvn requires Maven. Make sure it is installed on your system.
+1. Meyvn requires Maven. Make sure it is installed on your system.
 2. Define an alias in $HOME/.clojure/deps.edn:
 
 #+BEGIN_SRC clojure
