@@ -16,5 +16,7 @@
 (defn invoke [conf args]
   (let [^InvocationResult result (invoke- (first args))]
     (try
-      (report/new-paste (get-in conf [:pom :group-id]) "Meyvn build" (str "result " (.getExitCode result)))
+      (report/new-paste (get-in conf [:pom :group-id])
+                        "Meyvn build"
+                        (str "result " (.getExitCode result)))
       (catch Exception e (do)))))

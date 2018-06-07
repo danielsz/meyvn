@@ -1,10 +1,23 @@
 * Meyvn 
 
+#+BEGIN_QUOTE
+You Know Nothing, Jon Snow. — Ygritte
+#+END_QUOTE
+#+BEGIN_QUOTE
+The word maven comes from the Yiddish meyvn, meaning "one who understands."
+#+END_QUOTE
+
+You can think of Meyvn as: 
+
+- A build tool
+- A wrapper for Maven
+- An extension of ~tools.deps~.
+
+Meyvn enable you to generate uberjars (executables) and jars (libraries), and will deploy them on remote servers, Clojars, etc.
+
 ** Goals
 
 - Use ~deps.edn~ as the single source of truth. 
-
-- Paying closer attention to an often overlooked aspect of builds: the quality of deployed artifacts. They should only contain the code necessary to run a program. You’d be surprised how often this is not the case.
 
 - Deploying in one fell swoop. Call it one-click deployment. One command to do it all: compile, package, install on a remote server, etc.
 
@@ -20,7 +33,8 @@ No disk I/O related to Jar building occurs in Meyvn, it is all delegated to Mave
 
 ** Installation
 
-1. Install this tool to an alias in $HOME/.clojure/deps.edn:
+1 Meyvn requires Maven. Make sure it is installed on your system.
+2. Define an alias in $HOME/.clojure/deps.edn:
 
 #+BEGIN_SRC clojure
 :aliases {:meyvn
@@ -28,7 +42,7 @@ No disk I/O related to Jar building occurs in Meyvn, it is all delegated to Mave
           ...}
 #+END_SRC
 
-2. Create an executable shell alias in your path.
+3. Create an executable shell script in your path.
 
 #+BEGIN_SRC sh
 $ touch /usr/local/bin/myvn
@@ -46,14 +60,15 @@ Set the executable bit.
 $ chmod +x /usr/local/bin/myvn
 #+END_SRC
 
-~M2_HOME~ points at the root of your Maven installation directory. If this environment variable is set in your shell environment, you don’t need it. Strictly speaking, Maven can run without it, but the provided APIs require this in order to find the executable (~/bin/mvn~). 
+~M2_HOME~ points to the root of your Maven installation directory. Strictly speaking, Maven can run without this environment variable, but the provided APIs require it in order to find the executable (~/bin/mvn~). 
 
 ~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. 
 
 ~"$@"~ references the arguments passed to the script.
 
-
 ** How does it work
+
+~tools.deps~ has the built-in capability to generate a pom file (~clj -Spom~). Meyvn starts off from that pom file and augments it with features that make sense for Clojure workflows, encompassing compilation, packaging and distribution.
 
 Meyvn generates a transient POM (equivalent to running ~clj -Spom~ on the command line), then extends it with plugins and extensions tailored to typical Clojure worklows, and finally runs Maven itself via an API. 
 
