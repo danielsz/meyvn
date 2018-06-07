@@ -29,7 +29,7 @@ Meyvn enable you to generate uberjars (executables) and jars (libraries), and de
 ** Installation
 
 1. Meyvn requires Maven. Make sure it is installed on your system.
-2. Define an alias in $HOME/.clojure/deps.edn:
+2. Define an alias in ~$HOME/.clojure/deps.edn~:
 
 #+BEGIN_SRC clojure
 :aliases {:meyvn
@@ -50,16 +50,16 @@ $ cat /usr/local/bin/myvn
 M2_HOME=/usr/local clj -A:meyvn -m meyvn.core "$@"
 #+END_SRC
 
-Set the executable bit. 
-#+BEGIN_SRC 
-$ chmod +x /usr/local/bin/myvn
-#+END_SRC
-
 ~M2_HOME~ points to the root of your Maven installation directory. Strictly speaking, Maven can run without this environment variable, but the provided APIs require it in order to find the executable (~/bin/mvn~). 
 
 ~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. 
 
 ~"$@"~ references the arguments passed to the script.
+
+Set the executable bit. 
+#+BEGIN_SRC 
+$ chmod +x /usr/local/bin/myvn
+#+END_SRC
 
 ** How does it work
 
