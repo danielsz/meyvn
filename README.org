@@ -8,7 +8,7 @@ The word maven comes from the Yiddish meyvn, meaning one who understands. You ca
 
 - A build tool
 - A wrapper for Maven
-- An extension of ~tools.deps~.
+- A ~tools.deps~ extension.
 
 Meyvn enable you to generate uberjars (executables) and jars (libraries), and to deploy them on remote servers, Clojars, etc.
 
@@ -37,7 +37,7 @@ Meyvn enable you to generate uberjars (executables) and jars (libraries), and to
           ...}
 #+END_SRC
 
-3. Create an executable shell script in your path.
+[@3] Create an executable shell script in your path.
 
 #+BEGIN_SRC sh
 $ touch /usr/local/bin/myvn
