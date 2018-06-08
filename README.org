@@ -18,16 +18,13 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 
 - One command to do it all: compile, package, install on a remote server, etc.
 
-- Lightweight. It only depends on Clojure and Maven (with no external dependencies).
+- Standalone and lightweight. It only depends on Clojure and Maven (with no external dependencies).
 
 - Ability to selectively shrink uberjars
 
-** Features
+- Leverage the Maven ecosystem
 
-- Up to 30% smaller uberjars
-- Leverages the Maven ecosystem
-- Clojurescript compilation relies on the official compiler
-- Clojurescript compilation takes advantage of the shared aot cache. 
+- Include a good Clojurescript story: official compiler, shared aot cache, all options available to user, etc.
 
 ** Installation
 
@@ -152,15 +149,15 @@ Consider the following deps.edn file:
 
 The Clojurescript-side of the mixed project is cleanly segregated. The ~:cljs~ alias is used when compiling the ~*.cljs~ files, but not when assembling the uberjar, helping to keep the latter small. You tell Meyvn to use this alias in the ~meyvn.edn~ configuration, under the ~cljs~ -> ~tools-deps-alias~ keys.
 
-Meyvn uses the Apache Maven Shade Plugin in order to build uberjars.
+If there is a ~resources~ folder in the base directory, it will be included in the build.
 
-The Shade plugin has advanced capabilities that are not used, such as class relocation. 
+Meyvn uses the Apache Maven Shade Plugin in order to build uberjars.
 
 #+BEGIN_QUOTE
 Shading dependencies is the process of including and renaming dependencies (thus relocating the classes & rewriting affected bytecode & resources) to create a private copy that you bundle alongside your own code. But the shading part is actually optional: the plugin allows to include dependencies in your jar (fat jar), and optionally rename (shade) dependencies.
 #+END_QUOTE
 
-However, Meyvn gives you access to the exclusions facility provided by the Shade plugin, equivalent to Leiningen’s [[https://github.com/technomancy/leiningen/blob/cee9029d15719058d39b4ccc30de2e0975f07f8a/sample.project.clj#L418][uberjar-exclusions]] or Boot’s 
+Meyvn gives you access to the exclusions facility provided by the Shade plugin, equivalent to Leiningen’s [[https://github.com/technomancy/leiningen/blob/cee9029d15719058d39b4ccc30de2e0975f07f8a/sample.project.clj#L418][uberjar-exclusions]] or Boot’s 
 [[https://github.com/boot-clj/boot/blob/e6ea562af765ee2b50703ab33a00cf615d0bef43/boot/pod/src/boot/pod.clj#L627][standard-jar-exclusions]].
 
 #+BEGIN_SRC clojure
@@ -170,7 +167,7 @@ However, Meyvn gives you access to the exclusions facility provided by the Shade
 
 Note that you don’t need to exclude ~INDEX/LIST~ as this is [[https://github.com/intelie/maven-shade-plugin/blob/71b5895028f9c9ca2730b45d1117d8e6d3372a3e/src/main/java/org/apache/maven/plugins/shade/DefaultShader.java#L137][built-in]] by the Shade plugin.
 
-Additionally, Meyvn allows you to exclude artifacts. It is possible that the Closure library is transitively pulled in your final uberjar, and that may not make sense.
+Additionally, Meyvn allows you to exclude artifacts. For example, sometimes the Closure library is pulled by a transitive dependency and lands in your final uberjar. With Meyvn you can prevent that.  
 
 Data readers are merged with a [[https://github.com/danielsz/shade-edn-transformer][custom transformer]] that knows how to merge EDN maps. 
 
@@ -182,7 +179,7 @@ Libraries uploaded to Clojars are typically non-aot, source-only jars. Uploading
 
 Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is ~deps.edn~. Together with the configuration (in ~meyvn.edn~), it knows all that it needs to know.
 
-The added benefit is that you can continue to maintain your pom file if you are already using a Maven workflow. 
+The added benefit is that you can continue to maintain a pom file if you are already using a Maven workflow. 
 
 *** Dependency mechanism
 
@@ -204,6 +201,10 @@ Feel free to open issues. but I will not look at them unless you’re a sponsor.
 
 Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
+** Roadmap 
+
+This is just the beginning. The plan is to have features sponsored by companies, that will be fed back to the OSS version. 
+ 
 ** What about Boot and Leiningen?
 
 What about them?
