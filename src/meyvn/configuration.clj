@@ -16,7 +16,7 @@
                            :remote-repository {:id "ssh-repository"
                                                :url "scpexe://user@domain:/home/.m2/repository"}
                            :excludes {:artifacts ["org.clojure:google-closure-library"]
-                                      :filters ["META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}
+                                      :filters ["META-INF/*.MF" "META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}
                  :jar {:enabled false
                        :remote-repository {:id "clojars"
                                            :url "https://clojars.org/repo"}}}

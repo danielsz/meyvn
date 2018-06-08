@@ -10,7 +10,7 @@ The word maven comes from the Yiddish meyvn, meaning one who understands. You ca
 - A wrapper for Maven
 - A ~tools.deps~ extension.
 
-Meyvn enable you to generate uberjars (executables) and jars (libraries), and to deploy them on remote servers, Clojars, etc.
+Meyvn enables you to generate uberjars (executables) and jars (libraries), and to deploy them on remote servers, Clojars, etc.
 
 ** Goals
 
@@ -18,13 +18,16 @@ Meyvn enable you to generate uberjars (executables) and jars (libraries), and to
 
 - One command to do it all: compile, package, install on a remote server, etc.
 
-- Meyvn is lightweight. It only depends on Clojure and Maven (with no external dependencies).
- 
+- Lightweight. It only depends on Clojure and Maven (with no external dependencies).
+
+- Ability to selectively shrink uberjars
+
 ** Features
 
+- Up to 30% smaller uberjars
 - Clojurescript compilation relies on the official compiler, and all options are available to the user. 
 - Clojurescript compilation takes advantage of the shared aot cache. 
-- No disk I/O related to Jar building occurs in Meyvn, it is all delegated to Maven.
+- Builds are extensible via Maven plugins
 
 ** Installation
 
@@ -61,7 +64,9 @@ $ chmod +x /usr/local/bin/myvn
 
 ** Usage
 
-That you already know. It’s Maven. There’s [[https://maven.apache.org/guides/][documentation]], too. Let me summarize it for ya. 
+That you already know. It’s the Maven lifecycle phases and goals that are passed as argumets. There’s [[https://maven.apache.org/guides/][documentation]], too. 
+
+For example: 
 
 #+BEGIN_SRC 
 myvn compile 
@@ -104,7 +109,7 @@ Here are the defaults, but suit your needs.
               :remote-repository {:id "ssh-repository"
                                   :url "scpexe://user@domain:/home/.m2/repository"}
               :excludes {:sets ["org.clojure:google-closure-library"]
-                         :filters ["META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}             
+                         :filters ["META-INF/*.MF" "META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}             
              :jar
              {:enabled false
               :remote-repository {:id "clojars"
@@ -116,9 +121,7 @@ Here are the defaults, but suit your needs.
                         :infer-externs true
                         :parallel-build true
                         :aot-cache true
-                        :output-dir "resources/js/compiled"
-                        :output-to "resources/js/main.js"
-                        :source-map "resources/js/main.js.map"}
+                        :output-to "resources/js/main.js"}
         :tools-deps-alias :cljs}}
 #+END_SRC
 
@@ -126,7 +129,7 @@ Aside from the ~:pom~ key which captures the project coordinates and is always u
 
 ** How does it work?
 
-~tools.deps~ has the built-in capability to generate a pom file (~clj -Spom~). Meyvn starts off from that pom file and augments it with features that make sense for Clojure workflows, encompassing compilation, packaging and distribution. Meyvn’s pom file is transient and does not interfere with POM files that may already be present in your project. 
+~tools.deps~ has the built-in capability to generate a pom file (~clj -Spom~). Meyvn starts off from that pom file and augments it with features that make sense for Clojure workflows. Meyvn’s pom file is transient and does not interfere with POM files that may already be present in your project. 
 
 Maven is invoked via an API (~Apache Maven Invoker~) and can be passed all lifecycle phases or goal it supports. 
 
@@ -136,41 +139,54 @@ Clojurescript sources are compiled and included in the final artifact. Clojuresc
 
 Meyvn uses the Apache Maven Shade Plugin in order to build uberjars.
 
+The Shade plugin has advanced capabilities that are not used, such as class relocation. 
+
+#+BEGIN_QUOTE
 Shading dependencies is the process of including and renaming dependencies (thus relocating the classes & rewriting affected bytecode & resources) to create a private copy that you bundle alongside your own code. But the shading part is actually optional: the plugin allows to include dependencies in your jar (fat jar), and optionally rename (shade) dependencies.
+#+END_QUOTE
 
-Data readers are merged with a [[https://github.com/danielsz/shade-edn-transformer][custom transformer]]. 
+However, Meyvn gives you access to the exclusions facility provided by the Shade plugin, equivalent to Leiningen’s [[https://github.com/technomancy/leiningen/blob/cee9029d15719058d39b4ccc30de2e0975f07f8a/sample.project.clj#L418][uberjar-exclusions]] or Boot’s 
+[[https://github.com/boot-clj/boot/blob/e6ea562af765ee2b50703ab33a00cf615d0bef43/boot/pod/src/boot/pod.clj#L627][standard-jar-exclusions]].
 
-*** Pom files
+#+BEGIN_SRC clojure
+:excludes {:artifacts ["org.clojure:google-closure-library"]
+           :filters ["META-INF/*.MF" "META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}
+#+END_SRC
 
-Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is ~deps.edn~. Together with the configuration (in ~meyvn.edn~), it knows all that it needs to know.
+Additionally, it allows you to exclude artifacts. It is possible that the Closure library is transitively pulled in your final uberjar, and that may not make sense.
 
-The added benefit is that you can continue to maintain your pom file if you already are using a Maven workflow. 
+Data readers are merged with a [[https://github.com/danielsz/shade-edn-transformer][custom transformer]] that knows how to merge EDN maps. 
 
 *** Regular jars
 
 Libraries uploaded to Clojars are typically non-aot, source-only jars.
-Uploading to Clojars follows standard procedure. Use ~settings.xml~ for storing your credentials.
+Uploading to Clojars follows [[https://github.com/clojars/clojars-web/wiki/Pushing#maven][standard procedure]]. Use ~settings.xml~ for storing your credentials.
+ 
+*** Pom files
+
+Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is ~deps.edn~. Together with the configuration (in ~meyvn.edn~), it knows all that it needs to know.
+
+The added benefit is that you can continue to maintain your pom file if you are already using a Maven workflow. 
 
 *** Dependency mechanism
 
 The transitive dependency mechanism used by Maven is guided by the nearest wins conflict resolution strategy.
+This allows for resolution of individual conflicts: for any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
 
-1. Easy overriding of individual conflicts: For any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
-2. Reproducible builds: Version ranges anywhere in your dependency graph can cause builds to not be reproducible. A mediation strategy of “newest” would magnify the negative impact of version ranges on build reproducibility.
+#+BEGIN_QUOTE
+Note that if two dependency versions are at the same depth in the dependency tree, until Maven 2.0.8 it was not defined which one would win, but since Maven 2.0.9 it's the order in the declaration that counts: the first declaration wins.
+#+END_QUOTE
 
-   
 ** Will it work?
 
 It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
+
 
 Windows is not supported (where the Clojure command line tools are not available).  
 
 Feel free to open issues. but I will not look at them unless you’re a sponsor. Feel free to submit a PR if you don’t mind seeing it languish in the queue.
 
 Be a mensch. Patronize my tuchus.
-  
-
-
 
 ** What about Boot and Leiningen?
 

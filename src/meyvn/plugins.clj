@@ -14,7 +14,7 @@
   (let [config (Xpp3Dom. "configuration")
         src-directories (Xpp3Dom. "sourceDirectories")]
     (doseq [path paths
-            :when (not= path "resources") ; catches when users put resources in paths in deps.edn 
+            :when (not= path "resources") ; catches when users put resources in paths in deps.edn
             :let [src-directory (Xpp3Dom. "sourceDirectory")]]
       (.setValue src-directory path)
       (.addChild src-directories src-directory))
