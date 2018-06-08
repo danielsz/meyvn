@@ -205,6 +205,8 @@ Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
 This is just the beginning. The release of the ~clj~ command line tools is still fresh, and we are just starting to see the possibilities.
 
+The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by a tool like Meyvn.
+
 The plan is to have more features as companies sponsor them. Those features will be fed back to the OSS version. 
  
 ** What about Boot and Leiningen?
