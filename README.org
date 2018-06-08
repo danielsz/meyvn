@@ -197,13 +197,15 @@ It should work for the typical Clojure workflows. Please feel free to contact me
 
 Windows is not supported (where the Clojure command line tools are not available).  
 
-Feel free to open issues. but I will not look at them unless you’re a sponsor. Feel free to submit a PR if you don’t mind seeing it languish in the queue.
+Feel free to open issues. 
 
 Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
 ** Roadmap 
 
-This is just the beginning. The plan is to have features sponsored by companies, that will be fed back to the OSS version. 
+This is just the beginning. The release of the ~clj~ command line tools is still fresh, and we are just starting to see the possibilities.
+
+The plan is to have more features as companies sponsor them. Those features will be fed back to the OSS version. 
  
 ** What about Boot and Leiningen?
 
