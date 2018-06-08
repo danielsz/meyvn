@@ -25,9 +25,9 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 ** Features
 
 - Up to 30% smaller uberjars
-- Clojurescript compilation relies on the official compiler, and all options are available to the user. 
+- Leverages the Maven ecosystem
+- Clojurescript compilation relies on the official compiler
 - Clojurescript compilation takes advantage of the shared aot cache. 
-- Builds are extensible via Maven plugins
 
 ** Installation
 
@@ -64,7 +64,7 @@ $ chmod +x /usr/local/bin/myvn
 
 ** Usage
 
-That you already know. It’s the Maven lifecycle phases and goals that are passed as argumets. There’s [[https://maven.apache.org/guides/][documentation]], too. 
+The standard Maven lifecycle phases and goals are passed as arguments. There’s [[https://maven.apache.org/guides/][documentation]], too. 
 
 For example: 
 
@@ -137,6 +137,21 @@ Clojurescript sources are compiled and included in the final artifact. Clojuresc
 
 *** Uberjars
 
+Consider the following deps.edn file: 
+
+#+BEGIN_SRC clojure
+{:paths ["src/clj"]
+ :deps {org.clojure/core.async {:mvn/version "0.4.474"}
+        ring {:mvn/version "1.6.3"}
+        compojure {:mvn/version "1.6.1"}}
+ :aliases {:cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.10.238"}
+                               reagent {:mvn/version "0.8.1"} 
+                               secretary {:mvn/version "1.2.3"}}
+                  :extra-paths ["src/cljs"]}}}
+#+END_SRC
+
+The Clojurescript-side of the mixed project is cleanly segregated. The ~:cljs~ alias is used when compiling the ~*.cljs~ files, but not when assembling the uberjar, helping to keep the latter small. You tell Meyvn to use this alias in the ~meyvn.edn~ configuration, under the ~cljs~ -> ~tools-deps-alias~ keys.
+
 Meyvn uses the Apache Maven Shade Plugin in order to build uberjars.
 
 The Shade plugin has advanced capabilities that are not used, such as class relocation. 
@@ -153,14 +168,15 @@ However, Meyvn gives you access to the exclusions facility provided by the Shade
            :filters ["META-INF/*.MF" "META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}
 #+END_SRC
 
-Additionally, it allows you to exclude artifacts. It is possible that the Closure library is transitively pulled in your final uberjar, and that may not make sense.
+Note that you don’t need to exclude ~INDEX/LIST~ as this is [[https://github.com/intelie/maven-shade-plugin/blob/71b5895028f9c9ca2730b45d1117d8e6d3372a3e/src/main/java/org/apache/maven/plugins/shade/DefaultShader.java#L137][built-in]] by the Shade plugin.
+
+Additionally, Meyvn allows you to exclude artifacts. It is possible that the Closure library is transitively pulled in your final uberjar, and that may not make sense.
 
 Data readers are merged with a [[https://github.com/danielsz/shade-edn-transformer][custom transformer]] that knows how to merge EDN maps. 
 
 *** Regular jars
 
-Libraries uploaded to Clojars are typically non-aot, source-only jars.
-Uploading to Clojars follows [[https://github.com/clojars/clojars-web/wiki/Pushing#maven][standard procedure]]. Use ~settings.xml~ for storing your credentials.
+Libraries uploaded to Clojars are typically non-aot, source-only jars. Uploading to Clojars follows [[https://github.com/clojars/clojars-web/wiki/Pushing#maven][standard procedure]]. Use ~settings.xml~ for storing your credentials.
  
 *** Pom files
 
@@ -186,7 +202,7 @@ Windows is not supported (where the Clojure command line tools are not available
 
 Feel free to open issues. but I will not look at them unless you’re a sponsor. Feel free to submit a PR if you don’t mind seeing it languish in the queue.
 
-Be a mensch. Patronize my tuchus.
+Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
 ** What about Boot and Leiningen?
 
