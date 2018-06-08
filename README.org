@@ -215,3 +215,14 @@ What about them?
 
 - [[http://nealford.com/memeagora/2013/01/22/why_everyone_eventually_hates_maven.html][Why Everyone (Eventually) Hates (or Leaves) Maven]]
 - [[https://rule1.quora.com/Use-Maven-Not-Gradle][Use Maven, Not Gradle]]
+** License
+
+Meyvn is released under a dual licensing scheme. 
+
+Meyvn is an Open Source project licensed under the terms of the LGPLv3
+license.  Please see <http://www.gnu.org/licenses/lgpl-3.0.html> for
+license text.
+
+Meyvn Enterprise has a commercial-friendly license allowing private
+forks and modifications of Meyvn. You can find the commercial license
+terms in COMM-LICENSE.
