@@ -226,5 +226,6 @@ license.  Please see <http://www.gnu.org/licenses/lgpl-3.0.html> for
 license text.
 
 Meyvn Enterprise has a commercial-friendly license allowing private
-forks and modifications of Meyvn. You can find the commercial license
-terms in COMM-LICENSE.
+forks and modifications of Meyvn. Additionally, licensees get access
+to email support.
+
