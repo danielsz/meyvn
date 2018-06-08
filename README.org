@@ -109,7 +109,7 @@ Here are the defaults, but suit your needs.
                          :filters ["META-INF/*.MF" "META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}             
              :jar
              {:enabled false
-              :remote-repository {:id "clojars"
+              :remote-repository {:id "clojars" ;; Username and password lives in ~/.m2/settings.xml
                                   :url "https://clojars.org/repo"}}}
  :cljs {:enabled false
         :main-class "main.core"
