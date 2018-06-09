@@ -194,10 +194,9 @@ Note that if two dependency versions are at the same depth in the dependency tre
 
 It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
 
+Please note that Windows, where the Clojure command line tools are not available, is not supported.
 
-Windows is not supported (where the Clojure command line tools are not available).  
-
-Feel free to open issues. 
+Feel free to open issues regarding the supported workflows. New workflows will be added under commercial agreements.
 
 Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
@@ -205,7 +204,7 @@ Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
 This is just the beginning. The release of the ~clj~ command line tools is still fresh, and we are just starting to see the possibilities.
 
-The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by a tool like Meyvn.
+The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by a tool like Meyvn. Things like continuous integration, generated documentation, testing, reporting, etc.
 
 The plan is to have more features as companies sponsor them. Those features will be fed back to the OSS version. 
  
