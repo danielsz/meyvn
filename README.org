@@ -233,8 +233,6 @@ In other words, there is no competition, only complementary options.
 The NoLipService library is used to gain visibility into the commercial usage of Meyvn.
 Companies who use Meyvn may be approached with proposals to acquire a commercial license.
 
-Don’t pay lip service to OSS, support it actively.
-
 Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
 ** License
@@ -247,8 +245,10 @@ license text.
 
 Meyvn Enterprise has a commercial-friendly license allowing private
 forks and modifications of Meyvn. Licensees get a build of Meyvn with
-commercial features, and devoid of ~NoLipService~. Finally, licensees
-get access to email support.
+commercial features, and devoid of ~NoLipService~’s tracking of group
+id associated with builds. 
+
+Additionally, licensees get access to email support.
 
 ** Literature
 
