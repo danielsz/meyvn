@@ -173,8 +173,18 @@ Data readers are merged with a [[https://github.com/danielsz/shade-edn-transform
 
 *** Regular jars
 
-Libraries uploaded to Clojars are typically non-aot, source-only jars. Uploading to Clojars follows [[https://github.com/clojars/clojars-web/wiki/Pushing#maven][standard procedure]]. Use ~settings.xml~ for storing your credentials.
- 
+Libraries uploaded to Clojars are typically non-aot, source-only jars. Uploading to Clojars follows [[https://github.com/clojars/clojars-web/wiki/Pushing#maven][standard procedure]]. 
+Private repositories are supported as well. For example, to upload an artifact to ~deps.co~, adjust the remote repository setting in the jar section of ~meyvn.edn~. 
+
+#+BEGIN_SRC clojure
+:jar
+{:enabled true
+ :remote-repository {:id "releases"
+                     :url "https://repo.deps.co/your-org/releases"}}
+#+END_SRC
+
+In all cases, use ~settings.xml~ for storing your credentials, or refer to Maven for [[http://maven.apache.org/guides/mini/guide-encryption.html][password encryption]].
+
 *** Pom files
 
 Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is ~deps.edn~. Together with the configuration (in ~meyvn.edn~), it knows all that it needs to know.
@@ -204,13 +214,13 @@ Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
 This is just the beginning. The release of the ~clj~ command line tools is still fresh, and we are just starting to see the possibilities.
 
-The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by a tool like Meyvn. Things like continuous integration, generated documentation, testing, reporting, etc.
+The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by our tooling. Things like continuous integration, generated documentation, testing, reporting, etc.
 
 The plan is to have more features as companies sponsor them. Those features will be fed back to the OSS version. 
  
 ** What about Boot and Leiningen?
 
-What about them?
+There is no competition, only complementary.
 
 ** Literature
 
@@ -227,4 +237,3 @@ license text.
 Meyvn Enterprise has a commercial-friendly license allowing private
 forks and modifications of Meyvn. Additionally, licensees get access
 to email support.
-
