@@ -221,10 +221,9 @@ The plan is to have more features as companies sponsor them. Those features will
  
 ** What about Boot and Leiningen?
 
-The scope of Boot and Leiningen is larger, providing development-time workflows and extension mechanisms.
+Boot and Leiningen can also produce artifacts, but their scope is larger, providing development-time workflows and extension mechanisms.
 
-Boot and Leiningen can also produce artifacts, but Meyvn leverages Maven plugins to provide additional services.
-And Meyvn’s interface with the Clojurescript compiler is unmediated (unlike Boot and Leiningen).
+Meyvn leverages Maven to do its thing. And Meyvn’s interface with the Clojurescript compiler is unmediated (unlike Boot and Leiningen).
 
 In other words, there is no competition, only complementary options.
 
