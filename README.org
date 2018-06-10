@@ -93,7 +93,7 @@ mvn -f meyvn-pom.xml <goal>
 
 Configuration is stored in ~meyvn.edn~, which will be created in the root of your project on first run. 
 
-Here are the defaults, but suit your needs.
+Here are the defaults. Aside from the ~:pom~ key which captures the project coordinates and is always used, the other keys can be enabled or disabled as needed. 
 
 #+BEGIN_SRC clojure
 {:pom {:group-id "com.changeme"
@@ -121,8 +121,6 @@ Here are the defaults, but suit your needs.
                         :output-to "resources/js/main.js"}
         :tools-deps-alias :cljs}}
 #+END_SRC
-
-Aside from the ~:pom~ key which captures the project coordinates and is always used, the other keys can be enabled or disabled as needed.
 
 ** How does it work?
 
