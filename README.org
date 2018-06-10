@@ -208,24 +208,32 @@ Please note that Windows, where the Clojure command line tools are not available
 
 Feel free to open issues regarding the supported workflows. New workflows will be added under commercial agreements.
 
-Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
-
 ** Roadmap 
 
 This is just the beginning. The release of the ~clj~ command line tools is still fresh, and we are just starting to see the possibilities.
 
-The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by our tooling. Things like continuous integration, generated documentation, testing, reporting, etc.
+The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by our tooling (continuous integration, generated documentation, testing, reporting, etc.)
 
 The plan is to have more features as companies sponsor them. Those features will be fed back to the OSS version. 
  
 ** What about Boot and Leiningen?
 
-There is no competition, only complementary.
+The scope of Boot and Leiningen is larger, providing development-time workflows and extension mechanisms.
 
-** Literature
+Boot and Leiningen can also produce artifacts, but Meyvn leverages Maven plugins to provide additional services.
+And Meyvn’s interface with the Clojurescript compiler is unmediated (unlike Boot and Leiningen).
 
-- [[http://nealford.com/memeagora/2013/01/22/why_everyone_eventually_hates_maven.html][Why Everyone (Eventually) Hates (or Leaves) Maven]]
-- [[https://rule1.quora.com/Use-Maven-Not-Gradle][Use Maven, Not Gradle]]
+In other words, there is no competition, only complementary options.
+
+** No Lip Service
+
+The NoLipService library is used to gain visibility into the commercial usage of Meyvn.
+Companies who use Meyvn may be approached with proposals to acquire a commercial license.
+
+Don’t pay lip service to OSS, support it actively.
+
+Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
+
 ** License
 
 Meyvn is released under a dual licensing scheme. 
@@ -235,5 +243,11 @@ license.  Please see <http://www.gnu.org/licenses/lgpl-3.0.html> for
 license text.
 
 Meyvn Enterprise has a commercial-friendly license allowing private
-forks and modifications of Meyvn. Additionally, licensees get access
-to email support.
+forks and modifications of Meyvn. Licensees get a build of Meyvn with
+commercial features, and devoid of ~NoLipService~. Finally, licensees
+get access to email support.
+
+** Literature
+
+- [[http://nealford.com/memeagora/2013/01/22/why_everyone_eventually_hates_maven.html][Why Everyone (Eventually) Hates (or Leaves) Maven]]
+- [[https://rule1.quora.com/Use-Maven-Not-Gradle][Use Maven, Not Gradle]]
