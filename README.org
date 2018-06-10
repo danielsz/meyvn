@@ -54,7 +54,7 @@ $ touch /usr/local/bin/myvn
 $ readlink -f `which mvn` | awk '{gsub("bin/mvn", ""); print}'
 #+END_SRC
 
-Edit your newly created shell script with the following.
+- Edit your newly created shell script with the following.
 
 #+BEGIN_SRC sh
 $ cat /usr/local/bin/myvn
