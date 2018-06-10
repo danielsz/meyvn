@@ -26,6 +26,11 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 
 - Include a good Clojurescript story: official compiler, shared aot cache, all options available to user, etc.
 
+** Quickstart
+
+A “Hello, World” workflow with Meyvn.
+
+#+HTML: <a href="http://www.youtube.com/watch?feature=player_embedded&v=_56kl85XMkw" target="_blank"><img src="http://img.youtube.com/vi/_56kl85XMkw/0.jpg" alt="Interactive programming" width="560" height="315" border="10" /></a> 
 ** Installation
 
 - Meyvn requires Maven. Make sure it is installed on your system.
