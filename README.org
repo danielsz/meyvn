@@ -48,12 +48,6 @@ A “Hello, World” workflow with Meyvn.
 $ touch /usr/local/bin/myvn
 #+END_SRC
 
-- Find the prefix for the Maven installation on your system.
-
-#+BEGIN_SRC sh
-$ readlink -f `which mvn` | awk '{gsub("bin/mvn", ""); print}'
-#+END_SRC
-
 - Edit your newly created shell script with the following.
 
 #+BEGIN_SRC sh
@@ -62,11 +56,16 @@ $ cat /usr/local/bin/myvn
 M2_HOME=/usr/share/maven clj -A:meyvn -m meyvn.core "$@"
 #+END_SRC
 
+~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. ~$@~ references the arguments passed to the script.
 ~M2_HOME~ points to the root of your Maven installation directory, replace the content with the prefix appropriate for your system.
 
 /Note:/ Maven can run without this environment variable on the command line, but the Maven Invoker APIs require it to be set explicitly.
 
-~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. ~$@~ references the arguments passed to the script.
+- To find the prefix for the Maven installation on your system.
+
+#+BEGIN_SRC sh
+$ readlink -f `which mvn` | awk '{gsub("bin/mvn", ""); print}'
+#+END_SRC
 
 - Set the executable bit.
 #+BEGIN_SRC 
