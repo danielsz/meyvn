@@ -28,20 +28,6 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 
 - Sustainable open source.
 
-** Sustainable open source
-
-We as a community know how to write open source software, but we are less knowledgeable in how to make it sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. Companies who use Meyvn may be approached with proposals to acquire a commercial license.
-
-To gain visibility into the usage of Meyvn, Meyvn reports the POM’s group ID and success result of each execution back to an analytics server. 
-
-The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the reporting. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas.
-
-If you'd like to license a commercial version which doesn't collect data, please refer to the license section at the bottom of the README.
-
-The LGPLv3 licensed community version will always remain free and available to all parties.
-
-Writing and maintaining Open Source Software takes time and effort. Be a mensch and a maven. [[https://www.patreon.com/danielsz][Patronize]] Meyvn.
-
 ** Quickstart
 
 A “Hello, World” workflow with Meyvn.
@@ -253,6 +239,20 @@ Meyvn delegates build tasks to Maven, and offers direct access to the Clojurescr
 
 In other words, there is no competition, only complementary options.
 
+** Sustainable open source
+
+We as a community know how to write open source software, but we are less knowledgeable in how to make it sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. Companies who use Meyvn may be approached with proposals to acquire a commercial license.
+
+To gain visibility into the usage of Meyvn, Meyvn reports the POM’s group ID and success result of each execution back to an analytics server. 
+
+The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the reporting. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas.
+
+If you'd like to license a commercial version which doesn't collect data, please refer to the license section at the bottom of the README.
+
+The LGPLv3 licensed community version will always remain free and available to all parties.
+
+Writing and maintaining Open Source Software takes time and effort. Be a mensch and a maven. [[https://www.patreon.com/danielsz][Patronize]] Meyvn.
+
 ** License
 
 Meyvn is released under a dual licensing scheme. 
@@ -265,6 +265,9 @@ Meyvn Enterprise has a commercial-friendly license allowing private
 forks and modifications of Meyvn. Licensees get a build of Meyvn with
 commercial features, and devoid of NoLipService’s reporting.
 Additionally, licensees get access to email support.
+
+Meyvn Enterprise sells for a one-time fee of 500$ or a 30$ monthly
+subscription.
 
 Please contact me for more details.
 
