@@ -239,7 +239,7 @@ In other words, there is no competition, only complementary options.
 
 ** No Lip Service
 
-The NoLipService library is used to gain visibility into the enterprise usage of Meyvn. Companies who use Meyvn may be approached with proposals to acquire a commercial license.
+The [[https://gist.github.com/danielsz/bfffa118b9fa995c0afa19d6c92244d8][NoLipService]] library is used to gain visibility into the enterprise usage of Meyvn. Companies who use Meyvn may be approached with proposals to acquire a commercial license.
 
 Writing and maintaining Open Source Software takes time and effort. Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
