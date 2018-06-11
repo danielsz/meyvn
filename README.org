@@ -247,7 +247,7 @@ To gain visibility into the usage of Meyvn, Meyvn reports the POM’s group ID a
 
 The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the reporting. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas.
 
-If you'd like to license a commercial version which doesn't collect data, please refer to the license section at the bottom of the README.
+If you'd like to license a commercial version which doesn't collect data, please refer to the license section in the README.
 
 The LGPLv3 licensed community version will always remain free and available to all parties.
 
