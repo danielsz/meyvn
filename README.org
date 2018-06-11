@@ -34,11 +34,11 @@ We as a community know how to write open source software, but we are less knowle
 
 To gain visibility into the usage of Meyvn, Meyvn reports the POM’s group ID and success result of each execution back to an analytics server. 
 
-The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the analytics. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and more implementation ideas. 
+The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the analytics. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas. 
 
 If you'd like to license a commercial version which doesn't collect data, please refer to the license section at the bottom of the README.
 
-The community version will always remain free and available to all parties.
+The LGPLv3 licensed community version will always remain free and available to all parties.
 
 Writing and maintaining Open Source Software takes time and effort. Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
