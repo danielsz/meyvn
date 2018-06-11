@@ -263,9 +263,7 @@ license text.
 
 Meyvn Enterprise has a commercial-friendly license allowing private
 forks and modifications of Meyvn. Licensees get a build of Meyvn with
-commercial features, and devoid of NoLipService’s tracking of group
-id associated with builds. 
-
+commercial features, and devoid of NoLipService’s reporting.
 Additionally, licensees get access to email support.
 
 Please contact me for more details.
