@@ -26,6 +26,22 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 
 - Include a good Clojurescript story: official compiler, shared aot cache, all options available to user, etc.
 
+- Sustainable open source.
+
+** Sustainable open source
+
+We as a community know how to write open source software, but we are less knowledgeable in how to make it sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. Companies who use Meyvn may be approached with proposals to acquire a commercial license.
+
+To gain visibility into the usage of Meyvn, Meyvn reports the POM’s group ID and success result of each execution back to an analytics server. 
+
+The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the analytics. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and more implementation ideas. 
+
+If you'd like to license a commercial version which doesn't collect data, please refer to the license section at the bottom of the README.
+
+The community version will always remain free and available to all parties.
+
+Writing and maintaining Open Source Software takes time and effort. Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
+
 ** Quickstart
 
 A “Hello, World” workflow with Meyvn.
@@ -236,12 +252,6 @@ Naturally, Boot and Leiningen can also produce artifacts, but their scope is lar
 Meyvn delegates build tasks to Maven, and offers direct access to the Clojurescript compiler (unlike Boot and Leiningen).
 
 In other words, there is no competition, only complementary options.
-
-** No Lip Service
-
-The [[https://gist.github.com/danielsz/bfffa118b9fa995c0afa19d6c92244d8][NoLipService]] library is used to gain visibility into the enterprise usage of Meyvn. Companies who use Meyvn may be approached with proposals to acquire a commercial license, but the community version will always remain free and available to all parties. 
-
-Writing and maintaining Open Source Software takes time and effort. Be a mensch. [[https://www.patreon.com/danielsz][Patronize]] my tuchus.
 
 ** License
 
