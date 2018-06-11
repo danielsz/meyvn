@@ -26,7 +26,7 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 
 - Include a good Clojurescript story: official compiler, shared aot cache, all options available to user, etc.
 
-- Sustainable open source.
+- Sustainable open source with dual licensing scheme.
 
 ** Quickstart
 
