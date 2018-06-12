@@ -233,9 +233,9 @@ The plan is to have more features as companies sponsor them. Those features will
  
 ** What about Boot and Leiningen?
 
-Naturally, Boot and Leiningen can also produce artifacts, but their scope is larger, providing development-time workflows and extension mechanisms.
+Naturally, Boot and Leiningen can also produce artifacts, but their scope is wider, providing development-time workflows and extension mechanisms.
 
-Meyvn delegates build tasks to Maven, and offers direct access to the Clojurescript compiler (unlike Boot and Leiningen).
+Meyvn delegates build tasks to Maven, and offers direct access to the Clojurescript compiler.
 
 In other words, there is no competition, only complementary options.
 
@@ -247,11 +247,11 @@ To gain visibility into the usage of Meyvn, Meyvn reports the POM’s group ID a
 
 The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the reporting. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas.
 
-If you'd like to license a commercial version which doesn't collect data, please refer to the license section in the README.
+If you'd like to license a commercial version which doesn't collect data, please refer to the license section below.
 
 The LGPLv3 licensed community version will always remain free and available to all parties.
 
-Writing and maintaining Open Source Software takes time and effort. Be a mensch and a maven. [[https://www.patreon.com/danielsz][Patronize]] Meyvn.
+Writing and maintaining Open Source Software takes time and effort. Be a mensch. Be a maven. [[https://www.patreon.com/danielsz][Patronize]] Meyvn.
 
 ** License
 
