@@ -5,7 +5,7 @@
    [meyvn.configuration :refer [read-conf]]
    [meyvn.transient-pom :as transient]
    [meyvn.maven :as maven]
-   [meyvn.utils :refer [exit]]
+   [meyvn.utils :refer [exit opt-in]]
    [clojure.java.io :as io]
    [clojure.string :as str]))
 
@@ -28,6 +28,7 @@
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (when (:help options) (exit (usage summary)))
+    (opt-in)
     (let [[deps-map conf] (read-conf)
           meyvn-pom (transient/extend-pom deps-map conf)]
       (if (:generate options)
