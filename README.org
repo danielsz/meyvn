@@ -40,7 +40,7 @@ A “Hello, World” workflow with Meyvn.
 
 #+BEGIN_SRC clojure
 :aliases {:meyvn
-          {:extra-deps {org.danielsz/meyvn {:mvn/version "1.0.1"}}}
+          {:extra-deps {org.danielsz/meyvn {:mvn/version "1.0.2"}}}
           ...}
 #+END_SRC
 
