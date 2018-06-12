@@ -258,7 +258,7 @@ The second model doesn’t need tracking, because the distinction between a basi
 
 *Pros*: No tracking. *Cons*: The community loses.
 
-The current model I am putting to test is the first model (with opt-in tracking). When you opt-in, Meyvn will send the POM’s group ID and success result of each execution back to an analytics server. When you opt-out, the program quits. At this stage, I am interested in users who can relate with the mission statement, for whom finding ways to do sustainable OSS is a shared value and not mere lip service.
+The first model I am putting to test is the first model (with opt-in tracking). When you opt-in, Meyvn will send the POM’s group ID and success result of each execution back to an analytics server. When you opt-out, the program quits. At this stage, I am interested in users who can relate with the mission statement, for whom finding ways to do sustainable OSS is a shared value and not mere lip service.
 
 The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the reporting. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas.
  
