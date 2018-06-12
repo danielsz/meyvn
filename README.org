@@ -241,18 +241,28 @@ In other words, there is no competition, only complementary options.
 
 ** Sustainable open source
 
-We as a community know how to write open source software, but we are less knowledgeable in how to make it sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. Companies who use Meyvn may be approached with proposals to acquire a commercial license.
+We as a community know how to write open source software, but we are less knowledgeable in how to make it sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. That means that Meyvn is dual licensed, with a commercial license available for sale.
 
-To gain visibility into the usage of Meyvn, Meyvn reports the POM’s group ID and success result of each execution back to an analytics server. 
+The LGPLv3 licensed community version will always remain free and available to all parties. However, companies who use Meyvn in their operations are expected to acquire a commercial license. 
+
+In the coming months, I will experiment with two competing models: 
+
+1. Commercial and OSS version have parity of features
+2. Commercial version has more features than OSS 
+
+What enables the first model is analytics. By sending data home, I can approach companies with proposals to acquire a commercial license. The features I am adding to the commercial version are fed back to the OSS version. 
+*Pros*: The community benefits
+*Cons*: Tracking
+
+The second model doesn’t need tracking, because the distinction between a free and a pro version with many more features is by itself an incentive to buy the “better version”. 
+
+*Pros*: No tracking
+*Cons*: The community loses
+
+The current model I am putting to test is the first model (with opt-in tracking). When you opt-in, Meyvn will send the POM’s group ID and success result of each execution back to an analytics server. When you opt-out, the program quits. At this stage, I am interested in users who are supportive and for whom finding ways to do sustainable OSS is important and not mere lip service.
 
 The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the reporting. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas.
-
-If you'd like to license a commercial version which doesn't collect data, please refer to the license section below.
-
-The LGPLv3 licensed community version will always remain free and available to all parties.
-
-Writing and maintaining Open Source Software takes time and effort. Be a mensch. Be a maven. [[https://www.patreon.com/danielsz][Patronize]] Meyvn.
-
+ 
 ** License
 
 Meyvn is released under a dual licensing scheme. 
@@ -266,10 +276,11 @@ forks and modifications of Meyvn. Licensees get a build of Meyvn with
 commercial features, and devoid of NoLipService’s reporting.
 Additionally, licensees get access to email support.
 
-Meyvn Enterprise sells for a one-time fee of 500$ or a 30$ monthly
-subscription.
-
 Please contact me for more details.
+
+** Patron
+
+Writing and maintaining Open Source Software takes time and effort. Be a mensch. Be a maven. [[https://www.patreon.com/danielsz][Patronize]] Meyvn.
 
 ** Literature
 
