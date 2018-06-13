@@ -3,4 +3,4 @@
         org.clojure/tools.cli {:mvn/version "0.3.7"}
         org.apache.maven/maven-model {:mvn/version "3.5.3"}
         org.apache.maven.shared/maven-invoker {:mvn/version "3.0.1"}
-        org.danielsz/nolipservice {:mvn/version "1.0.1-SNAPSHOT"}}}
+        org.danielsz/nolipservice {:mvn/version "1.0.2-SNAPSHOT"}}}
