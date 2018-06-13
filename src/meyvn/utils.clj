@@ -1,6 +1,7 @@
 (ns meyvn.utils
   (:require [clojure.string :as str]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [clojure.java.browse :refer [browse-url]])
   (:import [java.util Scanner InputMismatchException]))
 
 (defn exit [msg & {:keys [status] :or {status 0}}]
@@ -23,4 +24,5 @@
       (let [resp (str/lower-case (prompt))]
         (case resp
           "y" (.mkdir meyvn-dir)
-          "n" (exit "Sorry, currently there is no other way to make this work."))))))
+          "n" (do (browse-url "https://github.com/danielsz/meyvn#sustainable-open-source")
+                  (exit "Sorry, currently there is no other way to make this work.")))))))
