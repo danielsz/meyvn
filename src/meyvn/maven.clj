@@ -1,6 +1,6 @@
 (ns meyvn.maven
   (:require [clojure.java.io :as io]
-            [nolipservice.core :refer [report]])
+            [meyvn.utils :refer [report]])
   (:import [org.apache.maven.shared.invoker DefaultInvoker DefaultInvocationRequest InvocationResult]))
 
 
