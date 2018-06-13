@@ -1,0 +1,7 @@
+* Changes
+** 1.0.2
+GDPR Opt-in
+** 1.0.1
+Google Analytics
+** 1.0.0
+Initial version
