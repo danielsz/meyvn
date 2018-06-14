@@ -72,8 +72,8 @@
   (when-let [git (and (:enabled conf) (find-git))]
     (let [scm (source-control {:tag (:sha git)
                                :url (:browse git)
-                               :connection (str "scm:git:" (:public-clone git))
-                               :developer-connection (str "scm:git:" (:dev-clone git))})]
+                               :connection (str "scm:git:" (:uri git))
+                               :developer-connection (str "scm:git:" (:uri git))})]
       (.setScm model scm)))
   model)
 

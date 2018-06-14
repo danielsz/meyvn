@@ -136,7 +136,8 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
                         :parallel-build true
                         :aot-cache true
                         :output-to "resources/js/main.js"}
-        :tools-deps-alias :cljs}}
+        :tools-deps-alias :cljs}
+ :scm {:enabled true}}
 #+END_SRC
 
 ** How does it work?

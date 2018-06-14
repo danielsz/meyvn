@@ -2,11 +2,11 @@
   (:require [clojure.java.io :as io]
             [clojure.java.shell :refer [sh]]
             [clojure.string :as str]
-            [meyvn.utils :refer [exit]]
-            [meyvn.utils.github :refer [github-urls]])
+            [meyvn.utils :refer [exit]])
   (:import [java.nio.file FileSystems]
            [org.eclipse.jgit.api Git]
            [org.eclipse.jgit.lib Constants]
+           [org.eclipse.jgit.transport URIish]
            [org.eclipse.jgit.errors RepositoryNotFoundException]))
 
 (defn find-env []
@@ -25,12 +25,12 @@
     (let [repo (.getRepository git)
           config (.getConfig repo)
           last-commit (.resolve repo Constants/HEAD)
-          url (.getString config "remote" "origin" "url")]
-      (merge {:sha (.getName last-commit)
-              :branch (.getBranch repo)
-              :state (.getRepositoryState repo)
-              :url url}
-             (github-urls url)))))
+          uri (URIish. (.getString config "remote" "origin" "url"))]
+      {:sha (.getName last-commit)
+       :branch (.getBranch repo)
+       :state (.getDescription (.getRepositoryState repo))
+       :uri (str uri)
+       :browse (str "https://" (.getHost uri) "/" (first  (str/split (.getPath uri) #"\.")))})))
 
 (defn find-file [s]
   (let [f (io/file s)]
