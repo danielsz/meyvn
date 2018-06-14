@@ -1,13 +1,15 @@
 (ns meyvn.core
   (:require
+   [nolipservice.core :refer [opt-in]]
    [clojure.tools.cli :refer [parse-opts]]
    [meyvn.cljs :as cljs]
    [meyvn.configuration :refer [read-conf]]
    [meyvn.transient-pom :as transient]
    [meyvn.maven :as maven]
-   [meyvn.utils :refer [exit opt-in]]
+   [meyvn.utils :refer [exit]]
    [clojure.java.io :as io]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [clojure.edn :as edn]))
 
 (def cli-options
  [["-g" "--generate" "Write meyvn-pom.xml in current directory."]
@@ -28,7 +30,7 @@
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (when (:help options) (exit (usage summary)))
-    (opt-in)
+    (opt-in (edn/read-string (slurp (io/resource "nolipservice.edn"))))
     (let [[deps-map conf] (read-conf)
           meyvn-pom (transient/extend-pom deps-map conf)]
       (if (:generate options)
