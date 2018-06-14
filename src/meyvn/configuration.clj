@@ -30,8 +30,8 @@
                             :output-dir "resources/js/compiled"
                             :output-to "resources/js/main.js"
                             :source-map "resources/js/main.js.map"}
-            :tools-deps-alias :cljs}}
-    :scm {:enabled true}))
+            :tools-deps-alias :cljs}
+     :scm {:enabled true}}))
 
 (def deps-map
   (let [user-deps (find-user-deps)
