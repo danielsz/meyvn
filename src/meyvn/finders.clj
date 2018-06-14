@@ -30,7 +30,7 @@
        :branch (.getBranch repo)
        :state (.getDescription (.getRepositoryState repo))
        :uri (str uri)
-       :browse (str "https://" (.getHost uri) "/" (first  (str/split (.getPath uri) #"\.")))})))
+       :browse (str "https://" (.getHost uri) "/" (first (str/split (.getPath uri) #"\.")))})))
 
 (defn find-file [s]
   (let [f (io/file s)]
