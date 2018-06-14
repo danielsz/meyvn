@@ -4,4 +4,5 @@
        :name "Better builds for Clojure"}
  :packaging {:jar {:enabled true
                    :remote-repository {:id "clojars"
-                                       :url "https://clojars.org/repo"}}}}
+                                       :url "https://clojars.org/repo"}}}
+ :scm {:enabled true}}

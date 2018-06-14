@@ -1,11 +1,13 @@
 (ns meyvn.transient-pom
-  (:require [meyvn.plugins :refer [clojure-maven-plugin maven-shade-plugin maven-enforcer-plugin]]
-            [clojure.tools.deps.alpha.gen.pom :as gen.pom]
-            [clojure.tools.deps.alpha.extensions.pom :as ext.pom]
-            [clojure.java.io :as io]
-            [clojure.data.xml :as xml])
+  (:require
+   [meyvn.finders :refer [find-git]]
+   [meyvn.plugins :refer [clojure-maven-plugin maven-shade-plugin maven-enforcer-plugin]]
+   [clojure.tools.deps.alpha.gen.pom :as gen.pom]
+   [clojure.tools.deps.alpha.extensions.pom :as ext.pom]
+   [clojure.java.io :as io]
+   [clojure.data.xml :as xml])
   (:import [org.apache.maven.model.building FileModelSource]
-           [org.apache.maven.model Extension Resource Repository DistributionManagement DeploymentRepository]
+           [org.apache.maven.model Extension Resource Repository DistributionManagement DeploymentRepository Scm]
            [org.apache.maven.model.io.xpp3 MavenXpp3Writer]
            [java.io File FileWriter]))
 
@@ -30,6 +32,13 @@
   (doto (Repository.)
     (.setId id)
     (.setUrl url)))
+
+(defn source-control [{:keys [tag url connection developer-connection]}]
+  (doto (Scm.)
+    (.setTag tag)
+    (.setUrl url)
+    (.setConnection connection)
+    (.setDeveloperConnection developer-connection)))
 
 (defn remote-repository [{:keys [id url]}]
   (doto (DeploymentRepository.)
@@ -59,13 +68,26 @@
     (comment (println (.getAbsolutePath tmp-file)))
     tmp-file))
 
-(defn extend-pom-base [deps-map conf]
+(defn extend-pom-scm [model conf]
+  (when-let [git (and (:enabled conf) (find-git))]
+    (let [scm (source-control {:tag (:sha git)
+                               :url (:browse git)
+                               :connection (str "scm:git:" (:public-clone git))
+                               :developer-connection (str "scm:git:" (:dev-clone git))})]
+      (.setScm model scm)))
+  model)
+
+(defn extend-pom-base- [deps-map conf]
   (let  [pom-file (write-temp-pom deps-map)
          model (ext.pom/read-model (FileModelSource. pom-file) nil)]
     (doto model
       (.setArtifactId (:artifact-id (:pom conf)))
       (.setGroupId (:group-id (:pom conf)))
       (.setVersion (:version (:pom conf))))))
+
+(defn extend-pom-base [deps-map conf]
+  (let [model (extend-pom-base- deps-map conf)]
+    (extend-pom-scm model (:scm conf))))
 
 (defmulti extend-pom (fn [deps-map conf] (some #(if (:enabled (val %)) (key %)) (:packaging conf))))
 

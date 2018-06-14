@@ -2,8 +2,12 @@
   (:require [clojure.java.io :as io]
             [clojure.java.shell :refer [sh]]
             [clojure.string :as str]
-            [meyvn.utils :refer [exit]])
-  (:import [java.nio.file FileSystems]))
+            [meyvn.utils :refer [exit]]
+            [meyvn.utils.github :refer [github-urls]])
+  (:import [java.nio.file FileSystems]
+           [org.eclipse.jgit.api Git]
+           [org.eclipse.jgit.lib Constants]
+           [org.eclipse.jgit.errors RepositoryNotFoundException]))
 
 (defn find-env []
   (when-not (System/getenv "M2_HOME")
@@ -14,6 +18,19 @@
     (if (not (zero? (:exit rc)))
       (exit "Cannot find Maven executable!" :status 1)
       (io/file (str/trim (:out (sh "which" "mvn")))))))
+
+(defn find-git []
+  (when-let [git (try (Git/open (io/file "."))
+                      (catch RepositoryNotFoundException e nil))]
+    (let [repo (.getRepository git)
+          config (.getConfig repo)
+          last-commit (.resolve repo Constants/HEAD)
+          url (.getString config "remote" "origin" "url")]
+      (merge {:sha (.getName last-commit)
+              :branch (.getBranch repo)
+              :state (.getRepositoryState repo)
+              :url url}
+             (github-urls url)))))
 
 (defn find-file [s]
   (let [f (io/file s)]
