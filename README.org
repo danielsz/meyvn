@@ -35,12 +35,14 @@ A “Hello, World” workflow with Meyvn.
 #+HTML: <a href="http://www.youtube.com/watch?feature=player_embedded&v=_56kl85XMkw" target="_blank"><img src="http://img.youtube.com/vi/_56kl85XMkw/0.jpg" alt="Interactive programming" width="560" height="315" border="10" /></a> 
 ** Installation
 
+[[http://clojars.org/org.danielsz/meyvn/latest-version.svg]]
+
 - Meyvn requires Maven. Make sure it is installed on your system.
 - Define an alias in ~$HOME/.clojure/deps.edn~:
 
 #+BEGIN_SRC clojure
 :aliases {:meyvn
-          {:extra-deps {org.danielsz/meyvn {:mvn/version "1.0.2"}}}
+          {:extra-deps {org.danielsz/meyvn {:mvn/version "1.x.x"}}}
           ...}
 #+END_SRC
 
