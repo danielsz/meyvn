@@ -1,6 +1,6 @@
 {:pom {:group-id "org.danielsz",
        :artifact-id "meyvn",
-       :version "1.0.4",
+       :version "1.0.5",
        :name "Better builds for Clojure"}
  :packaging {:jar {:enabled true
                    :remote-repository {:id "clojars"

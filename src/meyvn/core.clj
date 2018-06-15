@@ -7,6 +7,7 @@
    [meyvn.transient-pom :as transient]
    [meyvn.maven :as maven]
    [meyvn.utils :refer [exit]]
+   [meyvn.nolipservice :refer [project]]
    [clojure.java.io :as io]
    [clojure.string :as str]
    [clojure.edn :as edn]))
@@ -30,7 +31,7 @@
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (when (:help options) (exit (usage summary)))
-    (opt-in (edn/read-string (slurp (io/resource "nolipservice.edn"))))
+    (opt-in project)
     (let [[deps-map conf] (read-conf)
           meyvn-pom (transient/extend-pom deps-map conf)]
       (if (:generate options)
