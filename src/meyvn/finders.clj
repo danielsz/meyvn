@@ -21,7 +21,7 @@
 
 (defn find-git []
   (when-let [git (try (Git/open (io/file "."))
-                      (catch RepositoryNotFoundException e nil))]
+                      (catch RepositoryNotFoundException e))]
     (let [repo (.getRepository git)
           config (.getConfig repo)
           last-commit (.resolve repo Constants/HEAD)

@@ -139,7 +139,7 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
                         :aot-cache true
                         :output-to "resources/js/main.js"}
         :tools-deps-alias :cljs}
- :scm {:enabled true}}
+ :scm {:enabled true} ; will autodetect git repository}
 #+END_SRC
 
 ** How does it work?
