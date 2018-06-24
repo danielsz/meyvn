@@ -20,7 +20,7 @@
       (delete-recursively (:output-dir opts)))))
 
 (defn- compile- [deps-map conf]
-  (let [cljs-map (get-in deps-map [:aliases (:deps.edn-alias conf)])
+  (let [cljs-map (get-in deps-map [:aliases (:tools-deps-alias conf)])
         lib-map (tools.deps/resolve-deps deps-map cljs-map)
         cp (tools.deps/make-classpath lib-map (:paths deps-map) cljs-map)
         pb (ProcessBuilder. ["clj" "-Scp" cp "--main" "cljs.main" "--compile-opts" (str (:compiler-opts conf)) "--compile" (:main-class conf)])]
