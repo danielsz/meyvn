@@ -4,6 +4,7 @@
             [clojure.string :as str]
             [meyvn.utils :refer [exit]])
   (:import [java.nio.file FileSystems]
+           [java.net URISyntaxException]
            [org.eclipse.jgit.api Git]
            [org.eclipse.jgit.lib Constants]
            [org.eclipse.jgit.transport URIish]
@@ -23,14 +24,14 @@
   (when-let [git (try (Git/open (io/file "."))
                       (catch RepositoryNotFoundException e))]
     (let [repo (.getRepository git)
-          config (.getConfig repo)
-          last-commit (.resolve repo Constants/HEAD)
-          uri (URIish. (.getString config "remote" "origin" "url"))]
-      {:sha (.getName last-commit)
-       :branch (.getBranch repo)
-       :state (.getDescription (.getRepositoryState repo))
-       :uri (str uri)
-       :browse (str "https://" (.getHost uri) "/" (first (str/split (.getPath uri) #"\.")))})))
+          config (.getConfig repo)]
+      (when-let [uri (try (URIish. (.getString config "remote" "origin" "url"))
+                          (catch URISyntaxException e))]
+        {:sha (.getName (.resolve repo Constants/HEAD))
+         :branch (.getBranch repo)
+         :state (.getDescription (.getRepositoryState repo))
+         :uri (str uri)
+         :browse (str "https://" (.getHost uri) "/" (first (str/split (.getPath uri) #"\.")))}))))
 
 (defn find-file [s]
   (let [f (io/file s)]

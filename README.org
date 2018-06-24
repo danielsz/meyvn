@@ -244,7 +244,7 @@ In other words, there is no competition, only complementary options.
 
 ** Sustainable open source
 
-We as a community know how to write open source software, but we are less knowledgeable in how to make it sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. That means that Meyvn is dual licensed, with a commercial license available for sale.
+We as a community know how to write open source software, but we are less knowledgeable in how to make that activity sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. That means that Meyvn is dual licensed, with a commercial license available for sale.
 
 The LGPLv3 licensed community version will always remain free and available to all parties. However, companies who use Meyvn in their operations are expected to acquire a commercial license. 
 
