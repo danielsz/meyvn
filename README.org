@@ -139,7 +139,10 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
                         :aot-cache true
                         :output-to "resources/js/main.js"}
         :tools-deps-alias :cljs}
- :scm {:enabled true} ; will autodetect git repository}
+ :scm {:enabled true} ; will autodetect git repository
+ :testing {:enabled false
+           :tools-deps-alias :test} ; only in commercial version
+}
 #+END_SRC
 
 ** How does it work?
@@ -217,6 +220,45 @@ This allows for resolution of individual conflicts: for any particular conflicti
 #+BEGIN_QUOTE
 Note that if two dependency versions are at the same depth in the dependency tree, until Maven 2.0.8 it was not defined which one would win, but since Maven 2.0.9 it's the order in the declaration that counts: the first declaration wins.
 #+END_QUOTE
+
+*** Testing
+Consider the following ~deps.edn~ file.
+
+#+BEGIN_SRC clojure
+{:paths ["src"]
+ :deps {
+   clj-time {:mvn/version "0.14.2"}
+ }
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {org.clojure/test.check {:mvn/version "0.9.0"}}}}}
+
+#+END_SRC
+
+Again, please note the best practice of segregating paths and dependencies with aliases.
+To run your tests with ~Meyvn~, make sure the relevant section in ~meyvn.edn~ looks like this:
+
+#+BEGIN_SRC clojure
+:testing {:enabled true
+          :tools-deps-alias :test}
+#+END_SRC
+
+Then run:
+
+#+BEGIN_SRC shell
+$ myvn clojure:test
+#+END_SRC
+
+/Note:/ This feature is found in the commercial version only.
+ 
+*** Interactive coding
+
+#+BEGIN_SRC shell
+$ myvn clojure:nrepl
+#+END_SRC
+
+This will start a nREPL server with Cider middleware that you can connect to with nREPL clients.
+
+/Note:/ This feature is found in the commercial version only.
 
 ** Will it work?
 
