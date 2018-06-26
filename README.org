@@ -100,6 +100,12 @@ Or
 myvn deploy
 #+END_SRC 
 
+You can also chain publishing goals, just like in Maven:
+
+#+BEGIN_SRC sh
+myvn clean clojure:test install
+#+END_SRC
+
 ** Debugging the build
 
 If you see errors with the build, run ~myvn -g~. This will persist Meyvn’s pom file. You can now run ~mvn~ on it and debug as you normally would in Maven. You will need to specify the path to the pom file.
