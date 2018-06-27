@@ -254,6 +254,8 @@ Then run:
 $ myvn clojure:test
 #+END_SRC
 
+The build will abort in case of errors. 
+ 
 /Note:/ This feature is found in the commercial version only.
  
 *** Interactive coding
