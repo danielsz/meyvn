@@ -137,8 +137,8 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
               :remote-repository {:id "clojars"
                                   :url "https://clojars.org/repo"}}}
  :cljs {:enabled false
-        :main-class "main.core"
-        :compiler-opts {:optimizations :advanced
+        :compiler-opts {:main "main.core"
+                        :optimizations :advanced
                         :output-wrapper true
                         :infer-externs true
                         :parallel-build true
