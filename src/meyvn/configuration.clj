@@ -21,12 +21,12 @@
                        :remote-repository {:id "clojars"
                                            :url "https://clojars.org/repo"}}}
      :cljs {:enabled false
-            :main-class "main.core"
             :compiler-opts {:optimizations :advanced
                             :output-wrapper true
                             :infer-externs true
                             :parallel-build true
                             :aot-cache true
+                            :main "main.core"
                             :output-dir "resources/js/compiled"
                             :output-to "resources/js/main.js"
                             :source-map "resources/js/main.js.map"}
