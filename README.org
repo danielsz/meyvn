@@ -134,7 +134,7 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
                          :filters ["META-INF/*.MF" "META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}             
              :jar
              {:enabled false
-              :remote-repository {:id "clojars"
+              :remote-repository {:id "clojars" ;; Username and password lives in ~/.m2/settings.xml
                                   :url "https://clojars.org/repo"}}}
  :cljs {:enabled false
         :compiler-opts {:main "main.core"
