@@ -148,7 +148,9 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
  :scm {:enabled true} ; will autodetect git repository
  :testing {:enabled false
            :tools-deps-alias :test} ; only in commercial version
-}
+ :profiles {:enabled false
+            :staging {:http-port "3000"}
+            :production {:http-port "8000"}}} ; only in commercial version
 #+END_SRC
 
 ** How does it work?
@@ -268,6 +270,25 @@ This will start a nREPL server with Cider middleware that you can connect to wit
 
 /Note:/ This feature is found in the commercial version only.
 
+*** Profiles
+
+This is an experimental feature meant to help setting up an environment when deploying your code.
+
+In Maven, profiles are used to parameterize builds, but we leverage the fact that custom properties can be defined under any profile.
+
+When you enable the ~profiles~ section, Meyvn will create a Maven profile in the transient POM, and under each profile (for example, staging and production), it will write a standard ~edn~ map describing your environment into standard java properties.
+
+On your staging/production server, those properties will be accessible in the ~pom~ alongside your jar in the local repository.
+
+Meyvn doesn't want to force you to install clojure or Meyvn on your servers, but if you do, you can use it to list those properties and pipe into a script that will massage the properties into environment variables, or such like. How you use them depends on your final command output. The last mile is context-dependent.
+
+In the absence of Meyvn on the server, you can get the properties via the Maven helper plugin.
+
+#+BEGIN_SRC sh
+$ mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.properties -Dartifact=org.company:myproject:1.0.0
+#+END_SRC
+
+/Note:/ This feature is found in the commercial version only.
 ** Will it work?
 
 It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
