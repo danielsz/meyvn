@@ -304,7 +304,7 @@ $ mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=pro
 
 It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
 
-Please note that Windows, where the Clojure command line tools are not available, is not supported.
+Please note that Windows is not supported (the Clojure command line tools are not available).
 
 Feel free to open issues regarding the supported workflows. New workflows will be added under commercial agreements.
 
