@@ -280,7 +280,15 @@ When you enable the ~profiles~ section, Meyvn will create a Maven profile in the
 
 On your staging/production server, those properties will be accessible in the ~pom~ alongside your jar in the local repository.
 
-Meyvn doesn't want to force you to install clojure or Meyvn on your servers, but if you do, you can use it to list those properties and pipe into a script in typical UNIX style.  Said script can, for example, massage the properties into environment variables. How you use them depends on your final command output, really. The last mile is context-dependent.
+Meyvn doesn't want to force you to install clojure or Meyvn on your servers, but if you do, you can use it to list those properties and pipe into a script in typical UNIX style.  
+
+#+BEGIN_SRC sh
+$ myvn aux list-profile -a org.bar:foo:1.0.0  -p production | dosomething.sh
+#+END_SRC
+
+The ~-a~ switch is for artifact (in Maven coordinates) and ~-p~ is for profile.
+
+Said script can, for example, massage the properties into environment variables. How you use them depends on your final command output, really. The last mile is context-dependent.
 
 In the absence of Meyvn on the server, you can get the properties via the Maven helper plugin.
 
