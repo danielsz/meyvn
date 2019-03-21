@@ -272,23 +272,21 @@ This will start a nREPL server with Cider middleware that you can connect to wit
 
 *** Profiles
 
-This is an experimental feature meant to help setting up an environment when deploying your code.
-
 In Maven, profiles are used to parameterize builds, but we leverage the fact that custom properties can be defined under any profile.
 
-When you enable the ~profiles~ section, Meyvn will create a Maven profile in the transient POM, and under each profile (for example, staging and production), it will write a standard ~edn~ map describing your environment into standard java properties.
+When you enable the ~profiles~ section, Meyvn will create a Maven profile in the transient POM, and under each profile (for example, staging or production), it will write a standard ~edn~ map describing your environment into standard java properties.
 
 On your staging/production server, those properties will be accessible in the ~pom~ alongside your jar in the local repository.
 
 Meyvn doesn't want to force you to install clojure or Meyvn on your servers, but if you do, you can use it to list those properties and pipe into a script in typical UNIX style.  
 
 #+BEGIN_SRC sh
-$ myvn aux list-profile -a org.bar:foo:1.0.0  -p production | dosomething.sh
+$ myvn -x list-profile -a org.bar:foo:1.0.0 -p production | dosomething.sh
 #+END_SRC
 
 The ~-a~ switch is for artifact (in Maven coordinates) and ~-p~ is for profile.
 
-Said script can, for example, massage the properties into environment variables. How you use them depends on your final command output, really. The last mile is context-dependent.
+The script could, typically, massage the properties into environment variables. How you use them depends on your final command output, really. The last mile is context-dependent.
 
 In the absence of Meyvn on the server, you can get the properties via the Maven helper plugin.
 
@@ -298,6 +296,12 @@ $ mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:all-profiles "-Dartifact=
 #+BEGIN_SRC sh
 $ mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.properties -Dartifact=org.company:myproject:1.0.0
 #+END_SRC
+
+Finally, Meyvn has built-in support for [[http://smarden.org/runit/index.html][~runit~]], the UNIX init scheme with service supervision. The following command will write the environment in the format expected by ~runit~ under the path specified by the ~-t~ argument.
+
+#+BEGIN_SRC sh
+myvn -x write-profile -a org.bar:foo:1.0.0  -p production -t /opt/foo
+#+END_SRC sh
 
 /Note:/ This feature is found in the commercial version only.
 ** Will it work?
