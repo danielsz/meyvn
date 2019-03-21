@@ -130,7 +130,7 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
               :main-class "main.core"
               :remote-repository {:id "ssh-repository"
                                   :url "scpexe://user@domain:/home/.m2/repository"}
-              :excludes {:sets ["org.clojure:google-closure-library"]
+              :excludes {:artifacts ["org.clojure:google-closure-library"]
                          :filters ["META-INF/*.MF" "META-INF/*.SF" "META-INF/*.DSA" "META-INF/*.RSA"]}}             
              :jar
              {:enabled false
