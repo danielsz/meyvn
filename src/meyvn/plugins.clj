@@ -25,7 +25,7 @@
   (doto (Plugin.)
     (.setGroupId "com.theoryinpractise")
     (.setArtifactId "clojure-maven-plugin")
-    (.setVersion "1.8.1")
+    (.setVersion "1.8.3")
     (.setExtensions true)
     (.setConfiguration (clojure-maven-plugin-configuration (:paths deps-map)))))
 
