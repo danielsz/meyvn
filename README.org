@@ -229,6 +229,7 @@ This allows for resolution of individual conflicts: for any particular conflicti
 Note that if two dependency versions are at the same depth in the dependency tree, until Maven 2.0.8 it was not defined which one would win, but since Maven 2.0.9 it's the order in the declaration that counts: the first declaration wins.
 #+END_QUOTE
 
+With the commercial version, you can use [[dependency convergence][dependency convergence]], forcing the buld to fail on transitive dependencies that are not on the same version. 
 *** Testing
 Consider the following ~deps.edn~ file.
 
@@ -272,16 +273,18 @@ This will start a nREPL server with Cider middleware that you can connect to wit
 
 *** Profiles
 
-In Maven, profiles are used to parameterize builds, but we leverage the fact that custom properties can be defined under any profile.
+In Maven, profiles are used to parameterize builds, not the runtime environment of the executable. There are good reasons for this, but this means that after your build is done, you can't just run the executable (if it needs environment variables to be set). First you need to make sure the environment is set up properly. 
 
-When you enable the ~profiles~ section, Meyvn will create a Maven profile in the transient POM, and under each profile (for example, staging or production), it will write a standard ~edn~ map describing your environment into standard java properties.
+Meyvn can help with that. When you enable the ~profiles~ section, Meyvn will create a Maven profile in the transient POM, and under each profile (for example, staging or production), it will write a standard ~edn~ map describing your environment into standard java properties.
+
+(We leverage the fact that custom properties can be defined under any profile.)
 
 On your staging/production server, those properties will be accessible in the ~pom~ alongside your jar in the local repository.
 
 Meyvn doesn't want to force you to install clojure or Meyvn on your servers, but if you do, you can use it to list those properties and pipe into a script in typical UNIX style.  
 
 #+BEGIN_SRC sh
-$ myvn -x list-profile -a org.bar:foo:1.0.0 -p production | dosomething.sh
+$ myvn -x list -a org.bar:foo:1.0.0 -p production
 #+END_SRC
 
 The ~-a~ switch is for artifact (in Maven coordinates) and ~-p~ is for profile.
@@ -300,10 +303,19 @@ $ mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=pro
 Finally, Meyvn has built-in support for [[http://smarden.org/runit/index.html][~runit~]], the UNIX init scheme with service supervision. The following command will write the environment in the format expected by ~runit~ under the path specified by the ~-t~ argument.
 
 #+BEGIN_SRC sh
-myvn -x write-profile -a org.bar:foo:1.0.0  -p production -t /opt/foo
+myvn -x write -a org.bar:foo:1.0.0  -p production -t /opt/foo
 #+END_SRC sh
 
 /Note:/ This feature is found in the commercial version only.
+*** Auxiliary commands
+
+Meyvn runs with the same interface as Maven. Goals and lifecycle phases are being passed to it as you would with standard Maven.
+The -x flag changes the mode of operation and allows you to run specialized tasks.
+
+Simply run ~myvn -x~ to see what is available. Currently, Meyvn can generate the POM file, list newer versions of dependencies, show platform information. More functionality is to be expected. 
+
+Note: this is a commercial feature. 
+
 ** Will it work?
 
 It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
