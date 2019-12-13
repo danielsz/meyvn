@@ -2,7 +2,7 @@
 
 [[http://clojars.org/org.danielsz/meyvn/latest-version.svg]]
 
-Here is the [[https://danielsz.github.io/meyvn][manual]].
+There is [[https://danielsz.github.io/meyvn][documentation]].
 ** Quickstart
 
 A “Hello, World” workflow with Meyvn.
