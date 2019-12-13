@@ -1,10 +1,936 @@
-<!doctype html>
-<html>
-  <head>
-    <title></title>
-    <meta charset="utf-8" />
-  </head>
-  <body>
-test
-  </body>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-12-13 Fri 16:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Meyvn</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Daniel Szmulewicz" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" href="css/et-book.css" type="text/css" media="screen" />
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/post.css" type="text/css" media="screen" />
+<script type="text/javascript" src="js/navigation.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Meyvn
+<br />
+<span class="subtitle">Better builds for Clojure</span>
+</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgdddb9e4">Intro</a></li>
+<li><a href="#org4d052af">Goals</a></li>
+<li><a href="#orgfd016cc">Quickstart</a></li>
+<li><a href="#org09695bc">Installation</a></li>
+<li><a href="#org9e7f61d">Usage</a></li>
+<li><a href="#org151c5db">Debugging the build</a></li>
+<li><a href="#orga07d989">Configuration</a></li>
+<li><a href="#orgc725f0f">How does it work?</a></li>
+<li><a href="#orgec83386">Will it work?</a></li>
+<li><a href="#org5e15cd1">Roadmap</a></li>
+<li><a href="#org5b96b42">What about Boot and Leiningen?</a></li>
+<li><a href="#org3ac6e30">Sustainable open source</a></li>
+<li><a href="#org61b3442">License</a></li>
+<li><a href="#org9f234ae">Patron</a></li>
+<li><a href="#org50ab29b">Literature</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdddb9e4" class="outline-2">
+<h2 id="orgdddb9e4">Intro</h2>
+<div class="outline-text-2" id="text-orgdddb9e4">
+<blockquote>
+<p>
+You Know Nothing, Jon Snow. — Ygritte
+</p>
+</blockquote>
+
+<p>
+The word maven comes from the Yiddish meyvn, meaning one who understands. You can think of Meyvn as: 
+</p>
+
+<ul class="org-ul">
+<li>A build tool</li>
+<li>A wrapper for Maven</li>
+<li>A <code>tools.deps</code> extension.</li>
+</ul>
+
+<p>
+Meyvn enables you to generate uberjars (executables) and jars (libraries), and to deploy them on remote servers, Clojars, etc.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4d052af" class="outline-2">
+<h2 id="org4d052af">Goals</h2>
+<div class="outline-text-2" id="text-org4d052af">
+<ul class="org-ul">
+<li>Use <code>deps.edn</code> as single source of truth.</li>
+
+<li>One command to do it all: compile, package, install on a remote server, etc.</li>
+
+<li>Standalone and lightweight. It only depends on Clojure and Maven (with no external dependencies).</li>
+
+<li>Ability to selectively shrink uberjars</li>
+
+<li>Leverage the Maven ecosystem</li>
+
+<li>Include a good Clojurescript story: official compiler, shared aot cache, all options available to user, etc.</li>
+
+<li>Sustainable open source with dual licensing scheme.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfd016cc" class="outline-2">
+<h2 id="orgfd016cc">Quickstart</h2>
+<div class="outline-text-2" id="text-orgfd016cc">
+<p>
+A <a href="https://www.youtube.com/watch?v=_56kl85XMkw">“Hello, World”</a> workflow with Meyvn.
+</p>
+</div>
+</div>
+<div id="outline-container-org09695bc" class="outline-2">
+<h2 id="org09695bc">Installation</h2>
+<div class="outline-text-2" id="text-org09695bc">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="http://clojars.org/org.danielsz/meyvn/latest-version.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<ul class="org-ul">
+<li>Meyvn requires Maven. Make sure it is installed on your system.</li>
+<li>Define an alias in <code>$HOME/.clojure/deps.edn</code>:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #D6224D;">:aliases</span> <span style="color: #4d9391;">{</span><span style="color: #D6224D;">:meyvn</span>
+          <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:extra-deps</span> <span style="color: #9d81ba;">{</span><span style="color: #d1832e;">org.danielsz</span>/meyvn <span style="color: #787096;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"x.x.x"</span><span style="color: #787096;">}</span><span style="color: #9d81ba;">}</span><span style="color: #47ba99;">}</span>
+          ...<span style="color: #4d9391;">}</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Create a new shell script in your path.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ touch /usr/local/bin/myvn
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Edit your newly created shell script with the following.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ cat /usr/local/bin/myvn
+<span style="color: #AEA19E;">#</span><span style="color: #AEA19E;">!/bin/sh</span>
+<span style="color: #D6224D;">M2_HOME</span>=/usr/share/maven clj -A:meyvn -m meyvn.core <span style="color: #744DF7;">"$@"</span>
+</pre>
+</div>
+
+<p>
+<code>clj</code> is the standard runner that ships with the <a href="https://clojure.org/guides/getting_started">Clojure installer and CLI tools</a>. <code>$@</code> references the arguments passed to the script.
+<code>M2_HOME</code> points to the root of your Maven installation directory, replace the content with the prefix appropriate for your system.
+</p>
+
+<p>
+<i>Note:</i> Maven can run without this environment variable on the command line, but the Maven Invoker APIs require it to be set explicitly.
+</p>
+
+<ul class="org-ul">
+<li>To find the prefix for the Maven installation on your system.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ readlink -f <span style="color: #ff00ff;">`which mvn`</span> | awk <span style="color: #744DF7;">'{gsub("bin/mvn", ""); print}'</span>
+</pre>
+</div>
+
+<p>
+<i>Note:</i> On Mac OS X, <code>brew install coreutils</code> and replace <code>readlink</code> with <code>greadlink</code>.
+</p>
+
+<ul class="org-ul">
+<li>Set the executable bit.</li>
+</ul>
+<pre class="example">
+$ chmod +x /usr/local/bin/myvn
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org9e7f61d" class="outline-2">
+<h2 id="org9e7f61d">Usage</h2>
+<div class="outline-text-2" id="text-org9e7f61d">
+<p>
+The standard Maven lifecycle phases and goals are passed as arguments. There’s <a href="https://maven.apache.org/guides/">documentation</a>, too. 
+</p>
+
+<p>
+For example: 
+</p>
+
+<pre class="example">
+myvn compile 
+</pre>
+
+<p>
+Or 
+</p>
+
+<pre class="example">
+myvn package
+</pre>
+
+<p>
+Or 
+</p>
+
+<pre class="example">
+myvn deploy
+</pre>
+
+<p>
+You can also chain publishing goals, just like in Maven:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">myvn clean clojure:test install
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org151c5db" class="outline-2">
+<h2 id="org151c5db">Debugging the build</h2>
+<div class="outline-text-2" id="text-org151c5db">
+<p>
+If you see errors with the build, run <code>myvn -g</code>. This will persist Meyvn’s pom file. You can now run <code>mvn</code> on it and debug as you normally would in Maven. You will need to specify the path to the pom file.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">mvn -f meyvn-pom.xml &lt;goal&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga07d989" class="outline-2">
+<h2 id="orga07d989">Configuration</h2>
+<div class="outline-text-2" id="text-orga07d989">
+<p>
+Configuration is stored in <code>meyvn.edn</code>, which will be created in the root of your project on first run. 
+</p>
+
+<p>
+Here are the defaults. Aside from the <code>:pom</code> key which captures the project coordinates and is always used, the other keys can be enabled or disabled as needed. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #4d9391;">{</span><span style="color: #D6224D;">:pom</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:group-id</span> <span style="color: #744DF7;">"com.changeme"</span>
+       <span style="color: #D6224D;">:artifact-id</span> <span style="color: #744DF7;">"myproject"</span>
+       <span style="color: #D6224D;">:version</span> <span style="color: #744DF7;">"1.0.0"</span>
+       <span style="color: #D6224D;">:name</span> <span style="color: #744DF7;">"My project does a lot"</span><span style="color: #47ba99;">}</span>
+ <span style="color: #D6224D;">:packaging</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:uberjar</span> 
+             <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:enabled</span> <span style="color: #D6224D;">true</span>
+              <span style="color: #D6224D;">:main-class</span> <span style="color: #744DF7;">"main.core"</span>
+              <span style="color: #D6224D;">:remote-repository</span> <span style="color: #787096;">{</span><span style="color: #D6224D;">:id</span> <span style="color: #744DF7;">"ssh-repository"</span>
+                                  <span style="color: #D6224D;">:url</span> <span style="color: #744DF7;">"scpexe://user@domain:/home/.m2/repository"</span><span style="color: #787096;">}</span>
+              <span style="color: #D6224D;">:excludes</span> <span style="color: #787096;">{</span><span style="color: #D6224D;">:artifacts</span> <span style="color: #cd9575;">[</span><span style="color: #744DF7;">"org.clojure:google-closure-library"</span><span style="color: #cd9575;">]</span>
+                         <span style="color: #D6224D;">:filters</span> <span style="color: #cd9575;">[</span><span style="color: #744DF7;">"META-INF/*.MF"</span> <span style="color: #744DF7;">"META-INF/*.SF"</span> <span style="color: #744DF7;">"META-INF/*.DSA"</span> <span style="color: #744DF7;">"META-INF/*.RSA"</span><span style="color: #cd9575;">]</span><span style="color: #787096;">}</span><span style="color: #9d81ba;">}</span>             
+             <span style="color: #D6224D;">:jar</span>
+             <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:enabled</span> <span style="color: #D6224D;">false</span>
+              <span style="color: #D6224D;">:remote-repository</span> <span style="color: #787096;">{</span><span style="color: #D6224D;">:id</span> <span style="color: #744DF7;">"clojars"</span> <span style="color: #AEA19E;">;; </span><span style="color: #AEA19E;">Username and password lives in ~/.m2/settings.xml</span>
+                                  <span style="color: #D6224D;">:url</span> <span style="color: #744DF7;">"https://clojars.org/repo"</span><span style="color: #787096;">}</span><span style="color: #9d81ba;">}</span><span style="color: #47ba99;">}</span>
+ <span style="color: #D6224D;">:cljs</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:enabled</span> <span style="color: #D6224D;">false</span>
+        <span style="color: #D6224D;">:compiler-opts</span> <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:main</span> <span style="color: #744DF7;">"main.core"</span>
+                        <span style="color: #D6224D;">:optimizations</span> <span style="color: #D6224D;">:advanced</span>
+                        <span style="color: #D6224D;">:output-wrapper</span> <span style="color: #D6224D;">true</span>
+                        <span style="color: #D6224D;">:infer-externs</span> <span style="color: #D6224D;">true</span>
+                        <span style="color: #D6224D;">:parallel-build</span> <span style="color: #D6224D;">true</span>
+                        <span style="color: #D6224D;">:aot-cache</span> <span style="color: #D6224D;">true</span>
+                        <span style="color: #D6224D;">:output-to</span> <span style="color: #744DF7;">"resources/js/main.js"</span><span style="color: #9d81ba;">}</span>
+        <span style="color: #D6224D;">:tools-deps-alias</span> <span style="color: #D6224D;">:cljs</span><span style="color: #47ba99;">}</span>
+ <span style="color: #D6224D;">:scm</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:enabled</span> <span style="color: #D6224D;">true</span><span style="color: #47ba99;">}</span> <span style="color: #AEA19E;">; will autodetect git repository</span>
+ <span style="color: #D6224D;">:testing</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:enabled</span> <span style="color: #D6224D;">false</span>
+           <span style="color: #D6224D;">:tools-deps-alias</span> <span style="color: #D6224D;">:test</span><span style="color: #47ba99;">}</span> <span style="color: #AEA19E;">; only in commercial version</span>
+ <span style="color: #D6224D;">:profiles</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:enabled</span> <span style="color: #D6224D;">false</span>
+            <span style="color: #D6224D;">:staging</span> <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:http-port</span> <span style="color: #744DF7;">"3000"</span><span style="color: #9d81ba;">}</span>
+            <span style="color: #D6224D;">:production</span> <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:http-port</span> <span style="color: #744DF7;">"8000"</span><span style="color: #9d81ba;">}</span><span style="color: #47ba99;">}</span><span style="color: #4d9391;">}</span> <span style="color: #AEA19E;">; only in commercial version</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc725f0f" class="outline-2">
+<h2 id="orgc725f0f">How does it work?</h2>
+<div class="outline-text-2" id="text-orgc725f0f">
+<p>
+<code>tools.deps</code> has the ability to translate a <code>deps.edn</code> file into a pom file (<code>clj -Spom</code>). Meyvn starts off from that pom file and augments it with features that make sense for Clojure workflows. Meyvn’s pom file is transient and does not interfere with POM files that may already be present in your project. 
+</p>
+
+<p>
+Maven is invoked via an API (<code>Apache Maven Invoker</code>) and can be passed all lifecycle phases or goal it supports. 
+</p>
+
+<p>
+Clojurescript sources are compiled and included in the final artifact. Clojurescript compilation is done in its own process with the official compiler.
+</p>
+</div>
+
+<div id="outline-container-org7995cae" class="outline-4">
+<h4 id="org7995cae">Uberjars</h4>
+<div class="outline-text-4" id="text-org7995cae">
+<p>
+Consider the following deps.edn file: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #4d9391;">{</span><span style="color: #D6224D;">:paths</span> <span style="color: #47ba99;">[</span><span style="color: #744DF7;">"src/clj"</span><span style="color: #47ba99;">]</span>
+ <span style="color: #D6224D;">:deps</span> <span style="color: #47ba99;">{</span><span style="color: #d1832e;">org.clojure</span>/core.async <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"0.4.474"</span><span style="color: #9d81ba;">}</span>
+        ring <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"1.6.3"</span><span style="color: #9d81ba;">}</span>
+        compojure <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"1.6.1"</span><span style="color: #9d81ba;">}</span><span style="color: #47ba99;">}</span>
+ <span style="color: #D6224D;">:aliases</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:cljs</span> <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:extra-deps</span> <span style="color: #787096;">{</span><span style="color: #d1832e;">org.clojure</span>/clojurescript <span style="color: #cd9575;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"1.10.238"</span><span style="color: #cd9575;">}</span>
+                               reagent <span style="color: #cd9575;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"0.8.1"</span><span style="color: #cd9575;">}</span> 
+                               secretary <span style="color: #cd9575;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"1.2.3"</span><span style="color: #cd9575;">}</span><span style="color: #787096;">}</span>
+                  <span style="color: #D6224D;">:extra-paths</span> <span style="color: #787096;">[</span><span style="color: #744DF7;">"src/cljs"</span><span style="color: #787096;">]</span><span style="color: #9d81ba;">}</span><span style="color: #47ba99;">}</span><span style="color: #4d9391;">}</span>
+</pre>
+</div>
+
+<p>
+The Clojurescript-side of the mixed project is cleanly segregated. The <code>:cljs</code> alias is used when compiling the <code>*.cljs</code> files, but not when assembling the uberjar, helping to keep the latter small. You tell Meyvn to use this alias in the <code>meyvn.edn</code> configuration, under the <code>cljs</code> -&gt; <code>tools-deps-alias</code> keys.
+</p>
+
+<p>
+If there is a <code>resources</code> folder in the base directory, it will be included in the build.
+</p>
+
+<p>
+Meyvn uses the Apache Maven Shade Plugin in order to build uberjars.
+</p>
+
+<blockquote>
+<p>
+Shading dependencies is the process of including and renaming dependencies (thus relocating the classes &amp; rewriting affected bytecode &amp; resources) to create a private copy that you bundle alongside your own code. But the shading part is actually optional: the plugin allows to include dependencies in your jar (fat jar), and optionally rename (shade) dependencies.
+</p>
+</blockquote>
+
+<p>
+Meyvn gives you access to the exclusions facility provided by the Shade plugin, equivalent to Leiningen’s <a href="https://github.com/technomancy/leiningen/blob/cee9029d15719058d39b4ccc30de2e0975f07f8a/sample.project.clj#L418">uberjar-exclusions</a> or Boot’s 
+<a href="https://github.com/boot-clj/boot/blob/e6ea562af765ee2b50703ab33a00cf615d0bef43/boot/pod/src/boot/pod.clj#L627">standard-jar-exclusions</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #D6224D;">:excludes</span> <span style="color: #4d9391;">{</span><span style="color: #D6224D;">:artifacts</span> <span style="color: #47ba99;">[</span><span style="color: #744DF7;">"org.clojure:google-closure-library"</span><span style="color: #47ba99;">]</span>
+           <span style="color: #D6224D;">:filters</span> <span style="color: #47ba99;">[</span><span style="color: #744DF7;">"META-INF/*.MF"</span> <span style="color: #744DF7;">"META-INF/*.SF"</span> <span style="color: #744DF7;">"META-INF/*.DSA"</span> <span style="color: #744DF7;">"META-INF/*.RSA"</span><span style="color: #47ba99;">]</span><span style="color: #4d9391;">}</span>
+</pre>
+</div>
+
+<p>
+Note that you don’t need to exclude <code>INDEX/LIST</code> as this is <a href="https://github.com/intelie/maven-shade-plugin/blob/71b5895028f9c9ca2730b45d1117d8e6d3372a3e/src/main/java/org/apache/maven/plugins/shade/DefaultShader.java#L137">built-in</a> by the Shade plugin.
+</p>
+
+<p>
+Additionally, Meyvn allows you to exclude artifacts. For example, sometimes the Closure library is pulled by a transitive dependency and lands in your final uberjar. With Meyvn you can prevent that.  
+</p>
+
+<p>
+Data readers are merged with a <a href="https://github.com/danielsz/shade-edn-transformer">custom transformer</a> that knows how to merge EDN maps. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2941cce" class="outline-4">
+<h4 id="org2941cce">Regular jars</h4>
+<div class="outline-text-4" id="text-org2941cce">
+<p>
+Libraries uploaded to Clojars are typically non-aot, source-only jars. Uploading to Clojars follows <a href="https://github.com/clojars/clojars-web/wiki/Pushing#maven">standard procedure</a>. 
+Private repositories are supported as well. For example, to upload an artifact to <code>deps.co</code>, adjust the remote repository setting in the jar section of <code>meyvn.edn</code>. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #D6224D;">:jar</span>
+<span style="color: #4d9391;">{</span><span style="color: #D6224D;">:enabled</span> <span style="color: #D6224D;">true</span>
+ <span style="color: #D6224D;">:remote-repository</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:id</span> <span style="color: #744DF7;">"releases"</span>
+                     <span style="color: #D6224D;">:url</span> <span style="color: #744DF7;">"https://repo.deps.co/your-org/releases"</span><span style="color: #47ba99;">}</span><span style="color: #4d9391;">}</span>
+</pre>
+</div>
+
+<p>
+In all cases, use <code>settings.xml</code> for storing your credentials, or refer to Maven for <a href="http://maven.apache.org/guides/mini/guide-encryption.html">password encryption</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgff2770c" class="outline-4">
+<h4 id="orgff2770c">Pom files</h4>
+<div class="outline-text-4" id="text-orgff2770c">
+<p>
+Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is <code>deps.edn</code>. Together with the configuration (in <code>meyvn.edn</code>), it knows all that it needs to know.
+</p>
+
+<p>
+The added benefit is that you can continue to maintain a pom file if you are already using a Maven workflow. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd4c2473" class="outline-4">
+<h4 id="orgd4c2473">Dependency mechanism</h4>
+<div class="outline-text-4" id="text-orgd4c2473">
+<p>
+The transitive dependency mechanism used by Maven is guided by the nearest wins conflict resolution strategy.
+This allows for resolution of individual conflicts: for any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
+</p>
+
+<blockquote>
+<p>
+Note that if two dependency versions are at the same depth in the dependency tree, until Maven 2.0.8 it was not defined which one would win, but since Maven 2.0.9 it's the order in the declaration that counts: the first declaration wins.
+</p>
+</blockquote>
+
+<p>
+With the commercial version, you can use <a href="https://maven.apache.org/enforcer/enforcer-rules/dependencyConvergence.html">dependency convergence</a>, forcing the buld to fail on transitive dependencies that are not on the same version. 
+</p>
+</div>
+</div>
+<div id="outline-container-org89ee2ed" class="outline-4">
+<h4 id="org89ee2ed">Testing</h4>
+<div class="outline-text-4" id="text-org89ee2ed">
+<p>
+Consider the following <code>deps.edn</code> file.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #4d9391;">{</span><span style="color: #D6224D;">:paths</span> <span style="color: #47ba99;">[</span><span style="color: #744DF7;">"src"</span><span style="color: #47ba99;">]</span>
+ <span style="color: #D6224D;">:deps</span> <span style="color: #47ba99;">{</span>
+   clj-time <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"0.14.2"</span><span style="color: #9d81ba;">}</span>
+ <span style="color: #47ba99;">}</span>
+ <span style="color: #D6224D;">:aliases</span> <span style="color: #47ba99;">{</span><span style="color: #D6224D;">:test</span> <span style="color: #9d81ba;">{</span><span style="color: #D6224D;">:extra-paths</span> <span style="color: #787096;">[</span><span style="color: #744DF7;">"test"</span><span style="color: #787096;">]</span>
+                  <span style="color: #D6224D;">:extra-deps</span> <span style="color: #787096;">{</span><span style="color: #d1832e;">org.clojure</span>/test.check <span style="color: #cd9575;">{</span><span style="color: #D6224D;">:</span><span style="color: #d1832e;">mvn</span><span style="color: #5E5854; background-color: #FAF2E9;">/</span><span style="color: #D6224D;">version</span> <span style="color: #744DF7;">"0.9.0"</span><span style="color: #cd9575;">}</span><span style="color: #787096;">}</span><span style="color: #9d81ba;">}</span><span style="color: #47ba99;">}</span><span style="color: #4d9391;">}</span>
+
+</pre>
+</div>
+
+<p>
+Again, please note the best practice of segregating paths and dependencies with aliases.
+To run your tests with <code>Meyvn</code>, make sure the relevant section in <code>meyvn.edn</code> looks like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #D6224D;">:testing</span> <span style="color: #4d9391;">{</span><span style="color: #D6224D;">:enabled</span> <span style="color: #D6224D;">true</span>
+          <span style="color: #D6224D;">:tools-deps-alias</span> <span style="color: #D6224D;">:test</span><span style="color: #4d9391;">}</span>
+</pre>
+</div>
+
+<p>
+Then run:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ myvn clojure:test
+</pre>
+</div>
+
+<p>
+The build will abort in case of errors. 
+</p>
+
+<p>
+<i>Note:</i> This feature is found in the commercial version only.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3c03884" class="outline-4">
+<h4 id="org3c03884">Interactive coding</h4>
+<div class="outline-text-4" id="text-org3c03884">
+<div class="org-src-container">
+<pre class="src src-sh">$ myvn clojure:nrepl
+</pre>
+</div>
+
+<p>
+This will start a nREPL server with Cider middleware that you can connect to with nREPL clients.
+</p>
+
+<p>
+<i>Note:</i> This feature is found in the commercial version only.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4284634" class="outline-4">
+<h4 id="org4284634">Profiles</h4>
+<div class="outline-text-4" id="text-org4284634">
+<p>
+In Maven, profiles are used to parameterize builds, not the runtime environment of the executable. There are good reasons for this, but this means that after your build is done, you can't just run the executable (if it needs environment variables to be set). First you need to make sure the environment is set up properly. 
+</p>
+
+<p>
+Meyvn can help with that. When you enable the <code>profiles</code> section, Meyvn will create a Maven profile in the transient POM, and under each profile (for example, staging or production), it will write a standard <code>edn</code> map describing your environment into standard java properties.
+</p>
+
+<p>
+(We leverage the fact that custom properties can be defined under any profile.)
+</p>
+
+<p>
+On your staging/production server, those properties will be accessible in the <code>pom</code> alongside your jar in the local repository.
+</p>
+
+<p>
+Meyvn doesn't want to force you to install clojure or Meyvn on your servers, but if you do, you can use it to list those properties and pipe into a script in typical UNIX style.  
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ myvn -x list -a org.bar:foo:1.0.0 -p production
+</pre>
+</div>
+
+<p>
+The <code>-a</code> switch is for artifact (in Maven coordinates) and <code>-p</code> is for profile.
+</p>
+
+<p>
+The script could, typically, massage the properties into environment variables. How you use them depends on your final command output, really. The last mile is context-dependent.
+</p>
+
+<p>
+In the absence of Meyvn on the server, you can get the properties via the Maven helper plugin.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:all-profiles <span style="color: #744DF7;">"-Dartifact=org.company:myproject:1.0.0</span>
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-sh">$ mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.properties -Dartifact=org.company:myproject:1.0.0
+</pre>
+</div>
+
+<p>
+Finally, Meyvn has built-in support for <a href="http://smarden.org/runit/index.html"><code>runit</code></a>, the UNIX init scheme with service supervision. The following command will write the environment in the format expected by <code>runit</code> under the path specified by the <code>-t</code> argument.
+</p>
+
+<p>
+#+BEGIN<sub>SRC</sub> sh
+myvn -x write -a org.bar:foo:1.0.0  -p production -t /opt/foo
+#+END<sub>SRC</sub> sh
+</p>
+
+<p>
+<i>Note:</i> This feature is found in the commercial version only.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd4306f2" class="outline-4">
+<h4 id="orgd4306f2">Auxiliary commands</h4>
+<div class="outline-text-4" id="text-orgd4306f2">
+<p>
+Meyvn runs with the same interface as Maven. Goals and lifecycle phases are being passed to it as you would with standard Maven.
+The -x flag changes the mode of operation and allows you to run specialized tasks.
+</p>
+
+<p>
+Simply run <code>myvn -x</code> to see what is available. Currently, Meyvn can generate the POM file, list newer versions of dependencies, show platform information. More functionality is to be expected. 
+</p>
+
+<p>
+Note: this is a commercial feature. 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgec83386" class="outline-2">
+<h2 id="orgec83386">Will it work?</h2>
+<div class="outline-text-2" id="text-orgec83386">
+<p>
+It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
+</p>
+
+<p>
+Please note that Windows is not supported (the Clojure command line tools are not available).
+</p>
+
+<p>
+Feel free to open issues regarding the supported workflows. New workflows will be added under commercial agreements.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5e15cd1" class="outline-2">
+<h2 id="org5e15cd1">Roadmap</h2>
+<div class="outline-text-2" id="text-org5e15cd1">
+<p>
+This is just the beginning. The release of the <code>clj</code> command line tools is still fresh, and we are just starting to see the possibilities.
+</p>
+
+<p>
+The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by our tooling (in areas such as continuous integration, generated documentation, testing, reporting, etc.)
+</p>
+
+<p>
+The plan is to have more features as companies sponsor them. Those features will be fed back to the OSS version. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5b96b42" class="outline-2">
+<h2 id="org5b96b42">What about Boot and Leiningen?</h2>
+<div class="outline-text-2" id="text-org5b96b42">
+<p>
+Naturally, Boot and Leiningen can also produce artifacts, but their scope is wider, providing development-time workflows and extension mechanisms.
+</p>
+
+<p>
+Meyvn delegates build tasks to Maven, and offers direct access to the Clojurescript compiler.
+</p>
+
+<p>
+In other words, there is no competition, only complementary options.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3ac6e30" class="outline-2">
+<h2 id="org3ac6e30">Sustainable open source</h2>
+<div class="outline-text-2" id="text-org3ac6e30">
+<p>
+We as a community know how to write open source software, but we are less knowledgeable in how to make that activity sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. That means that Meyvn is dual licensed, with a commercial license available for sale.
+</p>
+
+<p>
+The LGPLv3 licensed community version will always remain free and available to all parties. However, companies who use Meyvn in their operations are expected to acquire a commercial license. 
+</p>
+
+<p>
+In the coming months, I will experiment with two competing models: 
+</p>
+
+<ol class="org-ol">
+<li>Commercial and community version have parity of features</li>
+<li>Commercial version has more features than community version</li>
+</ol>
+
+<p>
+What enables the first model is analytics. By sending data home, I can approach companies with proposals to acquire a commercial license. The features I am adding to the commercial version are fed back to the OSS version. 
+</p>
+
+<p>
+<b>Pros</b>: The community benefits. <b>Cons</b>: Tracking.
+</p>
+
+<p>
+The second model doesn’t need tracking, because the distinction between a basic and a feature-laden version is by itself an incentive to buy the “better version”. 
+</p>
+
+<p>
+<b>Pros</b>: No tracking. <b>Cons</b>: The community loses.
+</p>
+
+<p>
+The first model I am putting to test is the first model (with opt-in tracking). When you opt-in, Meyvn will send the POM’s group ID and success result of each execution back to an analytics server. When you opt-out, the program quits. At this stage, I am interested in users who can relate with the mission statement, for whom finding ways to do sustainable OSS is a shared value and not mere lip service.
+</p>
+
+<p>
+The <a href="https://github.com/danielsz/NoLipService">NoLipService</a> library is responsible for the reporting. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org61b3442" class="outline-2">
+<h2 id="org61b3442">License</h2>
+<div class="outline-text-2" id="text-org61b3442">
+<p>
+Meyvn is released under a dual licensing scheme. 
+</p>
+
+<p>
+Meyvn is an Open Source project licensed under the terms of the LGPLv3
+license.  Please see <a href="http://www.gnu.org/licenses/lgpl-3.0.html">http://www.gnu.org/licenses/lgpl-3.0.html</a> for
+license text.
+</p>
+
+<p>
+Meyvn Enterprise has a commercial-friendly license allowing private
+forks and modifications of Meyvn. Licensees get a build of Meyvn with
+commercial features, and devoid of NoLipService’s reporting.
+Additionally, licensees get access to email support.
+</p>
+
+<p>
+Please contact me for more details.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9f234ae" class="outline-2">
+<h2 id="org9f234ae">Patron</h2>
+<div class="outline-text-2" id="text-org9f234ae">
+<p>
+Writing and maintaining Open Source Software takes time and effort. Be a mensch. Be a maven. <a href="https://www.patreon.com/danielsz">Patronize</a> Meyvn.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org50ab29b" class="outline-2">
+<h2 id="org50ab29b">Literature</h2>
+<div class="outline-text-2" id="text-org50ab29b">
+<ul class="org-ul">
+<li><a href="http://nealford.com/memeagora/2013/01/22/why_everyone_eventually_hates_maven.html">Why Everyone (Eventually) Hates (or Leaves) Maven</a></li>
+<li><a href="https://rule1.quora.com/Use-Maven-Not-Gradle">Use Maven, Not Gradle</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Daniel Szmulewicz</p>
+<p class="date">Created: 2019-12-13 Fri 16:24</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
 </html>
