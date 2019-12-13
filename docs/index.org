@@ -40,9 +40,6 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 * Quickstart  
 A [[https://www.youtube.com/watch?v=_56kl85XMkw][“Hello, World”]] workflow with Meyvn.
 * Installation
-
-[[https://clojars.org/org.danielsz/meyvn/latest-version.svg][https://clojars.org/org.danielsz/meyvn/latest-version.svg]]
-
 - Meyvn requires Maven. Make sure it is installed on your system.
 - Define an alias in ~$HOME/.clojure/deps.edn~:
 
