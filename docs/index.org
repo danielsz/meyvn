@@ -162,7 +162,7 @@ Maven is invoked via an API (~Apache Maven Invoker~) and can be passed all lifec
 
 Clojurescript sources are compiled and included in the final artifact. Clojurescript compilation is done in its own process with the official compiler.
 
-*** Uberjars
+** Uberjars
 
 Consider the following deps.edn file: 
 
@@ -201,7 +201,7 @@ Additionally, Meyvn allows you to exclude artifacts. For example, sometimes the 
 
 Data readers are merged with a [[https://github.com/danielsz/shade-edn-transformer][custom transformer]] that knows how to merge EDN maps. 
 
-*** Regular jars
+** Regular jars
 
 Libraries uploaded to Clojars are typically non-aot, source-only jars. Uploading to Clojars follows [[https://github.com/clojars/clojars-web/wiki/Pushing#maven][standard procedure]]. 
 Private repositories are supported as well. For example, to upload an artifact to ~deps.co~, adjust the remote repository setting in the jar section of ~meyvn.edn~. 
@@ -215,13 +215,13 @@ Private repositories are supported as well. For example, to upload an artifact t
 
 In all cases, use ~settings.xml~ for storing your credentials, or refer to Maven for [[http://maven.apache.org/guides/mini/guide-encryption.html][password encryption]].
 
-*** Pom files
+** Pom files
 
 Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is ~deps.edn~. Together with the configuration (in ~meyvn.edn~), it knows all that it needs to know.
 
 The added benefit is that you can continue to maintain a pom file if you are already using a Maven workflow. 
 
-*** Dependency mechanism
+** Dependency mechanism
 
 The transitive dependency mechanism used by Maven is guided by the nearest wins conflict resolution strategy.
 This allows for resolution of individual conflicts: for any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
@@ -231,7 +231,7 @@ Note that if two dependency versions are at the same depth in the dependency tre
 #+END_QUOTE
 
 With the commercial version, you can use [[https://maven.apache.org/enforcer/enforcer-rules/dependencyConvergence.html][dependency convergence]], forcing the buld to fail on transitive dependencies that are not on the same version. 
-*** Testing
+** Testing
 Consider the following ~deps.edn~ file.
 
 #+BEGIN_SRC clojure
@@ -262,7 +262,7 @@ The build will abort in case of errors.
  
 /Note:/ This feature is found in the commercial version only.
  
-*** Interactive coding
+** Interactive coding
 
 #+BEGIN_SRC sh
 $ myvn clojure:nrepl
@@ -272,7 +272,7 @@ This will start a nREPL server with Cider middleware that you can connect to wit
 
 /Note:/ This feature is found in the commercial version only.
 
-*** Profiles
+** Profiles
 
 In Maven, profiles are used to parameterize builds, not the runtime environment of the executable. There are good reasons for this, but this means that after your build is done, you can't just run the executable (if it needs environment variables to be set). First you need to make sure the environment is set up properly. 
 
@@ -308,7 +308,7 @@ myvn -x write -a org.bar:foo:1.0.0  -p production -t /opt/foo
 #+END_SRC sh
 
 /Note:/ This feature is found in the commercial version only.
-*** Auxiliary commands
+** Auxiliary commands
 
 Meyvn runs with the same interface as Maven. Goals and lifecycle phases are being passed to it as you would with standard Maven.
 The -x flag changes the mode of operation and allows you to run specialized tasks.
