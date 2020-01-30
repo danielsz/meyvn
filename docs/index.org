@@ -1,5 +1,5 @@
 #+title: Meyvn
-#+SUBTITLE: Next-gen build tool & live coding environment
+#+SUBTITLE: Next-gen build tool
 #+OPTIONS: toc:1 num:nil
 #+HTML_HEAD: <link rel="stylesheet" href="css/et-book.css" type="text/css" media="screen" />
 #+HTML_HEAD: <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,600&display=swap" rel="stylesheet">
