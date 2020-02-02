@@ -39,13 +39,28 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 
 * Installation
 - Meyvn requires Maven. Make sure it is installed on your system.
-- Define an alias in ~$HOME/.clojure/deps.edn~:
 
-#+BEGIN_SRC clojure
-:aliases {:meyvn
-          {:extra-deps {org.danielsz/meyvn {:mvn/version "x.x.x"}}}
-          ...}
-#+END_SRC
+- Add the credentials to your ~settings.xml~ file in ~/.m2~ repository.
+- Download Meyvn to your local repository
+
+#+begin_src shell
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoId=sapiens -DrepoUrl=https://nexus.tuppu.net/repository/sapiens/ -Dartifact=org.danielsz:meyvn-pro:1.3.1
+#+end_src
+
+#+RESULTS:
+| [INFO] | Scanning                                                                 | for                             | projects...                        |         |                |      |   |
+| [INFO] |                                                                          |                                 |                                    |         |                |      |   |
+| [INFO] | ------------------<                                                      | org.apache.maven:standalone-pom | >-------------------               |         |                |      |   |
+| [INFO] | Building                                                                 | Maven                           | Stub                               | Project | (No            | POM) | 1 |
+| [INFO] | --------------------------------[                                        | pom                             | ]--------------------------------- |         |                |      |   |
+| [INFO] |                                                                          |                                 |                                    |         |                |      |   |
+| [INFO] | ---                                                                      | maven-dependency-plugin:2.1:get | (default-cli)                      | @       | standalone-pom | ---  |   |
+| [INFO] | ------------------------------------------------------------------------ |                                 |                                    |         |                |      |   |
+| [INFO] | BUILD                                                                    | SUCCESS                         |                                    |         |                |      |   |
+| [INFO] | ------------------------------------------------------------------------ |                                 |                                    |         |                |      |   |
+| [INFO] | Total                                                                    | time:                           | 0.909                              | s       |                |      |   |
+| [INFO] | Finished                                                                 | at:                             | 2020-02-02T02:37:19-08:00          |         |                |      |   |
+| [INFO] | ------------------------------------------------------------------------ |                                 |                                    |         |                |      |   |
 
 - Create a new shell script in your path.
 
@@ -58,10 +73,9 @@ $ touch /usr/local/bin/myvn
 #+BEGIN_SRC sh
 $ cat /usr/local/bin/myvn
 #!/bin/sh
-M2_HOME=/usr/share/maven clj -A:meyvn -m meyvn.core "$@"
+M2_HOME=/usr/share/maven java -jar ~/.m2/repository/org/danielsz/meyvn/1.3.1/meyvn-1.3.1.jar "$@"
 #+END_SRC
 
-~clj~ is the standard runner that ships with the [[https://clojure.org/guides/getting_started][Clojure installer and CLI tools]]. ~$@~ references the arguments passed to the script.
 ~M2_HOME~ points to the root of your Maven installation directory, replace the content with the prefix appropriate for your system.
 
 /Note:/ Maven can run without this environment variable on the command line, but the Maven Invoker APIs require it to be set explicitly.
@@ -75,6 +89,8 @@ $ readlink -f `which mvn` | awk '{gsub("bin/mvn", ""); print}'
 /Note:/ On Mac OS X, ~brew install coreutils~ and replace ~readlink~ with ~greadlink~.
 
 - Set the executable bit.
+
+/Note:/ ~$@~ references the arguments passed to the script.
 #+BEGIN_SRC 
 $ chmod +x /usr/local/bin/myvn
 #+END_SRC
