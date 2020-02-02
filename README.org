@@ -1,6 +1,7 @@
 * Meyvn 
 
-There is [[https://danielsz.github.io/meyvn][documentation]].
+Get it [[https://meyvn.org/][here]].
+Look [[https://danielsz.github.io/meyvn][here]] for documentation.
 
 ** Quickstart
 
