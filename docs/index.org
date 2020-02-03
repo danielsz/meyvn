@@ -40,6 +40,14 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 * Installation
 - Meyvn requires Maven. Make sure it is installed on your system.
 
+** Easy installation
+
+#+begin_src shell
+  clj -Sdeps '{:deps {org.danielsz/meyvn-installer {:mvn/version "1.0.0"}}}' -m meyvn-installer.core
+#+end_src
+
+** Manual installation
+
 - Add the credentials to your ~settings.xml~ file in ~/.m2~ repository.
 #+begin_src shell
       <server>
