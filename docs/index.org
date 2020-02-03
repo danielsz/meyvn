@@ -42,8 +42,10 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 
 ** Easy installation
 
+Copy and paste the following command in your terminal:
+
 #+begin_src shell
-  clj -Sdeps '{:deps {org.danielsz/meyvn-installer {:mvn/version "1.0.0"}}}' -m meyvn-installer.core
+clj -Sdeps '{:deps {org.danielsz/meyvn-installer {:mvn/version "1.0.7"}}}' -m meyvn-installer.core
 #+end_src
 
 ** Manual installation
