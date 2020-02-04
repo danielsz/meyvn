@@ -44,20 +44,19 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 
 Copy and paste the following command in your terminal:
 
-#+begin_src shell
+#+begin_src sh
 clj -Sdeps '{:deps {org.danielsz/meyvn-installer {:mvn/version "1.1.4"}}}' -m meyvn-installer.core
 #+end_src
 
 ** Manual installation
 
 - Add the credentials to your ~settings.xml~ file in ~/.m2~ repository.
-#+begin_src shell
+#+begin_src sh
       <server>
       <id>meyvn</id>
       <username>yourname</username>
       <password>yourpassword</password>
     </server>
-
 #+end_src
 
 - Download Meyvn to your local repository
