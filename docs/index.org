@@ -62,7 +62,7 @@ clj -Sdeps '{:deps {org.danielsz/meyvn-installer {:mvn/version "1.1.9"}}}' -m me
 - Download Meyvn to your local repository
 
 #+begin_src shell
-mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoId=sapiens -DrepoUrl=https://nexus.tuppu.net/repository/sapiens/ -Dartifact=org.danielsz:meyvn-pro:1.4.2
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoId=meyvn -DrepoUrl=https://nexus.tuppu.net/repository/meyvn/ -Dartifact=org.danielsz:meyvn-pro:1.4.2
 #+end_src
 
 - Create a new shell script in your path.
