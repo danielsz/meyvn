@@ -45,7 +45,7 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 Copy and paste the following command in your terminal:
 
 #+begin_src sh
-clj -Sdeps '{:deps {org.danielsz/meyvn-installer {:mvn/version "1.1.9"}}}' -m meyvn-installer.core
+clj -Sdeps '{:deps {org.danielsz/meyvn-installer {:mvn/version "1.2.0"}}}' -m meyvn-installer.core
 #+end_src
 
 ** Manual installation
@@ -62,7 +62,7 @@ clj -Sdeps '{:deps {org.danielsz/meyvn-installer {:mvn/version "1.1.9"}}}' -m me
 - Download Meyvn to your local repository
 
 #+begin_src shell
-mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoId=meyvn -DrepoUrl=https://nexus.tuppu.net/repository/meyvn/ -Dartifact=org.danielsz:meyvn-pro:1.4.2
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoId=meyvn -DrepoUrl=https://nexus.tuppu.net/repository/meyvn/ -Dartifact=org.danielsz:meyvn-pro:1.4.3
 #+end_src
 
 - Create a new shell script in your path.
@@ -76,7 +76,7 @@ $ touch /usr/local/bin/myvn
 #+BEGIN_SRC sh
 $ cat /usr/local/bin/myvn
 #!/bin/sh
-M2_HOME=/usr/share/maven java -jar ~/.m2/repository/org/danielsz/meyvn/1.3.4/meyvn-1.3.4.jar "$@"
+M2_HOME=/usr/share/maven java -jar ~/.m2/repository/org/danielsz/meyvn/1.4.3/meyvn-1.4.3.jar "$@"
 #+END_SRC
 
 ~M2_HOME~ points to the root of your Maven installation directory, replace the content with the prefix appropriate for your system.
