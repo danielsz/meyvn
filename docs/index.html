@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-02-08 Sat 17:40 -->
+<!-- 2020-05-22 Fri 12:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Meyvn</title>
@@ -203,7 +203,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2019 Free Software Foundation, Inc.
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -255,27 +255,27 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgac72311">Intro</a></li>
-<li><a href="#org633f553">Goals</a></li>
-<li><a href="#org1c31fca">Installation</a></li>
-<li><a href="#org91b7a2a">Usage</a></li>
-<li><a href="#orgab4cb79">Debugging the build</a></li>
-<li><a href="#orgfa600e8">Configuration</a></li>
-<li><a href="#orge239d48">How does it work?</a></li>
-<li><a href="#org5e63277">Will it work?</a></li>
-<li><a href="#orge545df0">Roadmap</a></li>
-<li><a href="#org59fe72c">What about Boot and Leiningen?</a></li>
-<li><a href="#org890fd89">Sustainable open source</a></li>
-<li><a href="#org208a1cf">License</a></li>
-<li><a href="#orgc538f7a">Patron</a></li>
-<li><a href="#org8328416">Literature</a></li>
+<li><a href="#org3a35df5">Intro</a></li>
+<li><a href="#org020b6c0">Goals</a></li>
+<li><a href="#org2de8fd3">Installation</a></li>
+<li><a href="#orga28aa85">Usage</a></li>
+<li><a href="#org91e0aad">Debugging the build</a></li>
+<li><a href="#orga5691f2">Configuration</a></li>
+<li><a href="#orgf9eef86">How does it work?</a></li>
+<li><a href="#org29da374">Will it work?</a></li>
+<li><a href="#org9456edc">Roadmap</a></li>
+<li><a href="#org8bcd60d">What about Boot and Leiningen?</a></li>
+<li><a href="#org6cb9bbc">Sustainable open source</a></li>
+<li><a href="#org39808dc">License</a></li>
+<li><a href="#orgd75248f">Patron</a></li>
+<li><a href="#orgd55b73c">Literature</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgac72311" class="outline-2">
-<h2 id="orgac72311">Intro</h2>
-<div class="outline-text-2" id="text-orgac72311">
+<div id="outline-container-org3a35df5" class="outline-2">
+<h2 id="org3a35df5">Intro</h2>
+<div class="outline-text-2" id="text-org3a35df5">
 <blockquote>
 <p>
 You Know Nothing, Jon Snow. — Ygritte
@@ -298,9 +298,9 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 </div>
 </div>
 
-<div id="outline-container-org633f553" class="outline-2">
-<h2 id="org633f553">Goals</h2>
-<div class="outline-text-2" id="text-org633f553">
+<div id="outline-container-org020b6c0" class="outline-2">
+<h2 id="org020b6c0">Goals</h2>
+<div class="outline-text-2" id="text-org020b6c0">
 <ul class="org-ul">
 <li>Use <code>deps.edn</code> as single source of truth.</li>
 
@@ -319,31 +319,31 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 </div>
 </div>
 
-<div id="outline-container-org1c31fca" class="outline-2">
-<h2 id="org1c31fca">Installation</h2>
-<div class="outline-text-2" id="text-org1c31fca">
+<div id="outline-container-org2de8fd3" class="outline-2">
+<h2 id="org2de8fd3">Installation</h2>
+<div class="outline-text-2" id="text-org2de8fd3">
 <ul class="org-ul">
 <li>Meyvn requires Maven. Make sure it is installed on your system.</li>
 </ul>
 </div>
 
-<div id="outline-container-org231164b" class="outline-3">
-<h3 id="org231164b">Easy installation</h3>
-<div class="outline-text-3" id="text-org231164b">
+<div id="outline-container-org5030b40" class="outline-3">
+<h3 id="org5030b40">Easy installation</h3>
+<div class="outline-text-3" id="text-org5030b40">
 <p>
 Copy and paste the following command in your terminal:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">clj -Sdeps <span style="color: #8b2252;">'{:deps {org.danielsz/meyvn-installer {:mvn/version "1.2.1"}}}'</span> -m meyvn-installer.core
+<pre class="src src-sh">clj -Sdeps <span style="color: #8b2252;">'{:deps {org.danielsz/meyvn-installer {:mvn/version "1.2.2"}}}'</span> -m meyvn-installer.core
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3c1de7d" class="outline-3">
-<h3 id="org3c1de7d">Manual installation</h3>
-<div class="outline-text-3" id="text-org3c1de7d">
+<div id="outline-container-orgd3cee1a" class="outline-3">
+<h3 id="orgd3cee1a">Manual installation</h3>
+<div class="outline-text-3" id="text-orgd3cee1a">
 <ul class="org-ul">
 <li>Add the credentials to your <code>settings.xml</code> file in <code>/.m2</code> repository.</li>
 </ul>
@@ -361,7 +361,7 @@ Copy and paste the following command in your terminal:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-shell">mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoId=meyvn -DrepoUrl=https://nexus.tuppu.net/repository/meyvn/ -Dartifact=org.danielsz:meyvn-pro:1.4.3
+<pre class="src src-shell">mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoId=meyvn -DrepoUrl=https://nexus.tuppu.net/repository/meyvn/ -Dartifact=org.danielsz:meyvn-pro:1.4.4
 </pre>
 </div>
 
@@ -381,7 +381,7 @@ Copy and paste the following command in your terminal:
 <div class="org-src-container">
 <pre class="src src-sh">$ cat /usr/local/bin/myvn
 <span style="color: #b22222;">#</span><span style="color: #b22222;">!/bin/sh</span>
-<span style="color: #a0522d;">M2_HOME</span>=/usr/share/maven java -jar ~/.m2/repository/org/danielsz/meyvn/1.4.3/meyvn-1.4.3.jar <span style="color: #8b2252;">"$@"</span>
+<span style="color: #a0522d;">M2_HOME</span>=/usr/share/maven java -jar ~/.m2/repository/org/danielsz/meyvn/1.4.4/meyvn-1.4.4.jar <span style="color: #8b2252;">"$@"</span>
 </pre>
 </div>
 
@@ -420,9 +420,9 @@ $ chmod +x /usr/local/bin/myvn
 </div>
 </div>
 
-<div id="outline-container-org91b7a2a" class="outline-2">
-<h2 id="org91b7a2a">Usage</h2>
-<div class="outline-text-2" id="text-org91b7a2a">
+<div id="outline-container-orga28aa85" class="outline-2">
+<h2 id="orga28aa85">Usage</h2>
+<div class="outline-text-2" id="text-orga28aa85">
 <p>
 The standard Maven lifecycle phases and goals are passed as arguments. There’s <a href="https://maven.apache.org/guides/">documentation</a>, too. 
 </p>
@@ -462,9 +462,9 @@ You can also chain publishing goals, just like in Maven:
 </div>
 </div>
 
-<div id="outline-container-orgab4cb79" class="outline-2">
-<h2 id="orgab4cb79">Debugging the build</h2>
-<div class="outline-text-2" id="text-orgab4cb79">
+<div id="outline-container-org91e0aad" class="outline-2">
+<h2 id="org91e0aad">Debugging the build</h2>
+<div class="outline-text-2" id="text-org91e0aad">
 <p>
 If you see errors with the build, run <code>myvn -g</code>. This will persist Meyvn’s pom file. You can now run <code>mvn</code> on it and debug as you normally would in Maven. You will need to specify the path to the pom file.
 </p>
@@ -476,9 +476,9 @@ If you see errors with the build, run <code>myvn -g</code>. This will persist Me
 </div>
 </div>
 
-<div id="outline-container-orgfa600e8" class="outline-2">
-<h2 id="orgfa600e8">Configuration</h2>
-<div class="outline-text-2" id="text-orgfa600e8">
+<div id="outline-container-orga5691f2" class="outline-2">
+<h2 id="orga5691f2">Configuration</h2>
+<div class="outline-text-2" id="text-orga5691f2">
 <p>
 Configuration is stored in <code>meyvn.edn</code>, which will be created in the root of your project on first run. 
 </p>
@@ -523,9 +523,9 @@ Here are the defaults. Aside from the <code>:pom</code> key which captures the p
 </div>
 </div>
 
-<div id="outline-container-orge239d48" class="outline-2">
-<h2 id="orge239d48">How does it work?</h2>
-<div class="outline-text-2" id="text-orge239d48">
+<div id="outline-container-orgf9eef86" class="outline-2">
+<h2 id="orgf9eef86">How does it work?</h2>
+<div class="outline-text-2" id="text-orgf9eef86">
 <p>
 <code>tools.deps</code> has the ability to translate a <code>deps.edn</code> file into a pom file (<code>clj -Spom</code>). Meyvn starts off from that pom file and augments it with features that make sense for Clojure workflows. Meyvn’s pom file is transient and does not interfere with POM files that may already be present in your project. 
 </p>
@@ -539,9 +539,9 @@ Clojurescript sources are compiled and included in the final artifact. Clojuresc
 </p>
 </div>
 
-<div id="outline-container-org01137b9" class="outline-3">
-<h3 id="org01137b9">Uberjars</h3>
-<div class="outline-text-3" id="text-org01137b9">
+<div id="outline-container-org59f980c" class="outline-3">
+<h3 id="org59f980c">Uberjars</h3>
+<div class="outline-text-3" id="text-org59f980c">
 <p>
 Consider the following deps.edn file: 
 </p>
@@ -601,9 +601,9 @@ Data readers are merged with a <a href="https://github.com/danielsz/shade-edn-tr
 </div>
 </div>
 
-<div id="outline-container-org0f35d4a" class="outline-3">
-<h3 id="org0f35d4a">Regular jars</h3>
-<div class="outline-text-3" id="text-org0f35d4a">
+<div id="outline-container-orgb6f4996" class="outline-3">
+<h3 id="orgb6f4996">Regular jars</h3>
+<div class="outline-text-3" id="text-orgb6f4996">
 <p>
 Libraries uploaded to Clojars are typically non-aot, source-only jars. Uploading to Clojars follows <a href="https://github.com/clojars/clojars-web/wiki/Pushing#maven">standard procedure</a>. 
 Private repositories are supported as well. For example, to upload an artifact to <code>deps.co</code>, adjust the remote repository setting in the jar section of <code>meyvn.edn</code>. 
@@ -623,9 +623,9 @@ In all cases, use <code>settings.xml</code> for storing your credentials, or ref
 </div>
 </div>
 
-<div id="outline-container-orgb2ab1e7" class="outline-3">
-<h3 id="orgb2ab1e7">Pom files</h3>
-<div class="outline-text-3" id="text-orgb2ab1e7">
+<div id="outline-container-org67a1564" class="outline-3">
+<h3 id="org67a1564">Pom files</h3>
+<div class="outline-text-3" id="text-org67a1564">
 <p>
 Meyvn works with its own set of pom files. It isn’t bothered with existing pom files in your project directory. This is by design. The single source of truth is <code>deps.edn</code>. Together with the configuration (in <code>meyvn.edn</code>), it knows all that it needs to know.
 </p>
@@ -636,9 +636,9 @@ The added benefit is that you can continue to maintain a pom file if you are alr
 </div>
 </div>
 
-<div id="outline-container-orgf2ea711" class="outline-3">
-<h3 id="orgf2ea711">Dependency mechanism</h3>
-<div class="outline-text-3" id="text-orgf2ea711">
+<div id="outline-container-org1959305" class="outline-3">
+<h3 id="org1959305">Dependency mechanism</h3>
+<div class="outline-text-3" id="text-org1959305">
 <p>
 The transitive dependency mechanism used by Maven is guided by the nearest wins conflict resolution strategy.
 This allows for resolution of individual conflicts: for any particular conflicting dependency, you can specify its version within your own POM, and that version becomes the nearest.
@@ -655,9 +655,9 @@ With the commercial version, you can use <a href="https://maven.apache.org/enfor
 </p>
 </div>
 </div>
-<div id="outline-container-orge21b648" class="outline-3">
-<h3 id="orge21b648">Testing</h3>
-<div class="outline-text-3" id="text-orge21b648">
+<div id="outline-container-orgdb6611d" class="outline-3">
+<h3 id="orgdb6611d">Testing</h3>
+<div class="outline-text-3" id="text-orgdb6611d">
 <p>
 Consider the following <code>deps.edn</code> file.
 </p>
@@ -703,9 +703,9 @@ The build will abort in case of errors.
 </div>
 </div>
 
-<div id="outline-container-org279efed" class="outline-3">
-<h3 id="org279efed">Interactive coding</h3>
-<div class="outline-text-3" id="text-org279efed">
+<div id="outline-container-orgcd5c43b" class="outline-3">
+<h3 id="orgcd5c43b">Interactive coding</h3>
+<div class="outline-text-3" id="text-orgcd5c43b">
 <div class="org-src-container">
 <pre class="src src-sh">$ myvn clojure:nrepl
 </pre>
@@ -721,9 +721,9 @@ This will start a nREPL server with Cider middleware that you can connect to wit
 </div>
 </div>
 
-<div id="outline-container-org6ccee7f" class="outline-3">
-<h3 id="org6ccee7f">Profiles</h3>
-<div class="outline-text-3" id="text-org6ccee7f">
+<div id="outline-container-org2a681ad" class="outline-3">
+<h3 id="org2a681ad">Profiles</h3>
+<div class="outline-text-3" id="text-org2a681ad">
 <p>
 In Maven, profiles are used to parameterize builds, not the runtime environment of the executable. There are good reasons for this, but this means that after your build is done, you can't just run the executable (if it needs environment variables to be set). First you need to make sure the environment is set up properly. 
 </p>
@@ -785,9 +785,9 @@ myvn -x write -a org.bar:foo:1.0.0  -p production -t /opt/foo
 </p>
 </div>
 </div>
-<div id="outline-container-org2060dbf" class="outline-3">
-<h3 id="org2060dbf">Auxiliary commands</h3>
-<div class="outline-text-3" id="text-org2060dbf">
+<div id="outline-container-org19de566" class="outline-3">
+<h3 id="org19de566">Auxiliary commands</h3>
+<div class="outline-text-3" id="text-org19de566">
 <p>
 Meyvn runs with the same interface as Maven. Goals and lifecycle phases are being passed to it as you would with standard Maven.
 The -x flag changes the mode of operation and allows you to run specialized tasks.
@@ -804,9 +804,9 @@ Note: this is a commercial feature.
 </div>
 </div>
 
-<div id="outline-container-org5e63277" class="outline-2">
-<h2 id="org5e63277">Will it work?</h2>
-<div class="outline-text-2" id="text-org5e63277">
+<div id="outline-container-org29da374" class="outline-2">
+<h2 id="org29da374">Will it work?</h2>
+<div class="outline-text-2" id="text-org29da374">
 <p>
 It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
 </p>
@@ -821,9 +821,9 @@ Feel free to open issues regarding the supported workflows. New workflows will b
 </div>
 </div>
 
-<div id="outline-container-orge545df0" class="outline-2">
-<h2 id="orge545df0">Roadmap</h2>
-<div class="outline-text-2" id="text-orge545df0">
+<div id="outline-container-org9456edc" class="outline-2">
+<h2 id="org9456edc">Roadmap</h2>
+<div class="outline-text-2" id="text-org9456edc">
 <p>
 This is just the beginning. The release of the <code>clj</code> command line tools is still fresh, and we are just starting to see the possibilities.
 </p>
@@ -838,9 +838,9 @@ The plan is to have more features as companies sponsor them. Those features will
 </div>
 </div>
 
-<div id="outline-container-org59fe72c" class="outline-2">
-<h2 id="org59fe72c">What about Boot and Leiningen?</h2>
-<div class="outline-text-2" id="text-org59fe72c">
+<div id="outline-container-org8bcd60d" class="outline-2">
+<h2 id="org8bcd60d">What about Boot and Leiningen?</h2>
+<div class="outline-text-2" id="text-org8bcd60d">
 <p>
 Naturally, Boot and Leiningen can also produce artifacts, but their scope is wider, providing development-time workflows and extension mechanisms.
 </p>
@@ -855,9 +855,9 @@ In other words, there is no competition, only complementary options.
 </div>
 </div>
 
-<div id="outline-container-org890fd89" class="outline-2">
-<h2 id="org890fd89">Sustainable open source</h2>
-<div class="outline-text-2" id="text-org890fd89">
+<div id="outline-container-org6cb9bbc" class="outline-2">
+<h2 id="org6cb9bbc">Sustainable open source</h2>
+<div class="outline-text-2" id="text-org6cb9bbc">
 <p>
 We as a community know how to write open source software, but we are less knowledgeable in how to make that activity sustainable. With Meyvn, I’m attempting to lead a sustainable Open Source project. That means that Meyvn is dual licensed, with a commercial license available for sale.
 </p>
@@ -901,9 +901,9 @@ The <a href="https://github.com/danielsz/NoLipService">NoLipService</a> library 
 </div>
 </div>
 
-<div id="outline-container-org208a1cf" class="outline-2">
-<h2 id="org208a1cf">License</h2>
-<div class="outline-text-2" id="text-org208a1cf">
+<div id="outline-container-org39808dc" class="outline-2">
+<h2 id="org39808dc">License</h2>
+<div class="outline-text-2" id="text-org39808dc">
 <p>
 Meyvn is released under a dual licensing scheme. 
 </p>
@@ -927,18 +927,18 @@ Please contact me for more details.
 </div>
 </div>
 
-<div id="outline-container-orgc538f7a" class="outline-2">
-<h2 id="orgc538f7a">Patron</h2>
-<div class="outline-text-2" id="text-orgc538f7a">
+<div id="outline-container-orgd75248f" class="outline-2">
+<h2 id="orgd75248f">Patron</h2>
+<div class="outline-text-2" id="text-orgd75248f">
 <p>
 Writing and maintaining Open Source Software takes time and effort. Be a mensch. Be a maven. <a href="https://www.patreon.com/danielsz">Patronize</a> Meyvn.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org8328416" class="outline-2">
-<h2 id="org8328416">Literature</h2>
-<div class="outline-text-2" id="text-org8328416">
+<div id="outline-container-orgd55b73c" class="outline-2">
+<h2 id="orgd55b73c">Literature</h2>
+<div class="outline-text-2" id="text-orgd55b73c">
 <ul class="org-ul">
 <li><a href="http://nealford.com/memeagora/2013/01/22/why_everyone_eventually_hates_maven.html">Why Everyone (Eventually) Hates (or Leaves) Maven</a></li>
 <li><a href="https://rule1.quora.com/Use-Maven-Not-Gradle">Use Maven, Not Gradle</a></li>
@@ -948,7 +948,7 @@ Writing and maintaining Open Source Software takes time and effort. Be a mensch.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Daniel Szmulewicz</p>
-<p class="date">Created: 2020-02-08 Sat 17:40</p>
+<p class="date">Created: 2020-05-22 Fri 12:34</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
