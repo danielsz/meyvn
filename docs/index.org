@@ -177,6 +177,27 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
 
 ~tools.deps~ has the ability to translate a ~deps.edn~ file into a pom file (~clj -Spom~). Meyvn starts off from that pom file and augments it with features that make sense for Clojure workflows. Meyvn’s pom file is transient and does not interfere with POM files that may already be present in your project. 
 
+| POM                         | lein pom | clj -Spom | myvn -x pom |
+|-----------------------------+----------+-----------+-------------|
+| root                        | ☑        | ☑         | ☑           |
+| modelVersion                | ☑        | ☑         | ☑           |
+| groupId                     | ☑        | ☑         | ☑           |
+| artifactId                  | ☑        | ☑         | ☑           |
+| version                     | ☑        | ☑         | ☑           |
+| dependencies                | ☑        | ☑         | ☑           |
+| compilation (clj)           | ☒        | ☒         | ☑           |
+| compilation (cljs)          | ☒        | ☒         | ☑           |
+| uberjars                    | ☒        | ☒         | ☑           |
+| native image (graalvm)      | ☒        | ☒         | ☑           |
+| obfuscation (proguard)      | ☒        | ☒         | ☑           |
+| javafx (plugin)             | ☒        | ☒         | ☑           |
+| gpg signing (plugin)        | ☒        | ☒         | ☑           |
+| deploying (plugin)          | ☒        | ☒         | ☑           |
+| build plan (plugin)         | ☒        | ☒         | ☑           |
+| minification (css + images) | ☒        | ☒         | ☑           |
+| data reader support         | ☒        | ☒         | ☑           |
+
+
 Maven is invoked via an API (~Apache Maven Invoker~) and can be passed all lifecycle phases or goal it supports. 
 
 Clojurescript sources are compiled and included in the final artifact. Clojurescript compilation is done in its own process with the official compiler.
