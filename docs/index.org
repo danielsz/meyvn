@@ -197,6 +197,9 @@ Here are the defaults. Aside from the ~:pom~ key which captures the project coor
 | minification (css + images) | ☒        | ☒         | ☑           |
 | data reader support         | ☒        | ☒         | ☑           |
 | jpro (plugin)               | ☒        | ☒         | ☑           |
+| jpackage (plugin)           | ☒        | ☒         | ☑           |
+| appimage (plugin)           | ☒        | ☒         | ☑           |
+
 
 
 Maven is invoked via an API (~Apache Maven Invoker~) and can be passed all lifecycle phases or goal it supports. 
