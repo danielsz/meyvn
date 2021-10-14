@@ -38,7 +38,7 @@ Meyvn enables you to generate uberjars (executables) and jars (libraries), and t
 - Sustainable open source with dual licensing scheme.
 
 * Installation
-- Meyvn requires Maven. Make sure it is installed on your system. Interestingly, Meyvn does not require Clojure. Neither a Clojure installation nor the official CLI tools are required. This is because Meyvn relies on Maven for pulling core dependencies (it's turtles all the way down). If you do have Clojure installed, you can install Meyvn with our easy installer. Otherwise, please follow the manual installation instructions.
+- Meyvn requires Maven. Make sure it is installed on your system. Interestingly, Meyvn does not require Clojure. Neither a Clojure installation nor the official CLI tools. This is because Meyvn relies on Maven for pulling core dependencies (it's turtles all the way down). If you do have Clojure installed, you can install Meyvn with our easy installer. Otherwise, please follow the manual installation instructions.
 
 ** Easy installation
 
