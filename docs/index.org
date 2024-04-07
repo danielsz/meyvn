@@ -41,8 +41,10 @@ Finally, Meyvn offers fully fleshed quick-start templates covering general Cloju
 
 - Sustainable open source with dual licensing scheme.
 
+Read [[https://danielsz.github.io/2020-09-01T1556.html][more]].
+
 * Installation
-- Meyvn requires Maven. Interestingly, Meyvn does not require Clojure. Neither a Clojure installation nor the official CLI tools. This is because Meyvn relies on Maven for pulling core dependencies (it's turtles all the way down). If you do have Clojure installed, you can install Meyvn with our easy installer. Otherwise, please follow the manual installation instructions.
+Meyvn requires Maven. Interestingly, Meyvn does not require Clojure. Neither a Clojure installation nor the official CLI tools. This is because Meyvn relies on Maven for pulling core dependencies (it's turtles all the way down). If you do have Clojure installed, you can install Meyvn with our easy installer. Otherwise, please follow the manual installation instructions.
 
 ** Easy installation
 
