@@ -21,6 +21,10 @@ The word maven comes from the Yiddish meyvn, meaning one who understands. You ca
 
 Meyvn enables you to generate uberjars (executables) and jars (libraries), and to deploy them on remote servers, Clojars, etc.
 
+Meyvn is also an integrated development environment that builds upon the nREPL ecosystem and Emacs (there is an Emacs Lisp client).
+
+Finally, Meyvn offers fully fleshed quick-start templates covering general Clojure development, web development, etc.
+
 * Goals
 
 - Use ~deps.edn~ as single source of truth. 
@@ -130,7 +134,7 @@ myvn clean clojure:test install
 
 * Debugging the build
 
-If you see errors with the build, run ~myvn -g~. This will persist Meyvn’s pom file. You can now run ~mvn~ on it and debug as you normally would in Maven. You will need to specify the path to the pom file.
+If you see errors with the build, run ~myvn -x pom~. This will persist Meyvn’s pom file. You can now run ~mvn~ on it and debug as you normally would in Maven. You will need to specify the path to the pom file.
 
 #+BEGIN_SRC sh
 mvn -f meyvn-pom.xml <goal>
@@ -253,10 +257,8 @@ Libraries uploaded to Clojars are typically non-aot, source-only jars. Uploading
 Private repositories are supported as well. For example, to upload an artifact to ~deps.co~, adjust the remote repository setting in the jar section of ~meyvn.edn~. 
 
 #+BEGIN_SRC clojure
-:jar
-{:enabled true
- :remote-repository {:id "releases"
-                     :url "https://repo.deps.co/your-org/releases"}}
+:distribution-management {:id "deps"
+                          :url "https://repo.deps.co/your-org/releases"
 #+END_SRC
 
 In all cases, use ~settings.xml~ for storing your credentials, or refer to Maven for [[http://maven.apache.org/guides/mini/guide-encryption.html][password encryption]].
@@ -276,7 +278,8 @@ This allows for resolution of individual conflicts: for any particular conflicti
 Note that if two dependency versions are at the same depth in the dependency tree, until Maven 2.0.8 it was not defined which one would win, but since Maven 2.0.9 it's the order in the declaration that counts: the first declaration wins.
 #+END_QUOTE
 
-With the commercial version, you can use [[https://maven.apache.org/enforcer/enforcer-rules/dependencyConvergence.html][dependency convergence]], forcing the buld to fail on transitive dependencies that are not on the same version. 
+You can use [[https://maven.apache.org/enforcer/enforcer-rules/dependencyConvergence.html][dependency convergence]], forcing the build to fail on transitive dependencies that are not on the same version. 
+
 ** Testing
 Consider the following ~deps.edn~ file.
 
@@ -306,17 +309,14 @@ $ myvn clojure:test
 
 The build will abort in case of errors. 
  
-/Note:/ This feature is found in the commercial version only.
- 
+
 ** Interactive coding
 
 #+BEGIN_SRC sh
-$ myvn clojure:nrepl
+$ myvn -a nrepl
 #+END_SRC
 
 This will start a nREPL server with Cider middleware that you can connect to with nREPL clients.
-
-/Note:/ This feature is found in the commercial version only.
 
 ** Profiles
 
@@ -353,15 +353,12 @@ Finally, Meyvn has built-in support for [[http://smarden.org/runit/index.html][~
 myvn -x write -a org.bar:foo:1.0.0  -p production -t /opt/foo
 #+END_SRC sh
 
-/Note:/ This feature is found in the commercial version only.
 ** Auxiliary commands
 
 Meyvn runs with the same interface as Maven. Goals and lifecycle phases are being passed to it as you would with standard Maven.
 The -x flag changes the mode of operation and allows you to run specialized tasks.
 
 Simply run ~myvn -x~ to see what is available. Currently, Meyvn can generate the POM file, list newer versions of dependencies, show platform information. More functionality is to be expected. 
-
-Note: this is a commercial feature. 
 
 * Will it work?
 
@@ -373,19 +370,13 @@ Feel free to open issues regarding the supported workflows. New workflows will b
 
 * Roadmap 
 
-This is just the beginning. The release of the ~clj~ command line tools is still fresh, and we are just starting to see the possibilities.
-
 The takeaway for Meyvn is that building on top of the Maven ecosystem is rewarding. It is a huge ecosystem, well documented and extremely mature. A lot of functionality just sits there, waiting to be tapped by our tooling (in areas such as continuous integration, generated documentation, testing, reporting, etc.)
 
 The plan is to have more features as companies sponsor them. Those features will be fed back to the OSS version. 
  
 * What about Boot and Leiningen?
 
-Naturally, Boot and Leiningen can also produce artifacts, but their scope is wider, providing development-time workflows and extension mechanisms.
-
-Meyvn delegates build tasks to Maven, and offers direct access to the Clojurescript compiler.
-
-In other words, there is no competition, only complementary options.
+Boot and Leiningen can also produce artifacts, and they also provide development-time workflows and extension mechanisms. They are fine, too. In other words, there is no competition, only complementary options.
 
 * Sustainable open source
 
@@ -393,22 +384,7 @@ We as a community know how to write open source software, but we are less knowle
 
 The LGPLv3 licensed community version will always remain free and available to all parties. However, companies who use Meyvn in their operations are expected to acquire a commercial license. 
 
-In the coming months, I will experiment with two competing models: 
-
-1. Commercial and community version have parity of features
-2. Commercial version has more features than community version
-
-What enables the first model is analytics. By sending data home, I can approach companies with proposals to acquire a commercial license. The features I am adding to the commercial version are fed back to the OSS version. 
-
-*Pros*: The community benefits. *Cons*: Tracking.
-
-The second model doesn’t need tracking, because the distinction between a basic and a feature-laden version is by itself an incentive to buy the “better version”. 
-
-*Pros*: No tracking. *Cons*: The community loses.
-
-The first model I am putting to test is the first model (with opt-in tracking). When you opt-in, Meyvn will send the POM’s group ID and success result of each execution back to an analytics server. When you opt-out, the program quits. At this stage, I am interested in users who can relate with the mission statement, for whom finding ways to do sustainable OSS is a shared value and not mere lip service.
-
-The [[https://github.com/danielsz/NoLipService][NoLipService]] library is responsible for the reporting. To ensure transparency it is released as open source as well. It is still early days, and I welcome contributions and different implementation ideas.
+At this stage, I am interested in users who can relate with the mission statement, for whom finding ways to do sustainable OSS is a shared value and not mere lip service.
  
 * License
 
@@ -420,8 +396,7 @@ license text.
 
 Meyvn Enterprise has a commercial-friendly license allowing private
 forks and modifications of Meyvn. Licensees get a build of Meyvn with
-commercial features, and devoid of NoLipService’s reporting.
-Additionally, licensees get access to email support.
+commercial features. Additionally, licensees get access to email support.
 
 Please contact me for more details.
 
