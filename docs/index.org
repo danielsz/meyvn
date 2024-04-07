@@ -19,7 +19,7 @@ The word maven comes from the Yiddish meyvn, meaning one who understands. You ca
 - A wrapper for Maven
 - A ~tools.deps~ extension.
 
-Meyvn enables you to generate uberjars (executables) and jars (libraries), and to deploy them on remote servers, Clojars, etc.
+Meyvn generates uberjars (executables) and jars (libraries), and deploys them on remote servers, Clojars, etc.
 
 Meyvn is also an integrated development environment that builds upon the nREPL ecosystem and Emacs (there is an Emacs Lisp client).
 
