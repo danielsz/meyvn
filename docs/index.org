@@ -49,7 +49,7 @@ Finally, Meyvn offers fully fleshed quick-start templates covering general Cloju
 Copy and paste the following command in your terminal:
 
 #+begin_src sh
-clj -Sdeps '{:deps {org.meyvn/meyvn-installer {:mvn/version "1.4.9"}}}' -m meyvn-installer.core
+clj -Sdeps '{:deps {org.meyvn/meyvn-installer {:mvn/version "1.5.0"}}}' -M -m meyvn-installer.core
 #+end_src
 
 ** Manual installation
@@ -57,7 +57,7 @@ clj -Sdeps '{:deps {org.meyvn/meyvn-installer {:mvn/version "1.4.9"}}}' -m meyvn
 - Download Meyvn to your local repository
 
 #+begin_src shell
-mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:get -DremoteRepositories=https://nexus.tuppu.net/repository/meyvn/ -Dartifact=org.meyvn:meyvn:1.7.2
+mvn org.apache.maven.plugins:maven-dependency-plugin:3.2.0:get -DremoteRepositories=https://nexus.tuppu.net/repository/meyvn/ -Dartifact=org.meyvn:meyvn:1.7.3
 #+end_src
 
 - Create a new shell script in your path.
@@ -71,7 +71,7 @@ $ touch /usr/local/bin/myvn
 #+BEGIN_SRC sh
 $ cat /usr/local/bin/myvn
 #!/bin/sh
-M2_HOME=/path/to/maven/root java -jar ~/.m2/repository/org/meyvn/meyvn/1.7.2/meyvn-1.7.2.jar "$@"
+M2_HOME=/path/to/maven/root java -jar ~/.m2/repository/org/meyvn/meyvn/1.7.3/meyvn-1.7.3.jar "$@"
 #+END_SRC
 
 ~M2_HOME~ points to the root of your Maven installation directory, replace the content with the prefix appropriate for your system.
