@@ -73,38 +73,12 @@ $ touch /usr/local/bin/myvn
 #+BEGIN_SRC sh
 $ cat /usr/local/bin/myvn
 #!/bin/sh
-M2_HOME=/path/to/maven/root java -jar ~/.m2/repository/org/meyvn/meyvn/1.7.6/meyvn-1.7.6.jar "$@"
+java -Dmaven.home=/usr/share/maven -jar ~/.m2/repository/org/meyvn/meyvn/1.7.6/meyvn-1.7.6.jar "$@"
 #+END_SRC
 
-~M2_HOME~ points to the root of your Maven installation directory, replace the content with the prefix appropriate for your system.
+~maven.home~ is a Java property that points to Maven's home, ie. the root of your Maven installation. Find out Maven's home by typing ~mvn --version~ in the terminal.
 
 /Note:/ Maven can run without this environment variable on the command line, but the Maven Invoker APIs require it to be set explicitly.
-
-- To find the prefix for the Maven installation on your system.
-
-#+BEGIN_SRC sh
-$ readlink -f `which mvn` | awk '{gsub("bin/mvn", ""); print}'
-#+END_SRC
-
-/Note:/ On Mac OS X, ~brew install coreutils~ and replace ~readlink~ with ~greadlink~.
-
-- Set the executable bit.
-
-/Note:/ ~$@~ references the arguments passed to the script.
-#+BEGIN_SRC 
-$ chmod +x /usr/local/bin/myvn
-#+END_SRC
-
-/Note:/ Some features require access credentials
-
-Add your Meyvn credentials to your ~settings.xml~ file in ~/.m2~ repository.
-#+begin_src sh
-      <server>
-      <id>meyvn</id>
-      <username>yourname</username>
-      <password>yourpassword</password>
-    </server>
-#+end_src
 
 * Usage
 
