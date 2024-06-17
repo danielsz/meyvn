@@ -31,7 +31,7 @@ Finally, Meyvn offers fully fleshed quick-start templates covering general Cloju
 
 - One command to do it all: compile, package, install on a remote server, etc.
 
-- Standalone and lightweight. It only depends on Clojure and Maven (with no external dependencies).
+- Standalone and lightweight. It only depends on Java and Maven (not even Clojure).
 
 - Ability to selectively shrink uberjars
 
