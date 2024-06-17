@@ -82,6 +82,8 @@ java -Dmaven.home=/usr/share/maven -jar ~/.m2/repository/org/meyvn/meyvn/1.8.0/m
 
 * Usage
 
+Without argument, Meyvn will launch a ANSI-based GUI in the terminal. If no project is found in the current directory, it will offer templates to choose from. Those templates are typical starter projects. If a project is found in the directory, Meyvn will display various options. The GUI is a work in progress. 
+
 The standard Maven lifecycle phases and goals are passed as arguments. There’s [[https://maven.apache.org/guides/][documentation]], too. 
 
 For example: 
@@ -303,8 +305,6 @@ Simply run ~myvn -x~ to see what is available. Currently, Meyvn can generate the
 * Will it work?
 
 It should work for the typical Clojure workflows. Please feel free to contact me in private if you want help solving your company’s build workflow.
-
-Please note that Windows is not supported (the Clojure command line tools are not available).
 
 Feel free to open issues regarding the supported workflows. New workflows will be added under commercial agreements.
 
